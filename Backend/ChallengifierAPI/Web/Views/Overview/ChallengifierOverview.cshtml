@@ -1,0 +1,110 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Challengifier - administration panel</title>
+
+    <!-- Bootstrap -->
+    <link href="~/Style/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Style/myStyle.css" rel="stylesheet">
+
+</head>
+<body ng-app="ChallengifierOverview">
+    <h1 chass="text-center">Challengifier - administration panel</h1>
+    <div class='row'>
+        <div class='col-lg-4 col-lg-offset-1 table-responsive' ng-controller="ChallengeListController">
+            <table class='table'>
+                <h1 style="margin-left:35%">Top Challenges</h1>
+                <tr ng-repeat="entry in data" class="clickable-row">
+                    <td>{{entry.Name}}</td>
+                    <td>{{entry.Description}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col-lg-4 col-lg-offset-2 table-responsive' ng-controller="ObjectiveListController">
+            <table class='table' id="objectiveList">
+                <h1 style="margin-left:35%">Top Objectives</h1>
+                <tr ng-repeat="entry in data" class="clickable-row">
+                    <td>{{entry.Name}}</td>
+                    <td>{{entry.Description}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-lg-4 col-lg-offset-1 table-responsive">
+            <form class="navbar-form" role="search">
+                <div class="input-group" ng-controller="PostSearchChallengeController">
+                    <input type="text" class="form-control" placeholder="Search Challenge" name="qc">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" ng-click="submitForm()"><i class="glyphicon glyphicon-search" ></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4 col-lg-offset-2 table-responsive">
+            <form class="navbar-form" role="search">
+                <div class="input-group" >
+                    <input type="text" class="form-control" placeholder="Search Objective" name="qo">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" ng-click="submitForm()"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class="col-lg-4 col-lg-offset-1 table-responsive" ng-controller="PostSearchChallengeController">
+            {{data.Name}}
+            {{data.Description}}
+        </div>
+        <div class="col-lg-4 col-lg-offset-2 table-responsive">
+
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="~/Scripts/bootstrap.js"></script>
+</body>
+</html>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/MyScripts/overview-module.js"></script>
+<!--
+@inherits System.Web.Mvc.WebViewPage
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Challengifier</title>
+    <meta charset="utf-8" />
+</head>
+<body ng-app="ChallengifierOverview">
+    <div ng-controller="OverviewController">
+        HI
+        <div id="title">
+            <p>{{data}}</p>
+        </div>
+        <div id="description"></div>
+        <div id="deadline"></div>
+        <div id="expected_outcome"></div>
+        <div id="rating"></div>
+        <div id="end_date"></div>
+        <div id="start_date"></div>
+    </div>
+
+    <div ng-controller="ObjectiveListController">
+        <p ng-repeat="entry in data">
+            <span>{{entry.Description}}</span>
+        </p>
+    </div>
+
+</body>
+</html>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/MyScripts/overview-controller.js"></script>
+-->

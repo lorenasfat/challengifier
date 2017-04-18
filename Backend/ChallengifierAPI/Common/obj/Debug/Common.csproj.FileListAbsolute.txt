@@ -1,0 +1,5 @@
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\Common\bin\Debug\Common.dll
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\Common\bin\Debug\Common.pdb
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\Common\obj\Debug\Common.dll
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\Common\obj\Debug\Common.pdb

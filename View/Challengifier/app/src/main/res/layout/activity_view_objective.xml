@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_view_objective"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.lorena.challengifier.activities.objective.AddObjectiveActivity">
+
+    <TextView
+        android:text="Objective Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewObjectiveName"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:layout_below="@+id/textViewObjectiveName"
+        android:layout_alignParentStart="true"
+        android:id="@+id/editTextObjectiveName"
+        android:layout_alignParentEnd="true"
+        android:hint="Title" />
+
+    <TextView
+        android:text="Descriprion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewObjectiveDescription"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/editTextObjectiveName"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:layout_below="@+id/textViewObjectiveDescription"
+        android:layout_alignParentStart="true"
+        android:id="@+id/editTextObjectiveDescription"
+        android:layout_alignParentEnd="true"
+        android:hint="Description" />
+
+    <TextView
+        android:text="Deadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextObjectiveDescription"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewObjectiveDeadline"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_below="@+id/textViewObjectiveDeadline"
+        android:layout_alignParentStart="true"
+        android:id="@+id/editTextObjectiveDeadline"
+        android:layout_alignParentEnd="true"
+        android:hint="dd-MM-yyyy" />
+
+    <TextView
+        android:text="Expected Outcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextObjectiveDeadline"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewObjectiveExpectedOutcome"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:layout_below="@+id/textViewObjectiveExpectedOutcome"
+        android:layout_alignParentStart="true"
+        android:id="@+id/editTextObjectiveExpectedOutcome"
+        android:layout_alignParentEnd="true"
+        android:hint="What do you expect to accomplish?" />
+
+    <TextView
+        android:text="Objective Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextObjectiveExpectedOutcome"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/textViewObjectiveStatus"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="Objective Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextViewObjectiveStatus"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/textViewObjectiveStatus"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:id="@+id/buttonEditObjective"
+        android:textStyle="normal|bold"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/buttonMarkAsDone"
+        android:layout_marginStart="23dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorWhite"
+        android:backgroundTint="@color/colorPrimary" />
+
+    <Button
+        android:text="Mark as done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:id="@+id/buttonMarkAsDone"
+        android:layout_alignBaseline="@+id/buttonEditObjective"
+        android:layout_alignBottom="@+id/buttonEditObjective"
+        android:layout_alignParentStart="true"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp" />
+</RelativeLayout>

@@ -1,0 +1,10 @@
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\bin\Debug\DataAccess.dll.config
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\bin\Debug\DataAccess.dll
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\bin\Debug\DataAccess.pdb
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\bin\Debug\EntityFramework.dll
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\bin\Debug\EntityFramework.xml
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\obj\Debug\DataAccess.dll
+E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\obj\Debug\DataAccess.pdb
