@@ -67,7 +67,7 @@
     <Compile Include="Services\Interfaces\IMilestoneService.cs" />
     <Compile Include="Services\Interfaces\IObjectiveService.cs" />
     <Compile Include="Services\Interfaces\IPictureService.cs" />
-    <Compile Include="Components\Interface\IUserRankService.cs" />
+    <Compile Include="Components\Interface\IUserRankComponent.cs" />
     <Compile Include="Services\Interfaces\IUserRatingService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\MailService.cs" />

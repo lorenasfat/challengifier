@@ -14,5 +14,10 @@ namespace DataAccess.Repository
         {
             return DbContext.User.FirstOrDefault(u => u.User_AspNetUserID == id);
         }
+
+        public AspNetUsers GetUserByUsername(string username)
+        {
+            return DbContext.AspNetUsers.FirstOrDefault(u => u.Email == username);
+        }
     }
 }

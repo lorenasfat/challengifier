@@ -21,36 +21,9 @@ namespace Business.Services
             _unitOfWork.Dispose();
         }
 
-        public bool Login(UserDto user)
+        public UserDto getUserByUsername(string username)
         {
-            var dbUser = _unitOfWork.UserRepository.GetById(user.UserId);
-            if(ValidateUser(dbUser, user))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool ValidateUser(User dbUser, UserDto user)
-        {
-            if (dbUser.Username == user.Username)
-                return true;
-            return false;
-        }
-
-        public void Register(UserDto user)
-        {
-            try
-            {
-                _unitOfWork.UserRepository.Create(user.ToDbEntity());
-                _unitOfWork.UserRepository.Save();
-                _unitOfWork.Commit();
-            }
-            catch (Exception)
-            {
-                _unitOfWork.RollBack();
-                throw;
-            }
+            return _unitOfWork.UserRepository.GetUserByUsername(username).ToDto();
         }
     }
 }

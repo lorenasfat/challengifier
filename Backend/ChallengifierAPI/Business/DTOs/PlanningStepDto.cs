@@ -9,10 +9,10 @@ namespace Business.DTOs
     public class PlanningStepDto
     {
         public Guid Id { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid ChallengeId { get; set; }
+        public string TimeUnitId { get; set; }
+        public int? TimeUnitNumber { get; set; }
     }
 }

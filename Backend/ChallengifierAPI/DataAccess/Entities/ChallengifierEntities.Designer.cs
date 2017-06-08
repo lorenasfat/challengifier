@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\DataAccess\Entities\ChallengifierEntities.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\DataAccess\Entities\ChallengifierEntities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

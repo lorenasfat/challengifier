@@ -21,14 +21,15 @@ namespace DataAccess.Entities
         }
     
         public System.Guid PlanningStep_ID { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public System.Guid Challenge_ID { get; set; }
+        public string Duration_TimeUnitId { get; set; }
+        public Nullable<int> Duration_TimeNumber { get; set; }
     
         public virtual Challenge Challenge { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Milestone> Milestone { get; set; }
+        public virtual TimeUnits TimeUnits { get; set; }
     }
 }

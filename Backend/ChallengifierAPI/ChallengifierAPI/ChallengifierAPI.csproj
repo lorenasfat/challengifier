@@ -215,6 +215,7 @@
     <Compile Include="Identity\AppUserManager.cs" />
     <Compile Include="Infrastructure\Authorization\BasicAuthenticationFilter.cs" />
     <Compile Include="Infrastructure\Authorization\BasicAuthenticationIdentity.cs" />
+    <Compile Include="Infrastructure\Session\SessionState.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

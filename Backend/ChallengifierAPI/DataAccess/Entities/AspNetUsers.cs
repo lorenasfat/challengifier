@@ -20,10 +20,10 @@ namespace DataAccess.Entities
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.UserRank = new HashSet<UserRank>();
-            this.Challenge = new HashSet<Challenge>();
             this.Objective = new HashSet<Objective>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.User = new HashSet<User>();
+            this.Challenge = new HashSet<Challenge>();
         }
     
         public string Id { get; set; }
@@ -46,12 +46,12 @@ namespace DataAccess.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRank> UserRank { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Challenge> Challenge { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Objective> Objective { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Challenge> Challenge { get; set; }
     }
 }

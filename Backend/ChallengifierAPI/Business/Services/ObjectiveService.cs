@@ -54,7 +54,8 @@ namespace Business.Services
 
         public IEnumerable<ObjectiveDto> GetAllObjectives()
         {
-            return _unitOfWork.ObjectiveRepository.All().ToDtos();
+            var objectives = _unitOfWork.ObjectiveRepository.All();
+            return objectives.ToDtos();
         }
 
         public ObjectiveDto GetObjectiveById(Guid Id)
@@ -85,6 +86,15 @@ namespace Business.Services
             dbObjective.Description = objective.Description;
             dbObjective.Expected_Outcome = objective.ExpectedOutcome;
             dbObjective.Name = objective.Name;
+            dbObjective.Progress = objective.Progress;
+            if (objective.Progress == 10 && !objective.ChallengeId.HasValue)
+                dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.Completed;
+            else if(objective.Progress == 10)
+                dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.UnderApproval;
+            else if(objective.Progress >0 && objective.Progress<10)
+                dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.Ongoing;
+            else
+                dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.NotActive;
         }
     }
 }

@@ -70,7 +70,8 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="User_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Suggested_Time_Interval" Type="nvarchar" MaxLength="50" />
+    <Property Name="Suggested_Time_UnitsId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Suggested_Time_Number" Type="int" />
   </EntityType>
   <EntityType Name="Milestone">
     <Key>
@@ -82,6 +83,7 @@
     <Property Name="StartDate" Type="date" Nullable="false" />
     <Property Name="EndDate" Type="date" Nullable="false" />
     <Property Name="Objective_ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PlanningStep_ID" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Objective">
     <Key>
@@ -98,6 +100,7 @@
     <Property Name="Start_Date" Type="datetime" />
     <Property Name="End_Date" Type="datetime" />
     <Property Name="User_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Progress" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ObjectiveStatus">
     <Key>
@@ -121,11 +124,11 @@
       <PropertyRef Name="PlanningStep_ID" />
     </Key>
     <Property Name="PlanningStep_ID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="StartDate" Type="date" Nullable="false" />
-    <Property Name="EndDate" Type="date" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="250" />
     <Property Name="Challenge_ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Duration_TimeUnitId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Duration_TimeNumber" Type="int" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -137,14 +140,22 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <EntityType Name="TimeUnits">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NamePlural" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="User_ID" />
     </Key>
-    <Property Name="User_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="User_ID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="User_FirstName" Type="nvarchar" MaxLength="50" />
     <Property Name="User_LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="User_AspNetUserID" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="UserRank">
     <Key>
@@ -177,6 +188,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Milestone__PlanningStep">
+    <End Role="PlanningStep" Type="Self.PlanningStep" Multiplicity="1" />
+    <End Role="Milestone" Type="Self.Milestone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlanningStep">
+        <PropertyRef Name="PlanningStep_ID" />
+      </Principal>
+      <Dependent Role="Milestone">
+        <PropertyRef Name="PlanningStep_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Objective__Challenge">
     <End Role="Challenge" Type="Self.Challenge" Multiplicity="0..1" />
     <End Role="Objective" Type="Self.Objective" Multiplicity="*" />
@@ -198,6 +221,18 @@
       </Principal>
       <Dependent Role="UserRating">
         <PropertyRef Name="Objective_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Objective__Status">
+    <End Role="ObjectiveStatus" Type="Self.ObjectiveStatus" Multiplicity="1" />
+    <End Role="Objective" Type="Self.Objective" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ObjectiveStatus">
+        <PropertyRef Name="Status_ID" />
+      </Principal>
+      <Dependent Role="Objective">
+        <PropertyRef Name="Status_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -249,12 +284,24 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__TimeUnits__PlanS">
+    <End Role="TimeUnits" Type="Self.TimeUnits" Multiplicity="0..1" />
+    <End Role="PlanningStep" Type="Self.PlanningStep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeUnits">
+        <PropertyRef Name="Name" />
+      </Principal>
+      <Dependent Role="PlanningStep">
+        <PropertyRef Name="Duration_TimeUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__User__Rank">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="UserRank" Type="Self.UserRank" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="User_ID" />
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="UserRank">
         <PropertyRef Name="User_ID" />
@@ -281,18 +328,6 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Objective">
-        <PropertyRef Name="User_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Users__Rating">
-    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-    <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUsers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserRating">
         <PropertyRef Name="User_ID" />
       </Dependent>
     </ReferentialConstraint>
@@ -353,6 +388,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_User_AspNetUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="User_AspNetUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -398,11 +445,16 @@
     <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlanningStep" EntityType="Self.PlanningStep" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TimeUnits" EntityType="Self.TimeUnits" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRank" EntityType="Self.UserRank" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Milestone__Objective" Association="Self.FK__Milestone__Objective">
       <End Role="Objective" EntitySet="Objective" />
+      <End Role="Milestone" EntitySet="Milestone" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Milestone__PlanningStep" Association="Self.FK__Milestone__PlanningStep">
+      <End Role="PlanningStep" EntitySet="PlanningStep" />
       <End Role="Milestone" EntitySet="Milestone" />
     </AssociationSet>
     <AssociationSet Name="FK__Objective__Challenge" Association="Self.FK__Objective__Challenge">
@@ -412,6 +464,10 @@
     <AssociationSet Name="FK__Objective__Rating" Association="Self.FK__Objective__Rating">
       <End Role="Objective" EntitySet="Objective" />
       <End Role="UserRating" EntitySet="UserRating" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Objective__Status" Association="Self.FK__Objective__Status">
+      <End Role="ObjectiveStatus" EntitySet="ObjectiveStatus" />
+      <End Role="Objective" EntitySet="Objective" />
     </AssociationSet>
     <AssociationSet Name="FK__Picture__Challenge" Association="Self.FK__Picture__Challenge">
       <End Role="Challenge" EntitySet="Challenge" />
@@ -429,8 +485,12 @@
       <End Role="Challenge" EntitySet="Challenge" />
       <End Role="PlanningStep" EntitySet="PlanningStep" />
     </AssociationSet>
+    <AssociationSet Name="FK__TimeUnits__PlanS" Association="Self.FK__TimeUnits__PlanS">
+      <End Role="TimeUnits" EntitySet="TimeUnits" />
+      <End Role="PlanningStep" EntitySet="PlanningStep" />
+    </AssociationSet>
     <AssociationSet Name="FK__User__Rank" Association="Self.FK__User__Rank">
-      <End Role="User" EntitySet="User" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="UserRank" EntitySet="UserRank" />
     </AssociationSet>
     <AssociationSet Name="FK__Users__Challenge" Association="Self.FK__Users__Challenge">
@@ -440,10 +500,6 @@
     <AssociationSet Name="FK__Users__Objective" Association="Self.FK__Users__Objective">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Objective" EntitySet="Objective" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Users__Rating" Association="Self.FK__Users__Rating">
-      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="UserRating" EntitySet="UserRating" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -460,6 +516,10 @@
     <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_AspNetUser" Association="Self.FK_User_AspNetUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="User" EntitySet="User" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

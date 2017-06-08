@@ -166,5 +166,10 @@ namespace Business.Components
         {
             _unitOfWork.Dispose();
         }
+
+        public void GetObjectiveRank(string userID, string objectiveID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -10,3 +10,15 @@ E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\Business\bin\Debug\En
 E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\Business\bin\Debug\Common.dll
 E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\Business\bin\Debug\Common.pdb
 E:\Onedrive\An-4\Licenta\Solution\Backend\ChallengifierAPI\Business\bin\Debug\DataAccess.dll.config
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\obj\Debug\Business.dll
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\obj\Debug\Business.pdb
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\bin\Debug\Business.dll
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\bin\Debug\Business.pdb
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\bin\Debug\Common.dll
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\bin\Debug\DataAccess.dll
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\bin\Debug\EntityFramework.dll
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\bin\Debug\Common.pdb
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\bin\Debug\DataAccess.pdb
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\bin\Debug\DataAccess.dll.config
+E:\Onedrive\An-4\Licenta\Repo\Backend\ChallengifierAPI\Business\bin\Debug\EntityFramework.xml

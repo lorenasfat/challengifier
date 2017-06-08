@@ -5,15 +5,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ChallengifierAPI.Infrastructure.Session;
 
 namespace ChallengifierAPI.Controllers
 {
     public class ObjectiveController : ApiController
     {
         private readonly IObjectiveService _objectiveService;
-        public ObjectiveController(IObjectiveService objectiveService)
+        private readonly IUserService _userService;
+
+        public ObjectiveController(IObjectiveService objectiveService, IUserService userService)
         {
             _objectiveService = objectiveService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -40,6 +44,8 @@ namespace ChallengifierAPI.Controllers
         {
             try
             {
+                objective.Id = Guid.NewGuid();
+                objective.UserId = SessionState.LoggedInUser == null ? _userService.getUserByUsername(objective.UserId).AspNetUserId : SessionState.LoggedInUser.AspNetUserId;
                 _objectiveService.AddObjective(objective);
                 return Request.CreateResponse(HttpStatusCode.Created, "Successfully added an objective!");
             }
@@ -60,6 +66,21 @@ namespace ChallengifierAPI.Controllers
                     return Request.CreateResponse(HttpStatusCode.OK, "No entries yet!");
 
                 return Request.CreateResponse(HttpStatusCode.OK, objectives);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [ActionName("update")]
+        public HttpResponseMessage UpdateObjective([FromBody]ObjectiveDto objective)
+        {
+            try
+            {
+                _objectiveService.UpdateObjective(objective);
+                return Request.CreateResponse(HttpStatusCode.OK, objective);
             }
             catch (Exception ex)
             {

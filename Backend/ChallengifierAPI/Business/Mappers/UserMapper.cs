@@ -12,7 +12,17 @@ namespace Business.Mappers
                 User_ID = user.UserId,
                 Username = user.Username,
                 User_FirstName = user.FirstName,
-                User_LastName = user.LastName
+                User_LastName = user.LastName,
+                User_AspNetUserID = user.AspNetUserId
+            };
+        }
+
+        public static UserDto ToDto(this AspNetUsers user)
+        {
+            return new UserDto()
+            {
+                AspNetUserId = user.Id,
+                Username = user.Email
             };
         }
     }

@@ -26,7 +26,8 @@ namespace DataAccess.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string User_ID { get; set; }
-        public string Suggested_Time_Interval { get; set; }
+        public string Suggested_Time_UnitsId { get; set; }
+        public Nullable<int> Suggested_Time_Number { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

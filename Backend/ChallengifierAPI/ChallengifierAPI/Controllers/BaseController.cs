@@ -13,28 +13,28 @@ namespace ChallengifierAPI.Controllers
 {
     public class BaseController : ApiController
     {
-        //protected AppUserManager UserManager
-        //{
-        //    get
-        //    {
-        //        return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>();
-        //    }
-        //}
+        protected AppUserManager UserManager
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>();
+            }
+        }
 
-        //protected IAuthenticationManager AuthenticationManager
-        //{
-        //    get
-        //    {
-        //        return System.Web.HttpContext.Current.GetOwinContext().Authentication;
-        //    }
-        //}
+        protected IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.GetOwinContext().Authentication;
+            }
+        }
 
-        //protected AppRoleManager RoleManager
-        //{
-        //    get
-        //    {
-        //        return System.Web.HttpContext.Current.GetOwinContext().Get<AppRoleManager>();
-        //    }
-        //}
+        protected AppRoleManager RoleManager
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.GetOwinContext().Get<AppRoleManager>();
+            }
+        }
     }
 }

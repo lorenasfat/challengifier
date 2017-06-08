@@ -56,42 +56,42 @@ namespace ChallengifierAPI.Infrastructure.Authorization
         /// <param name="actionContext"></param>
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-        //    if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())
-        //    {
-        //        base.OnAuthorization(actionContext);
-        //        return;
-        //    }
+            if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())
+            {
+                base.OnAuthorization(actionContext);
+                return;
+            }
 
-        //    if (Active)
-        //    {
-        //        var identity = ParseAuthorizationHeader(actionContext);
-        //        if (identity == null)
-        //        {
-        //            Challenge(actionContext);
-        //            return;
-        //        }
+            if (Active)
+            {
+                var identity = ParseAuthorizationHeader(actionContext);
+                if (identity == null)
+                {
+                    Challenge(actionContext);
+                    return;
+                }
 
 
-        //        if (!OnAuthorizeUser(identity.Name, identity.Password, actionContext))
-        //        {
-        //            Challenge(actionContext);
-        //            return;
-        //        }
-        //        var roles = System.Web.HttpContext.Current.GetOwinContext()
-        //                .Get<AppRoleManager>()
-        //                .Roles;
-        //        var roleNames = roles.Select(r => r.Name);
-        //        var arrayRoles = roleNames != null? roleNames.ToArray() : null;
-        //        var principal = new GenericPrincipal(identity, arrayRoles);
+                if (!OnAuthorizeUser(identity.Name, identity.Password, actionContext))
+                {
+                    Challenge(actionContext);
+                    return;
+                }
+                var roles = System.Web.HttpContext.Current.GetOwinContext()
+                        .Get<AppRoleManager>()
+                        .Roles;
+                var roleNames = roles.Select(r => r.Name);
+                var arrayRoles = roleNames != null ? roleNames.ToArray() : null;
+                var principal = new GenericPrincipal(identity, arrayRoles);
 
-        //        Thread.CurrentPrincipal = principal;
+                Thread.CurrentPrincipal = principal;
 
-        //        // inside of ASP.NET this is required
-        //        if (HttpContext.Current != null)
-        //            HttpContext.Current.User = principal;
+                // inside of ASP.NET this is required
+                if (HttpContext.Current != null)
+                    HttpContext.Current.User = principal;
 
-        //        base.OnAuthorization(actionContext);
-        //    }
+                base.OnAuthorization(actionContext);
+            }
         }
 
         /// <summary>
@@ -151,9 +151,9 @@ namespace ChallengifierAPI.Infrastructure.Authorization
         /// <param name="actionContext"></param>
         void Challenge(HttpActionContext actionContext)
         {
-            //var host = actionContext.Request.RequestUri.DnsSafeHost;
-            //actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
-            //actionContext.Response.Headers.Add("WWW-Authenticate", string.Format("Basic realm=\"{0}\"", host));
+            var host = actionContext.Request.RequestUri.DnsSafeHost;
+            actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
+            actionContext.Response.Headers.Add("WWW-Authenticate", string.Format("Basic realm=\"{0}\"", host));
         }
 
     }

@@ -33,9 +33,9 @@ namespace DataAccess.Entities
         public Nullable<System.DateTime> Start_Date { get; set; }
         public Nullable<System.DateTime> End_Date { get; set; }
         public string User_ID { get; set; }
+        public int Progress { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual Challenge Challenge { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Milestone> Milestone { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -43,5 +43,6 @@ namespace DataAccess.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Picture> Picture { get; set; }
         public virtual ObjectiveStatus ObjectiveStatus { get; set; }
+        public virtual Challenge Challenge { get; set; }
     }
 }

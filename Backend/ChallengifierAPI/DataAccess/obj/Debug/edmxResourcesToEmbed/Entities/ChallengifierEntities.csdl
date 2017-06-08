@@ -36,14 +36,10 @@
     <EntitySet Name="AspNetUserClaims" EntityType="ChallengifierModel1.AspNetUserClaims" />
     <EntitySet Name="AspNetUserLogins" EntityType="ChallengifierModel1.AspNetUserLogins" />
     <EntitySet Name="AspNetUsers" EntityType="ChallengifierModel1.AspNetUsers" />
-    <EntitySet Name="Challenge" EntityType="ChallengifierModel1.Challenge" />
     <EntitySet Name="Milestone" EntityType="ChallengifierModel1.Milestone" />
     <EntitySet Name="Objective" EntityType="ChallengifierModel1.Objective" />
-    <EntitySet Name="ObjectiveStatus" EntityType="ChallengifierModel1.ObjectiveStatus" />
     <EntitySet Name="Picture" EntityType="ChallengifierModel1.Picture" />
-    <EntitySet Name="PlanningStep" EntityType="ChallengifierModel1.PlanningStep" />
     <EntitySet Name="sysdiagrams" EntityType="ChallengifierModel1.sysdiagrams" />
-    <EntitySet Name="User" EntityType="ChallengifierModel1.User" />
     <EntitySet Name="UserRank" EntityType="ChallengifierModel1.UserRank" />
     <EntitySet Name="UserRating" EntityType="ChallengifierModel1.UserRating" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="ChallengifierModel1.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -54,29 +50,13 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
     </AssociationSet>
-    <AssociationSet Name="FK__Users__Challenge" Association="ChallengifierModel1.FK__Users__Challenge">
+    <AssociationSet Name="FK__User__Rank" Association="ChallengifierModel1.FK__User__Rank">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="Challenge" EntitySet="Challenge" />
+      <End Role="UserRank" EntitySet="UserRank" />
     </AssociationSet>
     <AssociationSet Name="FK__Users__Objective" Association="ChallengifierModel1.FK__Users__Objective">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Objective" EntitySet="Objective" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Users__Rating" Association="ChallengifierModel1.FK__Users__Rating">
-      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="UserRating" EntitySet="UserRating" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Objective__Challenge" Association="ChallengifierModel1.FK__Objective__Challenge">
-      <End Role="Challenge" EntitySet="Challenge" />
-      <End Role="Objective" EntitySet="Objective" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Picture__Challenge" Association="ChallengifierModel1.FK__Picture__Challenge">
-      <End Role="Challenge" EntitySet="Challenge" />
-      <End Role="Picture" EntitySet="Picture" />
-    </AssociationSet>
-    <AssociationSet Name="FK__PlanningS__Challenge" Association="ChallengifierModel1.FK__PlanningS__Challenge">
-      <End Role="Challenge" EntitySet="Challenge" />
-      <End Role="PlanningStep" EntitySet="PlanningStep" />
     </AssociationSet>
     <AssociationSet Name="FK__Milestone__Objective" Association="ChallengifierModel1.FK__Milestone__Objective">
       <End Role="Objective" EntitySet="Objective" />
@@ -94,13 +74,46 @@
       <End Role="Objective" EntitySet="Objective" />
       <End Role="Picture" EntitySet="Picture" />
     </AssociationSet>
-    <AssociationSet Name="FK__User__Rank" Association="ChallengifierModel1.FK__User__Rank">
-      <End Role="User" EntitySet="User" />
-      <End Role="UserRank" EntitySet="UserRank" />
-    </AssociationSet>
     <AssociationSet Name="AspNetUserRoles" Association="ChallengifierModel1.AspNetUserRoles">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="ObjectiveStatus" EntityType="ChallengifierModel1.ObjectiveStatus" />
+    <EntitySet Name="User" EntityType="ChallengifierModel1.User" />
+    <AssociationSet Name="FK_User_AspNetUser" Association="ChallengifierModel1.FK_User_AspNetUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Objective__Status" Association="ChallengifierModel1.FK__Objective__Status">
+      <End Role="ObjectiveStatus" EntitySet="ObjectiveStatus" />
+      <End Role="Objective" EntitySet="Objective" />
+    </AssociationSet>
+    <EntitySet Name="Challenge" EntityType="ChallengifierModel1.Challenge" />
+    <EntitySet Name="PlanningStep" EntityType="ChallengifierModel1.PlanningStep" />
+    <EntitySet Name="TimeUnits" EntityType="ChallengifierModel1.TimeUnits" />
+    <AssociationSet Name="FK__Users__Challenge" Association="ChallengifierModel1.FK__Users__Challenge">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Challenge" EntitySet="Challenge" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Objective__Challenge" Association="ChallengifierModel1.FK__Objective__Challenge">
+      <End Role="Challenge" EntitySet="Challenge" />
+      <End Role="Objective" EntitySet="Objective" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Picture__Challenge" Association="ChallengifierModel1.FK__Picture__Challenge">
+      <End Role="Challenge" EntitySet="Challenge" />
+      <End Role="Picture" EntitySet="Picture" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PlanningS__Challenge" Association="ChallengifierModel1.FK__PlanningS__Challenge">
+      <End Role="Challenge" EntitySet="Challenge" />
+      <End Role="PlanningStep" EntitySet="PlanningStep" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Milestone__PlanningStep" Association="ChallengifierModel1.FK__Milestone__PlanningStep">
+      <End Role="PlanningStep" EntitySet="PlanningStep" />
+      <End Role="Milestone" EntitySet="Milestone" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TimeUnits__PlanS" Association="ChallengifierModel1.FK__TimeUnits__PlanS">
+      <End Role="TimeUnits" EntitySet="TimeUnits" />
+      <End Role="PlanningStep" EntitySet="PlanningStep" />
     </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -172,24 +185,11 @@
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="ChallengifierModel1.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="ChallengifierModel1.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-    <NavigationProperty Name="Challenge" Relationship="ChallengifierModel1.FK__Users__Challenge" FromRole="AspNetUsers" ToRole="Challenge" />
+    <NavigationProperty Name="UserRank" Relationship="ChallengifierModel1.FK__User__Rank" FromRole="AspNetUsers" ToRole="UserRank" />
     <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Users__Objective" FromRole="AspNetUsers" ToRole="Objective" />
-    <NavigationProperty Name="UserRating" Relationship="ChallengifierModel1.FK__Users__Rating" FromRole="AspNetUsers" ToRole="UserRating" />
     <NavigationProperty Name="AspNetRoles" Relationship="ChallengifierModel1.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-  </EntityType>
-  <EntityType Name="Challenge">
-    <Key>
-      <PropertyRef Name="Challenge_ID" />
-    </Key>
-    <Property Name="Challenge_ID" Type="Guid" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="User_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Suggested_Time_Interval" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUsers" Relationship="ChallengifierModel1.FK__Users__Challenge" FromRole="Challenge" ToRole="AspNetUsers" />
-    <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Objective__Challenge" FromRole="Challenge" ToRole="Objective" />
-    <NavigationProperty Name="Picture" Relationship="ChallengifierModel1.FK__Picture__Challenge" FromRole="Challenge" ToRole="Picture" />
-    <NavigationProperty Name="PlanningStep" Relationship="ChallengifierModel1.FK__PlanningS__Challenge" FromRole="Challenge" ToRole="PlanningStep" />
+    <NavigationProperty Name="User" Relationship="ChallengifierModel1.FK_User_AspNetUser" FromRole="AspNetUsers" ToRole="User" />
+    <NavigationProperty Name="Challenge" Relationship="ChallengifierModel1.FK__Users__Challenge" FromRole="AspNetUsers" ToRole="Challenge" />
   </EntityType>
   <EntityType Name="Milestone">
     <Key>
@@ -201,8 +201,10 @@
     <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Objective_ID" Type="Guid" Nullable="false" />
+    <Property Name="PlanningStep_ID" Type="Guid" Nullable="false" />
     <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Milestone__Objective" FromRole="Milestone" ToRole="Objective" />
     <NavigationProperty Name="Picture" Relationship="ChallengifierModel1.FK__Picture__Milestone" FromRole="Milestone" ToRole="Picture" />
+    <NavigationProperty Name="PlanningStep" Relationship="ChallengifierModel1.FK__Milestone__PlanningStep" FromRole="Milestone" ToRole="PlanningStep" />
   </EntityType>
   <EntityType Name="Objective">
     <Key>
@@ -220,17 +222,12 @@
     <Property Name="End_Date" Type="DateTime" Precision="3" />
     <Property Name="User_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUsers" Relationship="ChallengifierModel1.FK__Users__Objective" FromRole="Objective" ToRole="AspNetUsers" />
-    <NavigationProperty Name="Challenge" Relationship="ChallengifierModel1.FK__Objective__Challenge" FromRole="Objective" ToRole="Challenge" />
     <NavigationProperty Name="Milestone" Relationship="ChallengifierModel1.FK__Milestone__Objective" FromRole="Objective" ToRole="Milestone" />
     <NavigationProperty Name="UserRating" Relationship="ChallengifierModel1.FK__Objective__Rating" FromRole="Objective" ToRole="UserRating" />
     <NavigationProperty Name="Picture" Relationship="ChallengifierModel1.FK__Picture__Objective" FromRole="Objective" ToRole="Picture" />
-  </EntityType>
-  <EntityType Name="ObjectiveStatus">
-    <Key>
-      <PropertyRef Name="Status_ID" />
-    </Key>
-    <Property Name="Status_ID" Type="Int32" Nullable="false" />
-    <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ObjectiveStatus" Relationship="ChallengifierModel1.FK__Objective__Status" FromRole="Objective" ToRole="ObjectiveStatus" />
+    <NavigationProperty Name="Challenge" Relationship="ChallengifierModel1.FK__Objective__Challenge" FromRole="Objective" ToRole="Challenge" />
+    <Property Name="Progress" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Picture">
     <Key>
@@ -241,21 +238,9 @@
     <Property Name="Challenge_ID" Type="Guid" />
     <Property Name="Objective_ID" Type="Guid" />
     <Property Name="Milestone_ID" Type="Guid" />
-    <NavigationProperty Name="Challenge" Relationship="ChallengifierModel1.FK__Picture__Challenge" FromRole="Picture" ToRole="Challenge" />
     <NavigationProperty Name="Milestone" Relationship="ChallengifierModel1.FK__Picture__Milestone" FromRole="Picture" ToRole="Milestone" />
     <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Picture__Objective" FromRole="Picture" ToRole="Objective" />
-  </EntityType>
-  <EntityType Name="PlanningStep">
-    <Key>
-      <PropertyRef Name="PlanningStep_ID" />
-    </Key>
-    <Property Name="PlanningStep_ID" Type="Guid" Nullable="false" />
-    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Challenge_ID" Type="Guid" Nullable="false" />
-    <NavigationProperty Name="Challenge" Relationship="ChallengifierModel1.FK__PlanningS__Challenge" FromRole="PlanningStep" ToRole="Challenge" />
+    <NavigationProperty Name="Challenge" Relationship="ChallengifierModel1.FK__Picture__Challenge" FromRole="Picture" ToRole="Challenge" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -267,16 +252,6 @@
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="User_ID" />
-    </Key>
-    <Property Name="User_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="User_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="User_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="UserRank" Relationship="ChallengifierModel1.FK__User__Rank" FromRole="User" ToRole="UserRank" />
-  </EntityType>
   <EntityType Name="UserRank">
     <Key>
       <PropertyRef Name="Rank_ID" />
@@ -286,7 +261,7 @@
     <Property Name="System_Grade" Type="Double" Nullable="false" />
     <Property Name="Users_Grade" Type="Double" />
     <Property Name="Final_Grade" Type="Double" Nullable="false" />
-    <NavigationProperty Name="User" Relationship="ChallengifierModel1.FK__User__Rank" FromRole="UserRank" ToRole="User" />
+    <NavigationProperty Name="AspNetUsers" Relationship="ChallengifierModel1.FK__User__Rank" FromRole="UserRank" ToRole="AspNetUsers" />
   </EntityType>
   <EntityType Name="UserRating">
     <Key>
@@ -296,7 +271,6 @@
     <Property Name="User_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="Grade" Type="Int32" Nullable="false" />
     <Property Name="Objective_ID" Type="Guid" Nullable="false" />
-    <NavigationProperty Name="AspNetUsers" Relationship="ChallengifierModel1.FK__Users__Rating" FromRole="UserRating" ToRole="AspNetUsers" />
     <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Objective__Rating" FromRole="UserRating" ToRole="Objective" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -327,14 +301,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Users__Challenge">
+  <Association Name="FK__User__Rank">
     <End Type="ChallengifierModel1.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-    <End Type="ChallengifierModel1.Challenge" Role="Challenge" Multiplicity="*" />
+    <End Type="ChallengifierModel1.UserRank" Role="UserRank" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AspNetUsers">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Challenge">
+      <Dependent Role="UserRank">
         <PropertyRef Name="User_ID" />
       </Dependent>
     </ReferentialConstraint>
@@ -348,54 +322,6 @@
       </Principal>
       <Dependent Role="Objective">
         <PropertyRef Name="User_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Users__Rating">
-    <End Type="ChallengifierModel1.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-    <End Type="ChallengifierModel1.UserRating" Role="UserRating" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUsers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserRating">
-        <PropertyRef Name="User_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Objective__Challenge">
-    <End Type="ChallengifierModel1.Challenge" Role="Challenge" Multiplicity="0..1" />
-    <End Type="ChallengifierModel1.Objective" Role="Objective" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Challenge">
-        <PropertyRef Name="Challenge_ID" />
-      </Principal>
-      <Dependent Role="Objective">
-        <PropertyRef Name="Challenge_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Picture__Challenge">
-    <End Type="ChallengifierModel1.Challenge" Role="Challenge" Multiplicity="0..1" />
-    <End Type="ChallengifierModel1.Picture" Role="Picture" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Challenge">
-        <PropertyRef Name="Challenge_ID" />
-      </Principal>
-      <Dependent Role="Picture">
-        <PropertyRef Name="Challenge_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__PlanningS__Challenge">
-    <End Type="ChallengifierModel1.Challenge" Role="Challenge" Multiplicity="1" />
-    <End Type="ChallengifierModel1.PlanningStep" Role="PlanningStep" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Challenge">
-        <PropertyRef Name="Challenge_ID" />
-      </Principal>
-      <Dependent Role="PlanningStep">
-        <PropertyRef Name="Challenge_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -447,20 +373,160 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__User__Rank">
-    <End Type="ChallengifierModel1.User" Role="User" Multiplicity="1" />
-    <End Type="ChallengifierModel1.UserRank" Role="UserRank" Multiplicity="*" />
+  <Association Name="AspNetUserRoles">
+    <End Type="ChallengifierModel1.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+    <End Type="ChallengifierModel1.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+  </Association>
+  <EntityType Name="ObjectiveStatus">
+    <Key>
+      <PropertyRef Name="Status_ID" />
+    </Key>
+    <Property Name="Status_ID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Objective__Status" FromRole="ObjectiveStatus" ToRole="Objective" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="User_ID" Type="Guid" Nullable="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="User_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="User_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="User_AspNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="ChallengifierModel1.FK_User_AspNetUser" FromRole="User" ToRole="AspNetUsers" />
+  </EntityType>
+  <Association Name="FK_User_AspNetUser">
+    <End Type="ChallengifierModel1.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="ChallengifierModel1.User" Role="User" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="User_ID" />
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="UserRank">
+      <Dependent Role="User">
+        <PropertyRef Name="User_AspNetUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Objective__Status">
+    <End Type="ChallengifierModel1.ObjectiveStatus" Role="ObjectiveStatus" Multiplicity="1" />
+    <End Type="ChallengifierModel1.Objective" Role="Objective" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ObjectiveStatus">
+        <PropertyRef Name="Status_ID" />
+      </Principal>
+      <Dependent Role="Objective">
+        <PropertyRef Name="Status_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Challenge">
+    <Key>
+      <PropertyRef Name="Challenge_ID" />
+    </Key>
+    <Property Name="Challenge_ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="User_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Suggested_Time_UnitsId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Suggested_Time_Number" Type="Int32" />
+    <NavigationProperty Name="AspNetUsers" Relationship="ChallengifierModel1.FK__Users__Challenge" FromRole="Challenge" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Objective__Challenge" FromRole="Challenge" ToRole="Objective" />
+    <NavigationProperty Name="Picture" Relationship="ChallengifierModel1.FK__Picture__Challenge" FromRole="Challenge" ToRole="Picture" />
+    <NavigationProperty Name="PlanningStep" Relationship="ChallengifierModel1.FK__PlanningS__Challenge" FromRole="Challenge" ToRole="PlanningStep" />
+  </EntityType>
+  <EntityType Name="PlanningStep">
+    <Key>
+      <PropertyRef Name="PlanningStep_ID" />
+    </Key>
+    <Property Name="PlanningStep_ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Challenge_ID" Type="Guid" Nullable="false" />
+    <Property Name="Duration_TimeUnitId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Duration_TimeNumber" Type="Int32" />
+    <NavigationProperty Name="Challenge" Relationship="ChallengifierModel1.FK__PlanningS__Challenge" FromRole="PlanningStep" ToRole="Challenge" />
+    <NavigationProperty Name="Milestone" Relationship="ChallengifierModel1.FK__Milestone__PlanningStep" FromRole="PlanningStep" ToRole="Milestone" />
+    <NavigationProperty Name="TimeUnits" Relationship="ChallengifierModel1.FK__TimeUnits__PlanS" FromRole="PlanningStep" ToRole="TimeUnits" />
+  </EntityType>
+  <EntityType Name="TimeUnits">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NamePlural" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PlanningStep" Relationship="ChallengifierModel1.FK__TimeUnits__PlanS" FromRole="TimeUnits" ToRole="PlanningStep" />
+  </EntityType>
+  <Association Name="FK__Users__Challenge">
+    <End Type="ChallengifierModel1.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+    <End Type="ChallengifierModel1.Challenge" Role="Challenge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Challenge">
         <PropertyRef Name="User_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="AspNetUserRoles">
-    <End Type="ChallengifierModel1.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
-    <End Type="ChallengifierModel1.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+  <Association Name="FK__Objective__Challenge">
+    <End Type="ChallengifierModel1.Challenge" Role="Challenge" Multiplicity="0..1" />
+    <End Type="ChallengifierModel1.Objective" Role="Objective" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Challenge">
+        <PropertyRef Name="Challenge_ID" />
+      </Principal>
+      <Dependent Role="Objective">
+        <PropertyRef Name="Challenge_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Picture__Challenge">
+    <End Type="ChallengifierModel1.Challenge" Role="Challenge" Multiplicity="0..1" />
+    <End Type="ChallengifierModel1.Picture" Role="Picture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Challenge">
+        <PropertyRef Name="Challenge_ID" />
+      </Principal>
+      <Dependent Role="Picture">
+        <PropertyRef Name="Challenge_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PlanningS__Challenge">
+    <End Type="ChallengifierModel1.Challenge" Role="Challenge" Multiplicity="1" />
+    <End Type="ChallengifierModel1.PlanningStep" Role="PlanningStep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Challenge">
+        <PropertyRef Name="Challenge_ID" />
+      </Principal>
+      <Dependent Role="PlanningStep">
+        <PropertyRef Name="Challenge_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Milestone__PlanningStep">
+    <End Type="ChallengifierModel1.PlanningStep" Role="PlanningStep" Multiplicity="1" />
+    <End Type="ChallengifierModel1.Milestone" Role="Milestone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlanningStep">
+        <PropertyRef Name="PlanningStep_ID" />
+      </Principal>
+      <Dependent Role="Milestone">
+        <PropertyRef Name="PlanningStep_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TimeUnits__PlanS">
+    <End Type="ChallengifierModel1.TimeUnits" Role="TimeUnits" Multiplicity="0..1" />
+    <End Type="ChallengifierModel1.PlanningStep" Role="PlanningStep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeUnits">
+        <PropertyRef Name="Name" />
+      </Principal>
+      <Dependent Role="PlanningStep">
+        <PropertyRef Name="Duration_TimeUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>

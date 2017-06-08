@@ -1,10 +1,10 @@
-﻿using Business.DTOs;
+﻿using System.Security.Cryptography.X509Certificates;
+using Business.DTOs;
 
 namespace Business.Services.Interfaces
 {
     public interface IUserService : IBaseService
     {
-        bool Login(UserDto user);
-        void Register(UserDto user);
+        UserDto getUserByUsername(string username);
     }
 }

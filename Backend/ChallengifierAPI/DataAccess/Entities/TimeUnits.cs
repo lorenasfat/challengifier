@@ -12,25 +12,18 @@ namespace DataAccess.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Milestone
+    public partial class TimeUnits
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Milestone()
+        public TimeUnits()
         {
-            this.Picture = new HashSet<Picture>();
+            this.PlanningStep = new HashSet<PlanningStep>();
         }
     
-        public System.Guid Milestone_ID { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
-        public System.Guid Objective_ID { get; set; }
-        public System.Guid PlanningStep_ID { get; set; }
+        public string NamePlural { get; set; }
     
-        public virtual Objective Objective { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Picture> Picture { get; set; }
-        public virtual PlanningStep PlanningStep { get; set; }
+        public virtual ICollection<PlanningStep> PlanningStep { get; set; }
     }
 }

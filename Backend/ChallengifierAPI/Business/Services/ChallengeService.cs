@@ -55,7 +55,8 @@ namespace Business.Services
 
         public IEnumerable<ChallengeDto> GetAllChallenges()
         {
-            return _unitOfWork.ChallengeRepository.All().ToDtos();
+            var challenges = _unitOfWork.ChallengeRepository.All();
+            return challenges.ToDtos();
         }
 
         public ChallengeDto GetChallengeById(Guid challengeId)
@@ -95,7 +96,8 @@ namespace Business.Services
         {
             dbChallenge.Description = challenge.Description;
             dbChallenge.Name = challenge.Name;
-            dbChallenge.Suggested_Time_Interval = challenge.SuggestedTimeInterval;
+            dbChallenge.Suggested_Time_UnitsId = challenge.Suggested_Time_UnitsId;
+            dbChallenge.Suggested_Time_Number = challenge.Suggested_Time_Number;
         }
     }
 }
