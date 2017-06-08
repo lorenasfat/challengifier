@@ -56,7 +56,7 @@ public class ChallengeListAdapter extends BaseAdapter {
         View myRow = inflater.inflate(R.layout.challenge_item, parent, false);
         // get the visual elements and update them with the information from the model
         TextView title = (TextView)myRow.findViewById(R.id.textViewTitle);
-        title.setText(challenges.get(position).getTitle());
+        title.setText(challenges.get(position).getName());
 
         return myRow;
     }

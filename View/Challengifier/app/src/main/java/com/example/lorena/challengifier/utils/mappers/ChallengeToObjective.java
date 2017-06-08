@@ -11,9 +11,8 @@ public class ChallengeToObjective {
     public static Objective toObjective(Challenge challenge) {
         Objective obj =  new Objective();
 
-        obj.setName(challenge.getTitle());
+        obj.setName(challenge.getName());
         obj.setExpectedOutcome(challenge.getDescription());
-        obj.setDeadline(challenge.getSuggestedDeadline());
         //obj.s
         return obj;
     }

@@ -1,6 +1,5 @@
 package com.example.lorena.challengifier.utils.tools;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,15 +8,20 @@ import java.util.Date;
  */
 
 public class DateFormatter {
-    static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
+    static SimpleDateFormat sdf2 = new SimpleDateFormat("yyy-MM-dd");
     public static Date getDate(String dateString){
-        Date date;
+        Date date = new Date();
         try{
             date = sdf.parse(dateString);
         }
         catch (Exception e){
-            return new Date();
+            try{
+                date = sdf2.parse(dateString);
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+            }
         }
         return date;
     }

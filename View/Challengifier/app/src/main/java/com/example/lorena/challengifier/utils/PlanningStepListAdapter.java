@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.PlanningStep;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -62,11 +61,11 @@ public class PlanningStepListAdapter extends BaseAdapter {
         description.setText(planningSteps.get(position).getDescription());
 
 
-        TextView start = (TextView)myRow.findViewById(R.id.startTextView);
-        start.setText(new SimpleDateFormat("dd-MM-yyyy").format(planningSteps.get(position).getStartDate()));
+        TextView start = (TextView)myRow.findViewById(R.id.durationNrTextView);
+        start.setText(planningSteps.get(position).getTimeUnitNumber());
 
-        TextView end = (TextView)myRow.findViewById(R.id.endTextView);
-        end.setText(new SimpleDateFormat("dd-MM-yyyy").format(planningSteps.get(position).getEndDate()));
+        TextView end = (TextView)myRow.findViewById(R.id.durationTextView);
+        end.setText(planningSteps.get(position).getTimeUnitId());
         return myRow;
     }
 }

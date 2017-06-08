@@ -11,16 +11,6 @@ import com.example.lorena.challengifier.activities.challenge.ChallengeListActivi
 import com.example.lorena.challengifier.activities.objective.AddObjectiveActivity;
 import com.example.lorena.challengifier.activities.objective.ObjectiveListActivity;
 import com.example.lorena.challengifier.activities.user.MyPerformancesActivity;
-import com.example.lorena.challengifier.models.Objective;
-import com.example.lorena.challengifier.services.ObjectiveService;
-import com.example.lorena.challengifier.services.external.RetrofitService;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -55,7 +45,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        final Button buttonMyStats = (Button) findViewById(R.id.buttonMyPerformances);
+        final Button buttonMyStats = (Button) findViewById(R.id.AddChallengeID);
         buttonMyStats.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MyPerformancesActivity.class);

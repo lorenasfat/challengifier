@@ -15,11 +15,12 @@ public class Objective implements Serializable {
     private Date Deadline;
     private String ExpectedOutcome;
     private UUID ChallengeId;
-    private String Status;
+    private int Status;
     private Date StartDate;
     private Date EndDate;
-    private UUID UserId;
+    private String UserId;
     private double Grade;
+    private int Progress;
 
     public double getGrade() {
         return Grade;
@@ -65,6 +66,14 @@ public class Objective implements Serializable {
         return ExpectedOutcome;
     }
 
+    public int getProgress() {
+        return Progress;
+    }
+
+    public void setProgress(int progress) {
+        Progress = progress;
+    }
+
     public void setExpectedOutcome(String expectedOutcome) {
         this.ExpectedOutcome = expectedOutcome;
     }
@@ -77,11 +86,11 @@ public class Objective implements Serializable {
         this.ChallengeId = challengeId;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return Status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.Status = status;
     }
 
@@ -101,11 +110,11 @@ public class Objective implements Serializable {
         this.EndDate = endDate;
     }
 
-    public UUID getUserId() {
+    public String getUserId() {
         return UserId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.UserId = userId;
     }
 }

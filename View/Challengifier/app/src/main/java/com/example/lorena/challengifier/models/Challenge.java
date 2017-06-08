@@ -1,7 +1,6 @@
 package com.example.lorena.challengifier.models;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,48 +9,58 @@ import java.util.UUID;
  */
 
 public class Challenge implements Serializable {
-    private UUID id;
-    private String description;
-    private String title;
-    private Date suggestedDeadline;
-    private List<PlanningStep> planningSteps;
+    private UUID Id;
+    private String Name;
+    private String Description;
+    private String Suggested_Time_UnitsId;
+    private int Suggested_Time_Number;
+    private List<PlanningStep> PlanningSteps;
 
     public List<PlanningStep> getPlanningSteps() {
-        return planningSteps;
+        return PlanningSteps;
     }
 
     public void setPlanningSteps(List<PlanningStep> planningSteps) {
-        this.planningSteps = planningSteps;
-    }
-
-    public Date getSuggestedDeadline() {
-        return suggestedDeadline;
-    }
-
-    public void setSuggestedDeadline(Date suggestedDeadline) {
-        this.suggestedDeadline = suggestedDeadline;
+        this.PlanningSteps = planningSteps;
     }
 
     public UUID getId() {
-        return id;
+        return Id;
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        Id = id;
     }
+
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        Description = description;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return Name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getSuggested_Time_UnitsId() {
+        return Suggested_Time_UnitsId;
+    }
+
+    public void setSuggested_Time_UnitsId(String suggested_Time_UnitsId) {
+        Suggested_Time_UnitsId = suggested_Time_UnitsId;
+    }
+
+    public int getSuggested_Time_Number() {
+        return Suggested_Time_Number;
+    }
+
+    public void setSuggested_Time_Number(int suggested_Time_Number) {
+        Suggested_Time_Number = suggested_Time_Number;
     }
 }

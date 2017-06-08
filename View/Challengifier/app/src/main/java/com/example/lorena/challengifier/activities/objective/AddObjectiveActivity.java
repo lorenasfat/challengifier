@@ -14,13 +14,11 @@ import android.widget.Toast;
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.models.Objective;
-import com.example.lorena.challengifier.services.business.services.Validation;
+import com.example.lorena.challengifier.services.business.services.Validator;
 import com.example.lorena.challengifier.utils.constants.ErrorMessages;
-import com.example.lorena.challengifier.utils.constants.ObjectiveStatus;
-import com.example.lorena.challengifier.utils.temp.ObjectiveGenerator;
+import com.example.lorena.challengifier.utils.constants.ObjectiveHelper;
 import com.example.lorena.challengifier.utils.tools.DateFormatter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,8 +35,8 @@ public class AddObjectiveActivity extends AppCompatActivity {
 
         //populate dropdown
         Spinner dropdown = (Spinner) findViewById(R.id.spinnerObjectiveStatus);
-        String[] items = new String[]{ObjectiveStatus.NOT_STARTED, ObjectiveStatus.ONGOING};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,
+                ObjectiveHelper.getStatusesForDisplay());
         dropdown.setAdapter(adapter);
         final Context context = this.getBaseContext();
 
@@ -51,9 +49,9 @@ public class AddObjectiveActivity extends AppCompatActivity {
         final EditText editTextExpectedOutcome = (EditText) findViewById(R.id.editTextExpectedOutcome);
         final Spinner spinnerObjectiveStatus = (Spinner) findViewById(R.id.spinnerObjectiveStatus);
         if (challenge != null) {
-            editTextName.setText(challenge.getTitle());
+            editTextName.setText(challenge.getName());
             editTextDescription.setText(challenge.getDescription());
-            editTextDeadline.setText(new SimpleDateFormat("dd-MM-yyyy").format(challenge.getSuggestedDeadline()));
+            editTextDeadline.setText(new SimpleDateFormat("dd-MM-yyyy").format(challenge.getSuggested_Time_Number()));
         }
 
         Button save = (Button) findViewById(R.id.buttonEditObjective);
@@ -67,19 +65,19 @@ public class AddObjectiveActivity extends AppCompatActivity {
                 Date deadlineDate = new Date();
 
                 boolean ok = true;
-                if (Validation.isEmpty(title)) {
-                    editTextName.setError(ErrorMessages.NOT_EMPTY);
+                if (Validator.isEmpty(title)) {
+                    editTextName.setError(ErrorMessages.EMPTY);
                     ok = false;
                 }
-                if (Validation.isEmpty(description)) {
-                    editTextDescription.setError(ErrorMessages.NOT_EMPTY);
+                if (Validator.isEmpty(description)) {
+                    editTextDescription.setError(ErrorMessages.EMPTY);
                     ok = false;
                 }
-                if (Validation.isEmpty(deadline)) {
-                    editTextDeadline.setError(ErrorMessages.NOT_EMPTY);
+                if (Validator.isEmpty(deadline)) {
+                    editTextDeadline.setError(ErrorMessages.EMPTY);
                     ok = false;
                 }
-                if (!Validation.isDate(deadline)) {
+                if (!Validator.isDate(deadline)) {
                     editTextDeadline.setError(ErrorMessages.WRONG_DATE_FORMAT);
                     ok = false;
                 } else {
@@ -94,13 +92,13 @@ public class AddObjectiveActivity extends AppCompatActivity {
                     if(challenge!=null)
                         objective.setChallengeId(challenge.getId());
 
-                    try {
+                    /*try {
                         ObjectiveGenerator.setObjectives();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     ObjectiveGenerator.addObjective(objective);
-
+*/
                     Toast.makeText(v.getContext(), "All set!", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(v.getContext(), ObjectiveListActivity.class);

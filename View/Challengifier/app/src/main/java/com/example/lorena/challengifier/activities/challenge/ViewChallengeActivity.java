@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,16 +16,15 @@ import com.example.lorena.challengifier.activities.objective.AddObjectiveActivit
 import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.models.PlanningStep;
 import com.example.lorena.challengifier.utils.PlanningStepListAdapter;
-import com.example.lorena.challengifier.utils.temp.ChallengeGenerator;
-import com.example.lorena.challengifier.utils.temp.PlanningStepGenerator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewChallengeActivity extends AppCompatActivity {
     PlanningStepListAdapter listAdapter;
-    List<PlanningStep> planningSteps = PlanningStepGenerator.getPlanningSteps();
+    List<PlanningStep> planningSteps= new ArrayList<>();
     Activity activity;
 
     public ViewChallengeActivity() throws ParseException {
@@ -43,13 +41,13 @@ public class ViewChallengeActivity extends AppCompatActivity {
         final Challenge challenge = (Challenge)intent.getSerializableExtra("ViewChallenge");
 
         TextView title = (TextView)findViewById(R.id.textViewChallengeTitle);
-        title.setText(challenge.getTitle());
+        title.setText(challenge.getName());
 
         TextView description = (TextView)findViewById(R.id.textViewChallengeDescription);
         description.setText(challenge.getDescription());
 
         TextView deadline = (TextView)findViewById(R.id.textViewChallengeDeadline);
-        deadline.setText(new SimpleDateFormat("dd-MM-yyyy").format(challenge.getSuggestedDeadline()));
+        deadline.setText(new SimpleDateFormat("dd-MM-yyyy").format(challenge.getSuggested_Time_Number()));
 
         listAdapter = new PlanningStepListAdapter(this.getBaseContext());
         listAdapter.setPlanningSteps(planningSteps);

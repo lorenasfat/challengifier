@@ -20,7 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_more"
+        android:id="@+id/imageViewMore"
         android:layout_alignTop="@+id/textViewTitle"
         android:layout_alignParentEnd="true"
-        android:id="@+id/imageViewMore" />
+        android:layout_marginEnd="26dp" />
 </RelativeLayout>

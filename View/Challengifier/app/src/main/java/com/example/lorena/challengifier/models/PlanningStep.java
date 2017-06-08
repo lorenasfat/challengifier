@@ -1,7 +1,6 @@
 package com.example.lorena.challengifier.models;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -9,58 +8,58 @@ import java.util.UUID;
  */
 
 public class PlanningStep implements Serializable {
-    private UUID id;
-    private Date startDate;
-    private Date endDate;
-    private String name;
-    private String description;
-    private UUID challengeId;
+    private UUID Id;
+    private String Name;
+    private String Description;
+    private UUID ChallengeId;
+    private String TimeUnitId;
+    private int TimeUnitNumber;
+
+    public String getTimeUnitId() {
+        return TimeUnitId;
+    }
+
+    public void setTimeUnitId(String timeUnitId) {
+        TimeUnitId = timeUnitId;
+    }
+
+    public int getTimeUnitNumber() {
+        return TimeUnitNumber;
+    }
+
+    public void setTimeUnitNumber(int timeUnitNumber) {
+        TimeUnitNumber = timeUnitNumber;
+    }
 
     public UUID getId() {
-        return id;
+        return Id;
     }
 
     public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+        this.Id = id;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = description;
     }
 
     public UUID getChallengeId() {
-        return challengeId;
+        return ChallengeId;
     }
 
     public void setChallengeId(UUID challengeId) {
-        this.challengeId = challengeId;
+        this.ChallengeId = challengeId;
     }
 }

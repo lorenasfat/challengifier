@@ -9,17 +9,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.lorena.challengifier.R;
-import com.example.lorena.challengifier.activities.challenge.ViewChallengeActivity;
-import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.models.Objective;
-import com.example.lorena.challengifier.services.ObjectiveService;
-import com.example.lorena.challengifier.services.external.RetrofitService;
-import com.example.lorena.challengifier.utils.ChallengeListAdapter;
+import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ObjectiveService;
+import com.example.lorena.challengifier.services.external.services.RetrofitService;
 import com.example.lorena.challengifier.utils.ObjectiveListAdapter;
-import com.example.lorena.challengifier.utils.temp.ObjectiveGenerator;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,15 +34,8 @@ public class ObjectiveListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_objective_list);
         activity = this;
-        listAdapter = new ObjectiveListAdapter(this.getBaseContext(),objectives);
+        listAdapter = new ObjectiveListAdapter(this.getBaseContext(), objectives);
 
-        /*try {
-            ObjectiveGenerator.setObjectives();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        objectives = ObjectiveGenerator.getObjectives();
-*/
         Retrofit retrofit = RetrofitService.getRetrofit();
         ObjectiveService service = retrofit.create(ObjectiveService.class);
         Call<List<Objective>> call = service.listObjectives();
@@ -59,7 +46,6 @@ public class ObjectiveListActivity extends AppCompatActivity {
                     objectives.addAll(response.body());
                     listAdapter.notifyDataSetChanged();
                     // The network call was a success and we got a response
-                    // TODO: use the repository list and display it
                 }
 
                 @Override
@@ -72,14 +58,6 @@ public class ObjectiveListActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /*List<Objective> objectives = null;
-        try {
-            objectives = call.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-
 
         ListView list = (ListView) findViewById(R.id.objectiveList);
 

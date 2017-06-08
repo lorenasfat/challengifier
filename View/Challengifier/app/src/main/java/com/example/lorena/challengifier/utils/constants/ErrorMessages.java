@@ -5,6 +5,6 @@ package com.example.lorena.challengifier.utils.constants;
  */
 
 public class ErrorMessages {
-    public static final String NOT_EMPTY="Field cannot be empty";
+    public static final String EMPTY ="Field cannot be empty";
     public static final String WRONG_DATE_FORMAT="Wrong date format";
 }
