@@ -1,4 +1,4 @@
-package com.example.lorena.challengifier.utils;
+package com.example.lorena.challengifier.utils.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,47 +10,59 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.lorena.challengifier.R;
-import com.example.lorena.challengifier.models.Objective;
+import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Lorena on 11.01.2017.
+ * Created by Lorena on 02.12.2016.
  */
 
-public class ObjectiveListAdapter extends BaseAdapter implements Filterable {
-
-    List<Objective> objectives = new ArrayList<>();
+public class ChallengeListAdapter extends BaseAdapter implements Filterable {
+    List<Challenge> challenges;
     private Context context;
 
-    public ObjectiveListAdapter(Context context, List<Objective> objectives) {
+    public ChallengeListAdapter(Context context) {
         this.context = context;
-        this.objectives = objectives;
     }
 
-    public List<Objective> getObjectives() {
-        return objectives;
+    public List<Challenge> getChallenges() {
+        return challenges;
     }
 
-    public void setObjectives(List<Objective> objectives) {
-        this.objectives = objectives;
+    public void setChallenges(List<Challenge> challenges) {
+        this.challenges = challenges;
     }
 
     @Override
     public int getCount() {
-        return objectives.size();
+        return challenges.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return objectives.get(position);
+        return challenges.get(position);
     }
 
     @Override
     public long getItemId(int position) {
         return 0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // get a reference to the LayoutInflater service
+        LayoutInflater inflater =
+                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        // check if we can reuse a previously defined cell which now is not visible anymore
+        View myRow = inflater.inflate(R.layout.challenge_item, parent, false);
+        // get the visual elements and update them with the information from the model
+        TextView title = (TextView)myRow.findViewById(R.id.textViewTitle);
+        title.setText(challenges.get(position).getName());
+
+        return myRow;
     }
 
     @Override
@@ -61,13 +73,13 @@ public class ObjectiveListAdapter extends BaseAdapter implements Filterable {
                 FilterResults results = new FilterResults();
                 if (constraint == null || constraint.length() == 0) {
 // No filter implemented we return all the list
-                    objectives = FlowAids.ObjectivesBackup;
-                    results.values = objectives;
-                    results.count = objectives.size();
+                    challenges = FlowAids.ChallengesBackup;
+                    results.values = challenges;
+                    results.count = challenges.size();
                 }
                 else{
-                    ArrayList<Objective> searched = new ArrayList<>();
-                    for (Objective o : objectives) {
+                    ArrayList<Challenge> searched = new ArrayList<>();
+                    for (Challenge o : challenges) {
                         if (o.getName().toUpperCase().startsWith(constraint.toString().toUpperCase()))
                             searched.add(o);
                     }
@@ -83,28 +95,10 @@ public class ObjectiveListAdapter extends BaseAdapter implements Filterable {
                 if (results.count == 0)
                     notifyDataSetInvalidated();
                 else {
-                    objectives = (List<Objective>)results.values;
+                    challenges = (List<Challenge>)results.values;
                     notifyDataSetChanged();
                 }
             }
         };
     }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // get a reference to the LayoutInflater service
-        LayoutInflater inflater =
-                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        // check if we can reuse a previously defined cell which now is not visible anymore
-        View myRow = (convertView == null) ?
-                inflater.inflate(R.layout.objective_item, parent, false) : convertView;
-        // get the visual elements and update them with the information from the model
-        TextView title = (TextView) myRow.findViewById(R.id.textViewObjectiveTitle);
-        title.setText(objectives.get(position).getName());
-
-        return myRow;
-    }
-
-
 }
-

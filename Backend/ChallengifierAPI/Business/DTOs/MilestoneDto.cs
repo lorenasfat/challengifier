@@ -14,5 +14,6 @@ namespace Business.DTOs
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Guid ObjectiveId { get; set; }
+        public Guid? PlanningStepId { get; set; }
     }
 }

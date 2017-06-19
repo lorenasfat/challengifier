@@ -15,7 +15,7 @@ import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.Objective;
 import com.example.lorena.challengifier.services.api.services.ApiObjectiveService;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ObjectiveService;
-import com.example.lorena.challengifier.utils.ObjectiveListAdapter;
+import com.example.lorena.challengifier.utils.adapters.ObjectiveListAdapter;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.hwangjr.rxbus.RxBus;
 

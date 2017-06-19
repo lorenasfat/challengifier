@@ -8,67 +8,67 @@ import java.util.UUID;
  */
 
 public class Milestone {
-    private UUID id;
-    private String name;
-    private String description;
-    private Date startDate;
-    private Date endDate;
-    private UUID objectiveId;
-    private UUID planningStepId;
+    private UUID Id;
+    private String Name;
+    private String Description;
+    private Date StartDate;
+    private Date EndDate;
+    private UUID ObjectiveId;
+    private UUID PlanningStepId;
 
     public void setObjectiveId(UUID objectiveId) {
-        this.objectiveId = objectiveId;
+        this.ObjectiveId = objectiveId;
     }
 
     public UUID getPlanningStepId() {
-        return planningStepId;
+        return PlanningStepId;
     }
 
     public void setPlanningStepId(UUID planningStepId) {
-        this.planningStepId = planningStepId;
+        this.PlanningStepId = planningStepId;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = description;
     }
 
     public UUID getId() {
-        return id;
+        return Id;
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     public Date getStartDate() {
-        return startDate;
+        return StartDate;
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.StartDate = startDate;
     }
 
     public Date getEndDate() {
-        return endDate;
+        return EndDate;
     }
 
     public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+        this.EndDate = endDate;
     }
 
     public UUID getObjectiveId() {
-        return objectiveId;
+        return ObjectiveId;
     }
 }

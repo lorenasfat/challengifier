@@ -83,7 +83,7 @@
     <Property Name="StartDate" Type="date" Nullable="false" />
     <Property Name="EndDate" Type="date" Nullable="false" />
     <Property Name="Objective_ID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="PlanningStep_ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PlanningStep_ID" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="Objective">
     <Key>
@@ -189,7 +189,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Milestone__PlanningStep">
-    <End Role="PlanningStep" Type="Self.PlanningStep" Multiplicity="1" />
+    <End Role="PlanningStep" Type="Self.PlanningStep" Multiplicity="0..1" />
     <End Role="Milestone" Type="Self.Milestone" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PlanningStep">

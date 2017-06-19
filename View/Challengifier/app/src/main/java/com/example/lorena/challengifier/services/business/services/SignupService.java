@@ -22,7 +22,7 @@ public class SignupService {
         SignupUser signupUser = new SignupUser();
         signupUser.setPassword(password);
         signupUser.setEmail(userName);
-        Call<ResponseBody> call = service.login(signupUser);
+        Call<ResponseBody> call = service.register(signupUser);
         boolean isLoggedIn = false;
         try {
             Response<ResponseBody> response = call.execute();

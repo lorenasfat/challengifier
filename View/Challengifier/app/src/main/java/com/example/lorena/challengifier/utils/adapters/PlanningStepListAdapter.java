@@ -1,4 +1,4 @@
-package com.example.lorena.challengifier.utils;
+package com.example.lorena.challengifier.utils.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

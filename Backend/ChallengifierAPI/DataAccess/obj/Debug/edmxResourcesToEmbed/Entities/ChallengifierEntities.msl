@@ -81,19 +81,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Milestone">
-      <EntityTypeMapping TypeName="ChallengifierModel1.Milestone">
-        <MappingFragment StoreEntitySet="Milestone">
-          <ScalarProperty Name="PlanningStep_ID" ColumnName="PlanningStep_ID" />
-          <ScalarProperty Name="Objective_ID" ColumnName="Objective_ID" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Milestone_ID" ColumnName="Milestone_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Objective">
       <EntityTypeMapping TypeName="ChallengifierModel1.Objective">
         <MappingFragment StoreEntitySet="Objective">
@@ -211,6 +198,19 @@
         <MappingFragment StoreEntitySet="TimeUnits">
           <ScalarProperty Name="NamePlural" ColumnName="NamePlural" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Milestone">
+      <EntityTypeMapping TypeName="ChallengifierModel1.Milestone">
+        <MappingFragment StoreEntitySet="Milestone">
+          <ScalarProperty Name="PlanningStep_ID" ColumnName="PlanningStep_ID" />
+          <ScalarProperty Name="Objective_ID" ColumnName="Objective_ID" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Milestone_ID" ColumnName="Milestone_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

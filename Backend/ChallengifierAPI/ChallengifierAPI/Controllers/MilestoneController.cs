@@ -1,6 +1,7 @@
 ﻿using Business.DTOs;
 using Business.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -65,13 +66,13 @@ namespace ChallengifierAPI.Controllers
 
         [HttpGet]
         [ActionName("all")]
-        public HttpResponseMessage GetMilestones()
+        public HttpResponseMessage GetMilestones([FromUri]Guid id)
         {
             try
             {
-                var milestones = _milestoneService.GetAllMilestones();
+                var milestones = _milestoneService.GetAllMilestones(id);
                 if (milestones == null)
-                    return Request.CreateResponse(HttpStatusCode.OK, "No entries!");
+                    return Request.CreateResponse(HttpStatusCode.OK, new List<MilestoneDto>());
 
                 return Request.CreateResponse(HttpStatusCode.OK, milestones);
             }

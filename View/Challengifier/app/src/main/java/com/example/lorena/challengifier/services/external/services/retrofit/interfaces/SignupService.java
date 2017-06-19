@@ -14,6 +14,6 @@ import retrofit2.http.POST;
 
 public interface SignupService {
     @Headers("Content-type: application/json")
-    @POST("account/login")
-    Call<ResponseBody> login(@Body SignupUser user);
+    @POST("account/register")
+    Call<ResponseBody> register(@Body SignupUser user);
 }

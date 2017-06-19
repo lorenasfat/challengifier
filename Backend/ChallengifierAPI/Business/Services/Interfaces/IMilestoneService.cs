@@ -10,7 +10,7 @@ namespace Business.Services.Interfaces
         void AddMilestone(MilestoneDto milestone);
         void DeleteMilestone(Guid id);
         void UpdateMilestone(MilestoneDto milestone);
-        IEnumerable<Milestone> GetAllMilestones();
+        IEnumerable<MilestoneDto> GetAllMilestones(Guid objectiveId);
         Milestone GetMilestoneById(Guid id);
         //TODO
         //IEnumerable<Milestone> GetAllMilestonesForUser(Guid userId);

@@ -1,4 +1,7 @@
-﻿using Business.DTOs;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net.NetworkInformation;
+using Business.DTOs;
 using DataAccess.Entities;
 
 namespace Business.Mappers
@@ -16,6 +19,22 @@ namespace Business.Mappers
                 Objective_ID = milestone.ObjectiveId,
                 StartDate = milestone.StartDate,
             };
+        }
+
+        public static IEnumerable<MilestoneDto> ToDtos(this IEnumerable<Milestone> milestones)
+        {
+            var mils = milestones.Select(m => new MilestoneDto()
+            {
+                StartDate = m.StartDate,
+                Id = m.Milestone_ID,
+                EndDate = m.EndDate,
+                Name = m.Name,
+                Description = m.Description,
+                ObjectiveId = m.Objective_ID,
+                PlanningStepId = m.PlanningStep_ID
+            });
+
+            return mils;
         }
     }
 }

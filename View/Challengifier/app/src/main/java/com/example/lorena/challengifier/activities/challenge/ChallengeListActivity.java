@@ -1,28 +1,14 @@
 package com.example.lorena.challengifier.activities.challenge;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.support.v7.app.AppCompatActivity;
 
-import com.example.lorena.challengifier.services.api.services.ApiChallengeService;
-import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ChallengeService;
-import com.example.lorena.challengifier.services.external.services.RetrofitService;
-import com.example.lorena.challengifier.utils.ChallengeListAdapter;
-import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.Challenge;
+import com.example.lorena.challengifier.utils.adapters.ChallengeListAdapter;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class ChallengeListActivity extends AppCompatActivity {
     ChallengeListAdapter listAdapter;
@@ -35,7 +21,7 @@ public class ChallengeListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_challenge_list);
+        /*setContentView(R.layout.activity_challenge_list);
         activity = this;
 
         challenges = new ArrayList<Challenge>();
@@ -88,8 +74,6 @@ public class ChallengeListActivity extends AppCompatActivity {
                 intent.putExtra("ViewChallenge", (Challenge)list.getSelectedItem());
                 startActivityForResult(intent,0);
             }
-        }*/);
+        }*///);
     }
-
-
 }

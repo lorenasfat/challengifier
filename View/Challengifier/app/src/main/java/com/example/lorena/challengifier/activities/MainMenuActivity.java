@@ -1,23 +1,14 @@
 package com.example.lorena.challengifier.activities;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
-import com.example.lorena.challengifier.R;
-import com.example.lorena.challengifier.activities.challenge.ChallengeListActivity;
-import com.example.lorena.challengifier.activities.objective.AddObjectiveActivity;
-import com.example.lorena.challengifier.activities.objective.ObjectiveListActivity;
-import com.example.lorena.challengifier.activities.user.MyPerformancesActivity;
+import android.support.v7.app.AppCompatActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
+        /*setContentView(R.layout.activity_main_menu);
 
         final Button button = (Button) findViewById(R.id.buttonViewChallenges);
         button.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +42,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), MyPerformancesActivity.class);
                 startActivityForResult(intent,0);
             }
-        });
+        });*/
     }
 }

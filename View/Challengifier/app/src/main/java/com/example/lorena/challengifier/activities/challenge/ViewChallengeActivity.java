@@ -12,10 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
-import com.example.lorena.challengifier.activities.objective.AddObjectiveActivity;
 import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.models.PlanningStep;
-import com.example.lorena.challengifier.utils.PlanningStepListAdapter;
+import com.example.lorena.challengifier.utils.adapters.PlanningStepListAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,9 +62,9 @@ public class ViewChallengeActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 Toast.makeText(context, "Challenge accepted!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(activity, AddObjectiveActivity.class);
-                intent.putExtra("AcceptChallenge", challenge);
-                startActivity(intent);
+                //Intent intent = new Intent(activity, AddObjectiveActivity.class);
+                //intent.putExtra("AcceptChallenge", challenge);
+                //startActivity(intent);
             }
         });
     }

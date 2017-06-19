@@ -5,6 +5,7 @@ using DataAccess.Entities;
 using DataAccess.UnitOfWork;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Services
 {
@@ -52,9 +53,10 @@ namespace Business.Services
             _unitOfWork.Dispose();
         }
 
-        public IEnumerable<Milestone> GetAllMilestones()
+        public IEnumerable<MilestoneDto> GetAllMilestones(Guid objectiveId)
         {
-            return _unitOfWork.MilestoneRepository.All();
+            var milestones = _unitOfWork.MilestoneRepository.All().Where(m => m.Objective_ID == objectiveId);
+            return milestones.ToDtos();
         }
 
         public Milestone GetMilestoneById(Guid id)

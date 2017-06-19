@@ -28,8 +28,8 @@ namespace DataAccess.Entities
         public Nullable<int> Duration_TimeNumber { get; set; }
     
         public virtual Challenge Challenge { get; set; }
+        public virtual TimeUnits TimeUnits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Milestone> Milestone { get; set; }
-        public virtual TimeUnits TimeUnits { get; set; }
     }
 }

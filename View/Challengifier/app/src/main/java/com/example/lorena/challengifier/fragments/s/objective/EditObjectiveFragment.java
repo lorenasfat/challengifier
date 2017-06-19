@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
@@ -31,6 +32,7 @@ import retrofit2.Response;
 
 public class EditObjectiveFragment extends Fragment {
     public static final String SHOW_SCREEN = "EDIT_OBJECTIVE_FRAGMENT_TAG";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class EditObjectiveFragment extends Fragment {
         //dropdown.setSelection(editObjective.getStatus());
 
         //final int progress = 0;
-        final DiscreteSeekBar slider = (DiscreteSeekBar)view.findViewById(R.id.slider);
+        final DiscreteSeekBar slider = (DiscreteSeekBar) view.findViewById(R.id.slider);
         slider.setMax(10);
         slider.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
             @Override
@@ -72,10 +74,21 @@ public class EditObjectiveFragment extends Fragment {
             }
         });
 
+        ImageView viewMilestones = (ImageView) view.findViewById(R.id.imageViewMilestones);
         final EditText editTextName = (EditText) view.findViewById(R.id.editTextName);
         final EditText editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
         final EditText editTextDeadline = (EditText) view.findViewById(R.id.editTextDeadline);
-        final EditText editTextExpectedOutcome = (EditText) view.findViewById(R.id.editTextExpectedOutcome);
+        final EditText editTextExpectedOutcome = (EditText) view.findViewById(R.id.editText);
+
+        viewMilestones.setClickable(true);
+        viewMilestones.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        RxBus.get().post(MilestoneListFragment.SHOW_SCREEN, true);
+                    }
+                }
+        );
         if (editObjective != null) {
             editTextName.setText(editObjective.getName());
             editTextDescription.setText(editObjective.getDescription());
@@ -123,7 +136,7 @@ public class EditObjectiveFragment extends Fragment {
                             @Override
                             public void onResponse(Call<Objective> call, Response<Objective> response) {
                                 Toast.makeText(getActivity().getApplicationContext(), "All set!", Toast.LENGTH_LONG).show();
-                                RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN,true);
+                                RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
                                 // The network call was a success and we got a response
                             }
 

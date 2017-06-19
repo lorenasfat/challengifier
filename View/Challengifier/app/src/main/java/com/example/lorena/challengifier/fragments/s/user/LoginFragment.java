@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.MainMenuFragment;
@@ -38,7 +39,7 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor> {
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
+    public static final String SHOW_SCREEN = "LOGIN_FRAGMENT_TAG";
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -241,7 +242,7 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                //Toast.makeText(App.getContext(), "Welcome, " + SessionUser.getCurrentUser() + "!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Welcome, challenger!", Toast.LENGTH_LONG).show();
                 RxBus.get().post(MainMenuFragment.SHOW_SCREEN,success);
 
             }

@@ -17,9 +17,9 @@ namespace DataAccess.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Objective()
         {
-            this.Milestone = new HashSet<Milestone>();
             this.UserRating = new HashSet<UserRating>();
             this.Picture = new HashSet<Picture>();
+            this.Milestone = new HashSet<Milestone>();
         }
     
         public System.Guid Objective_ID { get; set; }
@@ -37,12 +37,12 @@ namespace DataAccess.Entities
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Milestone> Milestone { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRating> UserRating { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Picture> Picture { get; set; }
         public virtual ObjectiveStatus ObjectiveStatus { get; set; }
         public virtual Challenge Challenge { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Milestone> Milestone { get; set; }
     }
 }

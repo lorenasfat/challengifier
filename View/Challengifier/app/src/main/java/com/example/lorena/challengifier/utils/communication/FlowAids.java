@@ -13,4 +13,5 @@ public class FlowAids {
     public static Objective ObjectiveToEdit = null;
     public static Challenge ChallengeToAddAsObjective = null;
     public static List<Objective> ObjectivesBackup = null;
+    public static List<Challenge> ChallengesBackup = null;
 }
