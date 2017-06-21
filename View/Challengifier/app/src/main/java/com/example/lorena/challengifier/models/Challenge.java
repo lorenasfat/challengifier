@@ -13,8 +13,17 @@ public class Challenge implements Serializable {
     private String Name;
     private String Description;
     private String Suggested_Time_UnitsId;
+    private String User_Id;
     private int Suggested_Time_Number;
     private List<PlanningStep> PlanningSteps;
+
+    public String getUser_Id() {
+        return User_Id;
+    }
+
+    public void setUser_Id(String user_Id) {
+        User_Id = user_Id;
+    }
 
     public List<PlanningStep> getPlanningSteps() {
         return PlanningSteps;

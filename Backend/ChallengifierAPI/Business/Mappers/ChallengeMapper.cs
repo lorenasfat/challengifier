@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Business.DTOs;
 using DataAccess.Entities;
+using System;
 
 namespace Business.Mappers
 {
@@ -16,7 +17,8 @@ namespace Business.Mappers
                 Description = challenge.Description,
                 Name = challenge.Name,
                 Suggested_Time_Number = challenge.Suggested_Time_Number,
-                Suggested_Time_UnitsId = challenge.Suggested_Time_UnitsId
+                Suggested_Time_UnitsId = challenge.Suggested_Time_UnitsId,
+                User_ID = challenge.User_Id
             };
         }
 
@@ -29,15 +31,7 @@ namespace Business.Mappers
                 Id = c.Challenge_ID,
                 Suggested_Time_UnitsId = c.Suggested_Time_UnitsId,
                 Suggested_Time_Number = c.Suggested_Time_Number,
-                PlanningSteps = c.PlanningStep.Select(p => new PlanningStepDto()
-                {
-                    ChallengeId = p.Challenge_ID,
-                    Description = p.Description,
-                    Id = p.PlanningStep_ID,
-                    Name = p.Name,
-                    TimeUnitId = p.Duration_TimeUnitId,
-                    TimeUnitNumber = p.Duration_TimeNumber
-                })
+                User_Id = c.User_ID,
             });
             return dtos;
         }

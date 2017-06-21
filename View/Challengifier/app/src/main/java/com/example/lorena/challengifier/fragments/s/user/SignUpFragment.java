@@ -3,6 +3,7 @@ package com.example.lorena.challengifier.fragments.s.user;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,8 @@ public class SignUpFragment extends Fragment {
         mEmailView = (EditText) view.findViewById(R.id.usernameField);
 
         mPasswordView = (EditText) view.findViewById(R.id.passwordField);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Sign up");
 
         Button mEmailSignInButton = (Button) view.findViewById(R.id.buttonSignUp);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {

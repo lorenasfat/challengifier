@@ -7,7 +7,8 @@ import java.text.SimpleDateFormat;
  */
 
 public class Validator {
-    static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
+    static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 
     public static boolean isEmpty(String input){
         if(input.isEmpty())
@@ -21,7 +22,13 @@ public class Validator {
             return true;
         }
         catch (Exception ex){
-            return false;
+            try{
+                sdf2.parse(input);
+                return true;
+            }
+            catch(Exception e){
+                return false;
+            }
         }
     }
 }

@@ -39,6 +39,8 @@ namespace Business.Services
                 if (dbChalenge != null)
                 {
                     _unitOfWork.ChallengeRepository.Delete(dbChalenge);
+                    _unitOfWork.ChallengeRepository.Save();
+                    _unitOfWork.Commit();
                 }
             }
             catch (Exception)
@@ -85,7 +87,7 @@ namespace Business.Services
                     _unitOfWork.Commit();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _unitOfWork.RollBack();
                 throw;
@@ -98,6 +100,7 @@ namespace Business.Services
             dbChallenge.Name = challenge.Name;
             dbChallenge.Suggested_Time_UnitsId = challenge.Suggested_Time_UnitsId;
             dbChallenge.Suggested_Time_Number = challenge.Suggested_Time_Number;
+            dbChallenge.User_ID = challenge.User_Id;
         }
     }
 }

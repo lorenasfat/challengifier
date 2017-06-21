@@ -1,4 +1,4 @@
-package com.example.lorena.challengifier.services.api.services;
+package com.example.lorena.challengifier.services.external.services.services;
 
 import com.example.lorena.challengifier.services.external.services.RetrofitService;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.SignupService;

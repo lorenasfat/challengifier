@@ -34,7 +34,7 @@ namespace ChallengifierAPI.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ActionName("delete")]
         public HttpResponseMessage DeleteMilestone(Guid id)
         {

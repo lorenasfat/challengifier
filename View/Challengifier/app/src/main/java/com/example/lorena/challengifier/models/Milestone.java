@@ -8,6 +8,11 @@ import java.util.UUID;
  */
 
 public class Milestone {
+
+    public Milestone(){
+        this.setId(UUID.randomUUID());
+    }
+
     private UUID Id;
     private String Name;
     private String Description;

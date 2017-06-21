@@ -1,6 +1,5 @@
 package com.example.lorena.challengifier.fragments.s.challenge;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.services.external.services.services.ApiChallengeService;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ChallengeService;
-import com.example.lorena.challengifier.utils.session.SessionUser;
+import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.hwangjr.rxbus.RxBus;
 import com.shawnlin.numberpicker.NumberPicker;
 
@@ -25,28 +24,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddChallengeFragment extends Fragment {
-    public static final String SHOW_SCREEN = "ADD_CHALLENGE_FRAGMENT_TAG";
+public class EditChallengeFragment extends Fragment {
+    public static final String SHOW_SCREEN = "EDIT_CHALLENGE_FRAGMENT_TAG";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_challenge, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Add challenge");
+        View view = inflater.inflate(R.layout.fragment_edit_challenge, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Edit challenge");
 
-        final TextView title = (TextView)view.findViewById(R.id.textViewChallengeTitle);
-        final TextView description = (TextView)view.findViewById(R.id.challengeDescription);
+        final Challenge editChallenge = FlowAids.ChallengeToEdit;
+
+        final EditText title = (EditText)view.findViewById(R.id.textViewChallengeTitle);
+        title.setText(editChallenge.getName());
+        final EditText description = (EditText)view.findViewById(R.id.challengeDescription);
+        description.setText(editChallenge.getDescription());
         final NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.number_picker);
+        numberPicker.setValue(editChallenge.getSuggested_Time_Number());
         final Spinner spinnerTimeUnits = (Spinner) view.findViewById(R.id.spinnerTimeUnit);
-
-        final Challenge challenge = new Challenge();
 
         List<String> list = new ArrayList<String>();
         list.add("day");
@@ -63,20 +65,19 @@ public class AddChallengeFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTimeUnits.setAdapter(adapter);
+        spinnerTimeUnits.setSelection(timeUnits.get(editChallenge.getSuggested_Time_UnitsId()));
 
-        Button save = (Button) view.findViewById(R.id.buttonAddChallenge);
+        Button save = (Button) view.findViewById(R.id.buttonEditChallenge);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                challenge.setDescription(description.getText().toString());
-                challenge.setName(title.getText().toString());
-                challenge.setSuggested_Time_Number(numberPicker.getValue());
-                challenge.setSuggested_Time_UnitsId(spinnerTimeUnits.getSelectedItem().toString());
-                challenge.setId(UUID.randomUUID());
-                challenge.setUser_Id(SessionUser.currentUser);
+                editChallenge.setDescription(description.getText().toString());
+                editChallenge.setName(title.getText().toString());
+                editChallenge.setSuggested_Time_Number(numberPicker.getValue());
+                editChallenge.setSuggested_Time_UnitsId(spinnerTimeUnits.getSelectedItem().toString());
 
                 ChallengeService service = ApiChallengeService.getService();
-                Call<Challenge> call = service.addChallenge(challenge);
+                Call<Challenge> call = service.editChallenge(editChallenge);
                 try {
                     call.enqueue(new Callback<Challenge>() {
                         @Override
@@ -98,7 +99,6 @@ public class AddChallengeFragment extends Fragment {
                 }
             }
         });
-
         return view;
     }
 

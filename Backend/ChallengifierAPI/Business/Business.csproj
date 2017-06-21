@@ -56,6 +56,7 @@
     <Compile Include="Mappers\MilestoneMapper.cs" />
     <Compile Include="Mappers\ObjectiveMapper.cs" />
     <Compile Include="Mappers\PictureMapper.cs" />
+    <Compile Include="Mappers\PlanningStepMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Mappers\UserRankMapper.cs" />
     <Compile Include="Mappers\UserRatingMapper.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Services\Interfaces\IObjectiveService.cs" />
     <Compile Include="Services\Interfaces\IPictureService.cs" />
     <Compile Include="Components\Interface\IUserRankComponent.cs" />
+    <Compile Include="Services\Interfaces\IPlanningStepService.cs" />
     <Compile Include="Services\Interfaces\IUserRatingService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\MailService.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="Services\ObjectiveService.cs" />
     <Compile Include="Services\PictureService.cs" />
     <Compile Include="Components\UserRankComponent.cs" />
+    <Compile Include="Services\PlanningStepService.cs" />
     <Compile Include="Services\UserRatingService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>

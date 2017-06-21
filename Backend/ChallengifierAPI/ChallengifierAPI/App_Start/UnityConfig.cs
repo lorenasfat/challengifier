@@ -26,7 +26,9 @@ namespace ChallengifierAPI
             container.RegisterType<IUserRatingService, UserRatingService>();
             container.RegisterType<IUserRankComponent, UserRankComponent>();
             container.RegisterType<IUserService, UserService>();
-            
+            container.RegisterType<IPlanningStepService, PlanningStepService>();
+
+
             //DB
             container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
             container.RegisterType<ChallengifierEntities1>(new HierarchicalLifetimeManager());

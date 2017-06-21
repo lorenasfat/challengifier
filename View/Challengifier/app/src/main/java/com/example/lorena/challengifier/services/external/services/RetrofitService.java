@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitService {
     private static Retrofit retrofit;
-    private static String baseUrl="http://192.168.1.6/ChallengifierAPI/api/";//"10.132.2.140";
+    private static String baseUrl="http://192.168.1.2/ChallengifierAPI/api/";//"10.132.2.140";
 
     public static Retrofit getRetrofit() {
         if(retrofit != null)

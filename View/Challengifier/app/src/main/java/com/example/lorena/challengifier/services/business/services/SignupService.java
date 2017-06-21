@@ -1,7 +1,7 @@
 package com.example.lorena.challengifier.services.business.services;
 
 import com.example.lorena.challengifier.models.SignupUser;
-import com.example.lorena.challengifier.services.api.services.ApiSignupService;
+import com.example.lorena.challengifier.services.external.services.services.ApiSignupService;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 
 import okhttp3.ResponseBody;

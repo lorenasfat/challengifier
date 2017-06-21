@@ -2,6 +2,7 @@ package com.example.lorena.challengifier.fragments.s.user;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class FrontScreenFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_front_screen, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Welcome");
 
         final Button button = (Button) view.findViewById(R.id.buttonLogin);
         button.setOnClickListener(new View.OnClickListener() {

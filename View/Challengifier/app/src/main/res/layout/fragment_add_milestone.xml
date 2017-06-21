@@ -1,0 +1,135 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lorena.challengifier.fragments.s.milestone.AddMilestoneFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="198dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Since:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="normal|bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/sinceInput"
+        app:layout_constraintTop_toBottomOf="@+id/milesoneDescription"
+        app:layout_constraintVertical_bias="0.688" />
+
+    <EditText
+        android:id="@+id/milestoneTitle"
+        android:layout_width="273dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:hint="Milestone title"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/milesoneDescription" />
+
+    <EditText
+        android:id="@+id/milesoneDescription"
+        android:layout_width="326dp"
+        android:layout_height="111dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:hint="Explicit description of your milestone."
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/sinceInput"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/sinceInput"
+        android:layout_width="183dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="29dp"
+        android:layout_marginRight="41dp"
+        android:ems="10"
+        android:hint="yyyy-MM-dd"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/untilInput"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/untilInput"
+        android:layout_width="188dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="134dp"
+        android:layout_marginRight="36dp"
+        android:ems="10"
+        android:hint="yyyy-MM-dd"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/untilText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="134dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Until:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="normal|bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.564"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/sinceInput"
+        app:layout_constraintTop_toBottomOf="@+id/addObjectiveDescription"
+        app:layout_constraintVertical_bias="0.028" />
+
+    <ImageView
+        android:id="@+id/linkToPLanningStep"
+        android:layout_width="94dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/untilText"
+        app:layout_constraintVertical_bias="0.509"
+        app:srcCompat="@drawable/link" />
+
+    <Button
+        android:id="@+id/buttonAddMilestone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Add Milestone"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.805"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/untilInput"
+        app:layout_constraintVertical_bias="0.894" />
+
+</android.support.constraint.ConstraintLayout>

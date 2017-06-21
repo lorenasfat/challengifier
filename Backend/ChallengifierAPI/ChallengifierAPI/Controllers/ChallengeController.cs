@@ -1,5 +1,6 @@
 ﻿using Business.DTOs;
 using Business.Services.Interfaces;
+using ChallengifierAPI.Infrastructure.Session;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -10,9 +11,12 @@ namespace ChallengifierAPI.Controllers
     public class ChallengeController : ApiController
     {
         private readonly IChallengeService _challengeService;
-        public ChallengeController(IChallengeService challengeService)
+        private readonly IUserService _userService;
+
+        public ChallengeController(IChallengeService challengeService, IUserService userService)
         {
             _challengeService = challengeService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -76,8 +80,10 @@ namespace ChallengifierAPI.Controllers
         {
             try
             {
+                challenge.User_Id = SessionState.LoggedInUser == null ? _userService.getUserByUsername(challenge.User_Id).AspNetUserId : SessionState.LoggedInUser.AspNetUserId;
+
                 _challengeService.AddChallenge(challenge);
-                return Request.CreateResponse(HttpStatusCode.Created, "Successfully added an objective!");
+                return Request.CreateResponse(HttpStatusCode.Created, challenge);
             }
             catch (Exception ex)
             {
@@ -92,7 +98,7 @@ namespace ChallengifierAPI.Controllers
             try
             {
                 _challengeService.UpdateChallenge(challenge);
-                return Request.CreateResponse(HttpStatusCode.OK, "Successfully updated an objective!");
+                return Request.CreateResponse(HttpStatusCode.OK, challenge);
             }
             catch (Exception ex)
             {
@@ -100,14 +106,14 @@ namespace ChallengifierAPI.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ActionName("delete")]
         public HttpResponseMessage DeleteChallenge(Guid id)
         {
             try
             {
                 _challengeService.DeleteChallenge(id);
-                return Request.CreateResponse(HttpStatusCode.Created, "Successfully deleted an objective!");
+                return Request.CreateResponse(HttpStatusCode.Created, "Successfully deleted a challenge!");
             }
             catch (Exception ex)
             {

@@ -14,9 +14,12 @@ import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.MainMenuFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.AddChallengeFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.ChallengeListFragment;
+import com.example.lorena.challengifier.fragments.s.challenge.EditChallengeFragment;
+import com.example.lorena.challengifier.fragments.s.challenge.ViewChallengeFragment;
+import com.example.lorena.challengifier.fragments.s.milestone.AddMilestoneFragment;
 import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragment;
 import com.example.lorena.challengifier.fragments.s.objective.EditObjectiveFragment;
-import com.example.lorena.challengifier.fragments.s.objective.MilestoneListFragment;
+import com.example.lorena.challengifier.fragments.s.milestone.MilestoneListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.ObjectiveListFragment;
 import com.example.lorena.challengifier.fragments.s.user.FrontScreenFragment;
 import com.example.lorena.challengifier.fragments.s.user.LoginFragment;
@@ -45,6 +48,16 @@ public class MainScreenActivity extends AppCompatActivity {
         mPlanetTitles.add("B");
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
+        /*ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        actionBar.setDisplayOptions(actionBar.getDisplayOptions()
+                | ActionBar.DISPLAY_SHOW_CUSTOM);
+        View v = inflator.inflate(R.layout.custom_actionbar_image, null);
+
+        actionBar.setCustomView(v);*/
+
+        this.getSupportActionBar().hide();
         // Set the adapter for the list view
         mDrawerList.setAdapter(new DrawerListAdapter(this, mPlanetTitles));
         // Set the list's click listener
@@ -98,10 +111,34 @@ public class MainScreenActivity extends AppCompatActivity {
                 .commit();
     }
 
+
+    @Subscribe(tags = @Tag(AddMilestoneFragment.SHOW_SCREEN))
+    public void showAddMilestoneFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new AddMilestoneFragment())
+                .addToBackStack(null)
+                .commit();
+    }
     @Subscribe(tags = @Tag(AddObjectiveFragment.SHOW_SCREEN))
     public void showAddObjectiveFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new AddObjectiveFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Subscribe(tags = @Tag(ViewChallengeFragment.SHOW_SCREEN))
+    public void showViewChallengeFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new ViewChallengeFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Subscribe(tags = @Tag(EditChallengeFragment.SHOW_SCREEN))
+    public void showEditChallengeFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new EditChallengeFragment())
                 .addToBackStack(null)
                 .commit();
     }

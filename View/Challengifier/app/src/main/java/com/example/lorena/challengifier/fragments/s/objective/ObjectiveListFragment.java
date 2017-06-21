@@ -2,19 +2,23 @@ package com.example.lorena.challengifier.fragments.s.objective;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.Objective;
-import com.example.lorena.challengifier.services.api.services.ApiObjectiveService;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ObjectiveService;
+import com.example.lorena.challengifier.services.external.services.services.ApiObjectiveService;
 import com.example.lorena.challengifier.utils.adapters.ObjectiveListAdapter;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.hwangjr.rxbus.RxBus;
@@ -22,6 +26,7 @@ import com.hwangjr.rxbus.RxBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,6 +42,7 @@ public class ObjectiveListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_objective_list, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Objectives");
 
         listAdapter = new ObjectiveListAdapter(getActivity().getApplicationContext(), objectives);
 
@@ -99,4 +105,42 @@ public class ObjectiveListFragment extends Fragment {
 
         return view;
     }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0, v.getId(), 0, "DELETE");
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        if(item.getTitle()=="DELETE"){
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            Objective obj = (Objective)listAdapter.getItem(info.position);
+
+            ObjectiveService service = ApiObjectiveService.getService();
+            Call<ResponseBody> call = service.deleteObjective(obj.getId());
+            try {
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Objective deleted!", Toast.LENGTH_LONG).show();
+                        RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
+                        // The network call was a success and we got a response
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Oops! :(", Toast.LENGTH_LONG).show();
+                        // the network call was a failure
+                        // TODO: handle error
+                        t.printStackTrace();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
 }

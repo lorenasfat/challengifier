@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,8 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor> {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         mEmailView = (AutoCompleteTextView) view.findViewById(R.id.email);
 
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Login");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         mPasswordView = (EditText) view.findViewById(R.id.password);
 
         Button mEmailSignInButton = (Button) view.findViewById(R.id.email_sign_in_button);

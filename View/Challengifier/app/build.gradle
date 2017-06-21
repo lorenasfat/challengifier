@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildscript {
+        repositories {
+            jcenter()
+        }
+    }
 }
 
 dependencies {
@@ -37,5 +42,6 @@ dependencies {
     compile 'com.hwangjr.rxbus:rxbus:1.0.5'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
     compile 'com.github.gturedi:stateful-layout:1.2.1'
+    compile 'com.shawnlin:number-picker:2.4.4'
     testCompile 'junit:junit:4.12'
 }

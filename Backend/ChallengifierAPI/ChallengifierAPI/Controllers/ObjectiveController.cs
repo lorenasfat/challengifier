@@ -88,6 +88,21 @@ namespace ChallengifierAPI.Controllers
             }
         }
 
+        [HttpDelete]
+        [ActionName("delete")]
+        public HttpResponseMessage DeleteObjective([FromUri]Guid id)
+        {
+            try
+            {
+                _objectiveService.DeleteObjective(id);
+                return Request.CreateResponse(HttpStatusCode.OK, "Objective successfully deleted!");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

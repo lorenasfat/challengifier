@@ -203,6 +203,7 @@
     <Compile Include="Controllers\MilestoneController.cs" />
     <Compile Include="Controllers\ObjectiveController.cs" />
     <Compile Include="Controllers\PictureController.cs" />
+    <Compile Include="Controllers\PlanningStepController.cs" />
     <Compile Include="Controllers\Tests\Test2Controller.cs" />
     <Compile Include="Controllers\Tests\TestController.cs" />
     <Compile Include="Global.asax.cs">
