@@ -75,7 +75,6 @@
         android:layout_marginRight="36dp"
         android:ems="10"
         android:hint="yyyy-MM-dd"
-        android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.models.Milestone;
 import com.example.lorena.challengifier.services.business.services.Validator;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.MilestoneService;
@@ -27,9 +29,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.lorena.challengifier.utils.communication.FlowAids.TempToBeAdded;
+
 
 public class AddMilestoneFragment extends Fragment {
     public static final String SHOW_SCREEN = "ADD_MILESTONE_FRAGMENT_TAG";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,6 +46,34 @@ public class AddMilestoneFragment extends Fragment {
         final EditText description = (EditText) view.findViewById(R.id.milesoneDescription);
         final EditText since = (EditText) view.findViewById(R.id.sinceInput);
         final EditText until = (EditText) view.findViewById(R.id.untilInput);
+        ImageView link = (ImageView) view.findViewById(R.id.linkToPLanningStep);
+
+        if(FlowAids.ObjectiveToEdit.getChallengeId() == null)
+            link.setVisibility(View.INVISIBLE);
+
+        if (FlowAids.TempToBeAdded != null) {
+            title.setText(TempToBeAdded.getName());
+            description.setText(TempToBeAdded.getDescription());
+        }
+
+
+        link.setClickable(true);
+        link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FlowAids.LinkChallengeToObjective = true;
+                String titleStr = title.getText().toString();
+                String descriptionStr = description.getText().toString();
+
+                Milestone milestone = new Milestone();
+                milestone.setName(titleStr);
+                milestone.setDescription(descriptionStr);
+                milestone.setObjectiveId(FlowAids.ObjectiveToEdit.getId());
+
+                TempToBeAdded = milestone;
+                RxBus.get().post(PlanningStepListFragment.SHOW_SCREEN, true);
+            }
+        });
 
         Button save = (Button) view.findViewById(R.id.buttonAddMilestone);
         save.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +83,7 @@ public class AddMilestoneFragment extends Fragment {
                 final String descriptionStr = description.getText().toString();
                 final String sinceStr = since.getText().toString();
                 final String untilStr = until.getText().toString();
+
                 Date sinceDate = null;
                 Date untilDate = null;
 
@@ -83,13 +117,15 @@ public class AddMilestoneFragment extends Fragment {
                     sinceDate = DateFormatter.getDate(sinceStr);
                 }
 
-                if(ok){
+                if (ok) {
                     Milestone milestone = new Milestone();
                     milestone.setName(titleStr);
                     milestone.setDescription(descriptionStr);
                     milestone.setEndDate(untilDate);
                     milestone.setStartDate(sinceDate);
                     milestone.setObjectiveId(FlowAids.ObjectiveToEdit.getId());
+                    if (FlowAids.TempToBeAdded != null)
+                        milestone.setPlanningStepId(FlowAids.TempToBeAdded.getPlanningStepId());
 
                     //todo check for planning step
 

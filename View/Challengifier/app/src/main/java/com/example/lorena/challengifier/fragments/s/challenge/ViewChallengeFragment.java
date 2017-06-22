@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.hwangjr.rxbus.RxBus;
@@ -44,6 +45,15 @@ public class ViewChallengeFragment extends Fragment {
         NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.number_picker);
         Spinner spinnerTimeUnits = (Spinner) view.findViewById(R.id.spinnerTimeUnit);
         ImageView editChellenge = (ImageView) view.findViewById(R.id.actionOnChallenge);
+        ImageView viewPlanningStept = (ImageView) view.findViewById(R.id.viewPlanningStepsButton);
+        viewPlanningStept.setClickable(true);
+        viewPlanningStept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FlowAids.LinkChallengeToObjective = false;
+                RxBus.get().post(PlanningStepListFragment.SHOW_SCREEN, true);
+            }
+        });
 
         editChellenge.setClickable(true);
         editChellenge.setOnClickListener(new View.OnClickListener() {

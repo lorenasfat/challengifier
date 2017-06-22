@@ -20,8 +20,9 @@ public class PlanningStepListAdapter extends BaseAdapter {
     List<PlanningStep> planningSteps;
     private Context context;
 
-    public PlanningStepListAdapter(Context context) {
+    public PlanningStepListAdapter(Context context, List<PlanningStep> planningSteps) {
         this.context = context;
+        this.planningSteps = planningSteps;
     }
 
     public List<PlanningStep> getPlanningSteps() {
@@ -52,20 +53,19 @@ public class PlanningStepListAdapter extends BaseAdapter {
         LayoutInflater inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // check if we can reuse a previously defined cell which now is not visible anymore
-        View myRow = inflater.inflate(R.layout.planningstep_item, parent, false);
+        View myRow = (convertView == null) ?
+                inflater.inflate(R.layout.planningstep_item, parent, false) : convertView;
         // get the visual elements and update them with the information from the model
-        TextView title = (TextView)myRow.findViewById(R.id.nameTextView);
+        TextView title = (TextView) myRow.findViewById(R.id.textViewPSTitle);
         title.setText(planningSteps.get(position).getName());
 
-        TextView description = (TextView)myRow.findViewById(R.id.descriptionTextView);
+        TextView description = (TextView) myRow.findViewById(R.id.textViewPSdescriprion);
         description.setText(planningSteps.get(position).getDescription());
 
 
-        TextView start = (TextView)myRow.findViewById(R.id.durationNrTextView);
-        start.setText(planningSteps.get(position).getTimeUnitNumber());
+        TextView start = (TextView) myRow.findViewById(R.id.textViewPSTime);
+        start.setText(planningSteps.get(position).getTimeUnitNumber() + " " + planningSteps.get(position).getTimeUnitId());
 
-        TextView end = (TextView)myRow.findViewById(R.id.durationTextView);
-        end.setText(planningSteps.get(position).getTimeUnitId());
         return myRow;
     }
 }

@@ -27,7 +27,6 @@
         <activity android:name=".activities.objective.ObjectiveListActivity" />
         <activity android:name=".activities.objective.AddObjectiveActivity" />
         <activity android:name=".activities.user.MyPerformancesActivity" />
-        <activity android:name=".activities.challenge.ViewChallengeActivity" />
         <activity android:name=".activities.objective.ViewObjectiveActivity" />
         <activity android:name=".activities.objective.EditObjectiveActivity" />
     </application>

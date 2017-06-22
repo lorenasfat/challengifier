@@ -21,6 +21,8 @@ import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragme
 import com.example.lorena.challengifier.fragments.s.objective.EditObjectiveFragment;
 import com.example.lorena.challengifier.fragments.s.milestone.MilestoneListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.ObjectiveListFragment;
+import com.example.lorena.challengifier.fragments.s.planning.step.AddPlanningStepFragment;
+import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.fragments.s.user.FrontScreenFragment;
 import com.example.lorena.challengifier.fragments.s.user.LoginFragment;
 import com.example.lorena.challengifier.utils.tools.DrawerListAdapter;
@@ -147,6 +149,22 @@ public class MainScreenActivity extends AppCompatActivity {
     public void showAddChallengeFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new AddChallengeFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Subscribe(tags = @Tag(PlanningStepListFragment.SHOW_SCREEN))
+    public void showPlanningStepListFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new PlanningStepListFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Subscribe(tags = @Tag(AddPlanningStepFragment.SHOW_SCREEN))
+    public void showAddPlanningStepFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new AddPlanningStepFragment())
                 .addToBackStack(null)
                 .commit();
     }

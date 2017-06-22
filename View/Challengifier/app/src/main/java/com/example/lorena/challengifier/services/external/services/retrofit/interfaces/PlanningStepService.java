@@ -1,6 +1,5 @@
 package com.example.lorena.challengifier.services.external.services.retrofit.interfaces;
 
-import com.example.lorena.challengifier.models.Objective;
 import com.example.lorena.challengifier.models.PlanningStep;
 
 import java.util.List;
@@ -19,15 +18,15 @@ import retrofit2.http.Path;
  */
 
 public interface PlanningStepService {
-    @GET("objective/all")
-    Call<List<PlanningStep>> listObjectives();
+    @GET("planningstep/get/{id}")
+    Call<List<PlanningStep>> listPlanningSteps(@Path("id") UUID id);
 
-    @POST("objective/update")
-    Call<PlanningStep> editObjective(@Body Objective objective);
+    @POST("planningstep/update")
+    Call<PlanningStep> editPlanningStep(@Body PlanningStep planningStep);
 
-    @POST("objective/add")
-    Call<PlanningStep> addObjective(@Body Objective objective);
+    @POST("planningstep/add")
+    Call<ResponseBody> addPlanningStep(@Body PlanningStep planningStep);
 
-    @DELETE("objective/delete/{id}")
-    Call<ResponseBody> deleteObjective(@Path("id") UUID id);
+    @DELETE("planningstep/delete/{id}")
+    Call<ResponseBody> deletePlanningStep(@Path("id") UUID id);
 }

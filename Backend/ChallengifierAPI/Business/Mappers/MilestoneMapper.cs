@@ -18,6 +18,7 @@ namespace Business.Mappers
                 Name = milestone.Name,
                 Objective_ID = milestone.ObjectiveId,
                 StartDate = milestone.StartDate,
+                PlanningStep_ID = milestone.PlanningStepId
             };
         }
 
