@@ -1,6 +1,7 @@
 package com.example.lorena.challengifier.services.external.services.retrofit.interfaces;
 
 import com.example.lorena.challengifier.models.LoginUser;
+import com.example.lorena.challengifier.models.User;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -16,4 +17,7 @@ public interface LoginService {
     @Headers("Content-type: application/json")
     @POST("account/login")
     Call<ResponseBody> login(@Body LoginUser user);
+
+    @POST("account/info")
+    Call<User> getInfo(@Body String username);
 }

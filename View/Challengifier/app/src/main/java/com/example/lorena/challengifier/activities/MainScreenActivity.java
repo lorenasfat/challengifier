@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.MainMenuFragment;
@@ -17,53 +18,51 @@ import com.example.lorena.challengifier.fragments.s.challenge.ChallengeListFragm
 import com.example.lorena.challengifier.fragments.s.challenge.EditChallengeFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.ViewChallengeFragment;
 import com.example.lorena.challengifier.fragments.s.milestone.AddMilestoneFragment;
+import com.example.lorena.challengifier.fragments.s.milestone.MilestoneListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragment;
 import com.example.lorena.challengifier.fragments.s.objective.EditObjectiveFragment;
-import com.example.lorena.challengifier.fragments.s.milestone.MilestoneListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.ObjectiveListFragment;
 import com.example.lorena.challengifier.fragments.s.planning.step.AddPlanningStepFragment;
 import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.fragments.s.user.FrontScreenFragment;
 import com.example.lorena.challengifier.fragments.s.user.LoginFragment;
-import com.example.lorena.challengifier.utils.tools.DrawerListAdapter;
+import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainScreenActivity extends AppCompatActivity {
 
-    private List<String> mPlanetTitles;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
+    public static DrawerLayout mDrawerLayout;
+    public static ActionBarDrawerToggle mDrawerToggle;
+
+    private Button buttonChallenges;
+    private Button buttonObjectives;
+    private Button buttonStats;
+    private static TextView username;
+    private static TextView points;
+
+    public static void updateDrawerContent(){
+        String userName = SessionUser.loggedInUser.getUsername();
+        String formatted = userName.substring(0,userName.indexOf("@"));
+        username.setText(formatted);
+        points.setText(String.valueOf(SessionUser.loggedInUser.getPoints())+" points");
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         RxBus.get().register(this);
-        mPlanetTitles = new ArrayList();
-        mPlanetTitles.add("A");
-        mPlanetTitles.add("B");
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        /*ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        actionBar.setDisplayOptions(actionBar.getDisplayOptions()
-                | ActionBar.DISPLAY_SHOW_CUSTOM);
-        View v = inflator.inflate(R.layout.custom_actionbar_image, null);
-
-        actionBar.setCustomView(v);*/
+        buttonChallenges = (Button) findViewById(R.id.buttonMyChallenges);
+        buttonObjectives = (Button) findViewById(R.id.buttonObjectives);
+        buttonStats = (Button) findViewById(R.id.buttonStats);
+        username = (TextView) findViewById(R.id.username);
+        points = (TextView) findViewById(R.id.points);
 
         this.getSupportActionBar().hide();
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new DrawerListAdapter(this, mPlanetTitles));
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -78,10 +77,10 @@ public class MainScreenActivity extends AppCompatActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                //getActionBar().setTitle("drawer");
-                //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
+
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
@@ -238,18 +237,4 @@ public class MainScreenActivity extends AppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
-    /** Swaps fragments in the main content view */
-    private void selectItem(int position) {
-        // Highlight the selected item, update the title, and close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles.get(position));
-        mDrawerLayout.closeDrawer(mDrawerList);
-    }
 }

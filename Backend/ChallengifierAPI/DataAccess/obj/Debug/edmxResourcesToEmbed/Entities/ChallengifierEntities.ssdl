@@ -61,6 +61,7 @@
     <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Points" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Challenge">
     <Key>
@@ -68,7 +69,7 @@
     </Key>
     <Property Name="Challenge_ID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="User_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Suggested_Time_UnitsId" Type="nvarchar" MaxLength="50" />
     <Property Name="Suggested_Time_Number" Type="int" />
@@ -146,16 +147,6 @@
     </Key>
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="NamePlural" Type="nvarchar" MaxLength="50" Nullable="false" />
-  </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="User_ID" />
-    </Key>
-    <Property Name="User_ID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="User_FirstName" Type="nvarchar" MaxLength="50" />
-    <Property Name="User_LastName" Type="nvarchar" MaxLength="50" />
-    <Property Name="User_AspNetUserID" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="UserRank">
     <Key>
@@ -388,18 +379,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_AspNetUser">
-    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUsers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="User_AspNetUserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -446,7 +425,6 @@
     <EntitySet Name="PlanningStep" EntityType="Self.PlanningStep" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TimeUnits" EntityType="Self.TimeUnits" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRank" EntityType="Self.UserRank" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Milestone__Objective" Association="Self.FK__Milestone__Objective">
@@ -516,10 +494,6 @@
     <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_AspNetUser" Association="Self.FK_User_AspNetUser">
-      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="User" EntitySet="User" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

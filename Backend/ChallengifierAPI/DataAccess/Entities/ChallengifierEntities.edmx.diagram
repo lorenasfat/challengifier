@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c3c1f1977a134984a7540b489c6632e6" Name="Diagram1">
+      <Diagram DiagramId="c3c1f1977a134984a7540b489c6632e6" Name="Diagram1" ZoomLevel="73">
         <EntityTypeShape EntityType="ChallengifierModel1.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="ChallengifierModel1.AspNetRoles" Width="1.5" PointX="0.75" PointY="9.375" />
         <EntityTypeShape EntityType="ChallengifierModel1.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="13.75" />
@@ -23,8 +23,6 @@
         <AssociationConnector Association="ChallengifierModel1.FK__Picture__Objective" />
         <AssociationConnector Association="ChallengifierModel1.AspNetUserRoles" />
         <EntityTypeShape EntityType="ChallengifierModel1.ObjectiveStatus" Width="1.5" PointX="5.25" PointY="1.5" />
-        <EntityTypeShape EntityType="ChallengifierModel1.User" Width="1.5" PointX="5.25" PointY="17.25" />
-        <AssociationConnector Association="ChallengifierModel1.FK_User_AspNetUser" />
         <AssociationConnector Association="ChallengifierModel1.FK__Objective__Status" />
         <EntityTypeShape EntityType="ChallengifierModel1.Challenge" Width="1.5" PointX="5.25" PointY="20.875" />
         <EntityTypeShape EntityType="ChallengifierModel1.PlanningStep" Width="1.5" PointX="7.5" PointY="21" />

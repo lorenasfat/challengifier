@@ -38,7 +38,6 @@ namespace DataAccess.Entities
         public virtual DbSet<UserRank> UserRank { get; set; }
         public virtual DbSet<UserRating> UserRating { get; set; }
         public virtual DbSet<ObjectiveStatus> ObjectiveStatus { get; set; }
-        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Challenge> Challenge { get; set; }
         public virtual DbSet<PlanningStep> PlanningStep { get; set; }
         public virtual DbSet<TimeUnits> TimeUnits { get; set; }

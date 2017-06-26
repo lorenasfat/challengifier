@@ -17,6 +17,8 @@ import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.services.business.services.SignupService;
 import com.hwangjr.rxbus.RxBus;
 
+import static com.example.lorena.challengifier.utils.tools.DrawerDisabler.setDrawerState;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -61,7 +63,7 @@ public class SignUpFragment extends Fragment {
                 attemptRegister();
             }
         });
-
+        setDrawerState(false);
         return view;
     }
 

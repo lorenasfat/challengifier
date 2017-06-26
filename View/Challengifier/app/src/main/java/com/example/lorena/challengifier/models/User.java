@@ -1,46 +1,35 @@
 package com.example.lorena.challengifier.models;
 
-import java.util.UUID;
-
 /**
  * Created by Lorena on 08.01.2017.
  */
 
 public class User {
-    private UUID id;
-    private String username;
-    private String firstName;
-    private String lastName;
+    private String AspNetUserId;
+    private String Username;
+    private int Points;
 
-    public UUID getId() {
-        return id;
+    public String getAspNetUserId() {
+        return AspNetUserId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setAspNetUserId(String aspNetUserId) {
+        AspNetUserId = aspNetUserId;
     }
 
     public String getUsername() {
-        return username;
+        return Username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        Username = username;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public int getPoints() {
+        return Points;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPoints(int points) {
+        Points = points;
     }
 }

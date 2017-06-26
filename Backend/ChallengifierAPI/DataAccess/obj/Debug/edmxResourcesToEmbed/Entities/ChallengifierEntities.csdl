@@ -70,11 +70,6 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
     <EntitySet Name="ObjectiveStatus" EntityType="ChallengifierModel1.ObjectiveStatus" />
-    <EntitySet Name="User" EntityType="ChallengifierModel1.User" />
-    <AssociationSet Name="FK_User_AspNetUser" Association="ChallengifierModel1.FK_User_AspNetUser">
-      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="User" EntitySet="User" />
-    </AssociationSet>
     <AssociationSet Name="FK__Objective__Status" Association="ChallengifierModel1.FK__Objective__Status">
       <End Role="ObjectiveStatus" EntitySet="ObjectiveStatus" />
       <End Role="Objective" EntitySet="Objective" />
@@ -188,8 +183,8 @@
     <NavigationProperty Name="UserRank" Relationship="ChallengifierModel1.FK__User__Rank" FromRole="AspNetUsers" ToRole="UserRank" />
     <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Users__Objective" FromRole="AspNetUsers" ToRole="Objective" />
     <NavigationProperty Name="AspNetRoles" Relationship="ChallengifierModel1.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-    <NavigationProperty Name="User" Relationship="ChallengifierModel1.FK_User_AspNetUser" FromRole="AspNetUsers" ToRole="User" />
     <NavigationProperty Name="Challenge" Relationship="ChallengifierModel1.FK__Users__Challenge" FromRole="AspNetUsers" ToRole="Challenge" />
+    <Property Name="Points" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Objective">
     <Key>
@@ -346,29 +341,6 @@
     <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Objective__Status" FromRole="ObjectiveStatus" ToRole="Objective" />
   </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="User_ID" />
-    </Key>
-    <Property Name="User_ID" Type="Guid" Nullable="false" />
-    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="User_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="User_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="User_AspNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUsers" Relationship="ChallengifierModel1.FK_User_AspNetUser" FromRole="User" ToRole="AspNetUsers" />
-  </EntityType>
-  <Association Name="FK_User_AspNetUser">
-    <End Type="ChallengifierModel1.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-    <End Type="ChallengifierModel1.User" Role="User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUsers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="User_AspNetUserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__Objective__Status">
     <End Type="ChallengifierModel1.ObjectiveStatus" Role="ObjectiveStatus" Multiplicity="1" />
     <End Type="ChallengifierModel1.Objective" Role="Objective" Multiplicity="*" />
@@ -387,7 +359,7 @@
     </Key>
     <Property Name="Challenge_ID" Type="Guid" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="User_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="Suggested_Time_UnitsId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Suggested_Time_Number" Type="Int32" />

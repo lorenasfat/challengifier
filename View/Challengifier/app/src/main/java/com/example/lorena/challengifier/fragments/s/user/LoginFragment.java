@@ -32,6 +32,8 @@ import com.hwangjr.rxbus.RxBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.lorena.challengifier.utils.tools.DrawerDisabler.setDrawerState;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -65,6 +67,8 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor> {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         mEmailView = (AutoCompleteTextView) view.findViewById(R.id.email);
 
+        setDrawerState(false);
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Login");
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         mPasswordView = (EditText) view.findViewById(R.id.password);
@@ -82,6 +86,11 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor> {
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        setDrawerState(true);
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.

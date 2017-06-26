@@ -3,9 +3,8 @@ using System;
 
 namespace DataAccess.Repository.Interfaces
 {
-    public interface IUserRepository : IBaseRepository<User, string>
+    public interface IUserRepository : IBaseRepository<AspNetUsers, string>
     {
-        User GetUserByLoggedInId(string id);
         AspNetUsers GetUserByUsername(string username);
     }
 }

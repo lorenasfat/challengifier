@@ -28,8 +28,11 @@ public class LoginService {
             Response<ResponseBody> response = call.execute();
             String responseContent = response.body().string();
 
-            if(response.code()==200)
+            if(response.code()==200) {
                 SessionUser.authToken = responseContent;//get token
+                //make call for info
+                UserInfoService.getInfo(userName);
+            }
             else
                 SessionUser.authToken ="-1";
 

@@ -22,7 +22,6 @@ namespace DataAccess.Entities
             this.UserRank = new HashSet<UserRank>();
             this.Objective = new HashSet<Objective>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
-            this.User = new HashSet<User>();
             this.Challenge = new HashSet<Challenge>();
         }
     
@@ -38,6 +37,7 @@ namespace DataAccess.Entities
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
+        public int Points { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
@@ -49,8 +49,6 @@ namespace DataAccess.Entities
         public virtual ICollection<Objective> Objective { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Challenge> Challenge { get; set; }
     }

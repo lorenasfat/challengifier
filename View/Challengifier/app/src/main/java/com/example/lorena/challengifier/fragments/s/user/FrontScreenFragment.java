@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import com.example.lorena.challengifier.R;
 
+import static com.example.lorena.challengifier.utils.tools.DrawerDisabler.setDrawerState;
+
 /**
  * Created by Lorena on 09.05.2017.
  */
@@ -21,6 +23,8 @@ public class FrontScreenFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_front_screen, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Welcome");
+
+        setDrawerState(false);
 
         final Button button = (Button) view.findViewById(R.id.buttonLogin);
         button.setOnClickListener(new View.OnClickListener() {
@@ -44,5 +48,11 @@ public class FrontScreenFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        setDrawerState(true);
     }
 }

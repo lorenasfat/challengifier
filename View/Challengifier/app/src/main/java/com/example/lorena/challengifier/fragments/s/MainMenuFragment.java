@@ -2,6 +2,7 @@ package com.example.lorena.challengifier.fragments.s;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragme
 import com.example.lorena.challengifier.fragments.s.objective.ObjectiveListFragment;
 import com.hwangjr.rxbus.RxBus;
 
+import static com.example.lorena.challengifier.utils.tools.DrawerDisabler.setDrawerState;
+
 public class MainMenuFragment extends Fragment {
     public static final String SHOW_SCREEN = "MAIN_FRAGMENT_MENU_TAG";
     @Override
@@ -21,7 +24,7 @@ public class MainMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Main Menu");
         final Button button = (Button) view.findViewById(R.id.buttonViewChallenges);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -36,6 +39,7 @@ public class MainMenuFragment extends Fragment {
             }
         });
 
+        setDrawerState(true);
 
         final Button buttonObjectiveList = (Button) view.findViewById(R.id.buttonViewObjectives);
         buttonObjectiveList.setOnClickListener(new View.OnClickListener() {

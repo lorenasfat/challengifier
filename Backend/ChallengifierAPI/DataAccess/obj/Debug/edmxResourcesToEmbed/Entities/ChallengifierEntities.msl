@@ -66,6 +66,7 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="ChallengifierModel1.AspNetUsers">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Points" ColumnName="Points" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
           <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
@@ -155,17 +156,6 @@
         <MappingFragment StoreEntitySet="ObjectiveStatus">
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="User">
-      <EntityTypeMapping TypeName="ChallengifierModel1.User">
-        <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="User_AspNetUserID" ColumnName="User_AspNetUserID" />
-          <ScalarProperty Name="User_LastName" ColumnName="User_LastName" />
-          <ScalarProperty Name="User_FirstName" ColumnName="User_FirstName" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -112,9 +112,6 @@
     <Compile Include="Entities\TimeUnits.cs">
       <DependentUpon>ChallengifierEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\User.cs">
-      <DependentUpon>ChallengifierEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\UserRank.cs">
       <DependentUpon>ChallengifierEntities.tt</DependentUpon>
     </Compile>

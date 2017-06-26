@@ -51,6 +51,23 @@ namespace ChallengifierAPI.Controllers
         }
 
         [HttpPost]
+        [ActionName("info")]
+        [AllowAnonymous]
+        public HttpResponseMessage GetAccountInfo([FromBody] string id)
+        {
+            try
+            {
+                var userInfo =_userService.getUserByUsername(id);
+
+                return Request.CreateResponse(HttpStatusCode.OK, userInfo);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
         [AllowAnonymous]
         [ActionName("register")]
         public HttpResponseMessage Register(RegisterModel model)
