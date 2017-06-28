@@ -12,6 +12,7 @@ namespace Business.Services.Interfaces
         void DeleteObjective(Guid objectiveId);
         IEnumerable<ObjectiveDto> GetAllObjectives();
         ObjectiveDto GetObjectiveById(Guid Id);
+        int CountForChallenge(Guid challengeId);
         //TODO
         //IEnumerable<Objective> GetAllObjectivesForUser(Guid userID);
     }

@@ -4,6 +4,9 @@ using System.Linq;
 using Business.DTOs;
 using DataAccess.Entities;
 using System;
+using Business.Services.Interfaces;
+using Business.Services;
+using DataAccess.UnitOfWork;
 
 namespace Business.Mappers
 {
@@ -34,6 +37,22 @@ namespace Business.Mappers
                 User_Id = c.User_ID,
             });
             return dtos;
+        }
+
+        public static IEnumerable<MyChallengeDto> ToMyDtos(this IEnumerable<Challenge> challenges)
+        {
+
+                var dtos = challenges.Select(c => new MyChallengeDto()
+                {
+                    Name = c.Name,
+                    Description = c.Description,
+                    Id = c.Challenge_ID,
+                    Suggested_Time_UnitsId = c.Suggested_Time_UnitsId,
+                    Suggested_Time_Number = c.Suggested_Time_Number,
+                    User_Id = c.User_ID
+                });
+            
+            return dtos.ToList();
         }
 
         public static ChallengeDto ToDto(this Challenge c)

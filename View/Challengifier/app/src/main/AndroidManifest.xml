@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainMenuActivity" />
         <activity android:name=".activities.challenge.ChallengeListActivity" />
         <activity android:name=".activities.objective.ObjectiveListActivity" />
         <activity android:name=".activities.objective.AddObjectiveActivity" />

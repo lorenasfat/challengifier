@@ -1,6 +1,7 @@
 package com.example.lorena.challengifier.services.external.services.retrofit.interfaces;
 
 import com.example.lorena.challengifier.models.Challenge;
+import com.example.lorena.challengifier.models.MyChallenge;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +21,9 @@ import retrofit2.http.Path;
 public interface ChallengeService {
     @GET("challenge/all")
     Call<List<Challenge>> listChallenges();
+
+    @GET("challenge/get/{id}")
+    Call<List<MyChallenge>> listMyChallenges(@Path("id") String id);
 
     @POST("challenge/update")
     Call<Challenge> editChallenge(@Body Challenge objective);

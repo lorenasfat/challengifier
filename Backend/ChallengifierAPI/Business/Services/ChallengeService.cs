@@ -12,9 +12,12 @@ namespace Business.Services
     public class ChallengeService : IChallengeService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ChallengeService(IUnitOfWork unitOfWork)
+        private readonly IObjectiveService _objectiveService;
+
+        public ChallengeService(IUnitOfWork unitOfWork, IObjectiveService objectiveService)
         {
             _unitOfWork = unitOfWork;
+            _objectiveService = objectiveService;
         }
         public void AddChallenge(ChallengeDto challenge)
         {
@@ -59,6 +62,19 @@ namespace Business.Services
         {
             var challenges = _unitOfWork.ChallengeRepository.All();
             return challenges.ToDtos();
+        }
+
+        public IEnumerable<MyChallengeDto> GetChallengesOfUser(string id)
+        {
+            var challenges = _unitOfWork.ChallengeRepository.All().Where(c => c.User_ID ==id);
+            var userChallenges = challenges.ToMyDtos();
+
+            foreach(MyChallengeDto challenge in userChallenges)
+            {
+                challenge.Acceptance = _objectiveService.CountForChallenge(challenge.Id);
+            }
+
+            return userChallenges;
         }
 
         public ChallengeDto GetChallengeById(Guid challengeId)

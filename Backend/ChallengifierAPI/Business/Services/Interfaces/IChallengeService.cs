@@ -13,7 +13,6 @@ namespace Business.Services.Interfaces
         void UpdateChallenge(ChallengeDto challenge);
         void DeleteChallenge(Guid challengeId);
         ChallengeDto GetChallengeByName(string name);
-        //TODO
-        //List<Challenge> GetChallengesOfUser(Guid userID);
+        IEnumerable<MyChallengeDto> GetChallengesOfUser(string id);
     }
 }

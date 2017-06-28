@@ -46,6 +46,7 @@
     <Compile Include="DTOs\ChallengeDto.cs" />
     <Compile Include="DTOs\MailDto.cs" />
     <Compile Include="DTOs\MilestoneDto.cs" />
+    <Compile Include="DTOs\MyChallengeDto.cs" />
     <Compile Include="DTOs\ObjectiveDto.cs" />
     <Compile Include="DTOs\PictureDto.cs" />
     <Compile Include="DTOs\PlanningStepDto.cs" />

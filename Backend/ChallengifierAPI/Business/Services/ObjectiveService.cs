@@ -5,6 +5,7 @@ using DataAccess.Entities;
 using DataAccess.UnitOfWork;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Services
 {
@@ -77,6 +78,12 @@ namespace Business.Services
                 _unitOfWork.RollBack();
                 throw;
             }
+        }
+
+        public int CountForChallenge(Guid challengeId)
+        {
+            var nr = _unitOfWork.ObjectiveRepository.All().Where(o => o.Challenge_ID.HasValue && (o.Challenge_ID.Value == challengeId)).Count();
+            return nr;
         }
 
         private void SetUpObjective(Objective dbObjective, ObjectiveDto objective)

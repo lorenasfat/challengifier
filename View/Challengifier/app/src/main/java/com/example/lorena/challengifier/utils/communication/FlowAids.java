@@ -2,8 +2,8 @@ package com.example.lorena.challengifier.utils.communication;
 
 import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.models.Milestone;
+import com.example.lorena.challengifier.models.MyChallenge;
 import com.example.lorena.challengifier.models.Objective;
-import com.example.lorena.challengifier.models.PlanningStep;
 
 import java.util.List;
 
@@ -17,9 +17,11 @@ public class FlowAids {
     public static Challenge ChallengeToAddAsObjective = null;
     public static Challenge ChallengeToEdit = null;
     public static Challenge ChallengeToView = null;
+    public static MyChallenge MyChallengeToView = null;
 
     public static List<Objective> ObjectivesBackup = null;
     public static List<Challenge> ChallengesBackup = null;
+    public static List<MyChallenge> MyChallengesBackup = null;
 
     public static boolean LinkChallengeToObjective = false;
 

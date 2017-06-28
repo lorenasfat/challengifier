@@ -39,22 +39,23 @@ namespace ChallengifierAPI.Controllers
 
         [HttpGet]
         [ActionName("get")]
-        public HttpResponseMessage GetChallenge(Guid id)
+        public HttpResponseMessage GetUserChallenges(string id)
         {
             try
             {
-                var challenge = _challengeService.GetChallengeById(id);
-                if (challenge == null)
+                var challenges = _challengeService.GetChallengesOfUser(id);
+                if (challenges == null)
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound);
                 }
-                return Request.CreateResponse(HttpStatusCode.OK, challenge);
+                return Request.CreateResponse(HttpStatusCode.OK, challenges);
             }
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
 
         [HttpGet]
         [ActionName("name")]

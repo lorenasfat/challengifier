@@ -16,7 +16,9 @@ import com.example.lorena.challengifier.fragments.s.MainMenuFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.AddChallengeFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.ChallengeListFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.EditChallengeFragment;
+import com.example.lorena.challengifier.fragments.s.challenge.MyChallengesListFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.ViewChallengeFragment;
+import com.example.lorena.challengifier.fragments.s.challenge.ViewMyChallengeFragment;
 import com.example.lorena.challengifier.fragments.s.milestone.AddMilestoneFragment;
 import com.example.lorena.challengifier.fragments.s.milestone.MilestoneListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragment;
@@ -62,6 +64,14 @@ public class MainScreenActivity extends AppCompatActivity {
         username = (TextView) findViewById(R.id.username);
         points = (TextView) findViewById(R.id.points);
 
+        buttonChallenges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(MyChallengesListFragment.SHOW_SCREEN, true);
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        });
+
         this.getSupportActionBar().hide();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -104,6 +114,13 @@ public class MainScreenActivity extends AppCompatActivity {
                 .commit();
     }
 
+    @Subscribe(tags = @Tag(ViewMyChallengeFragment.SHOW_SCREEN))
+    public void showViewMyChallengeFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new ViewMyChallengeFragment())
+                .commit();
+    }
+
     @Subscribe(tags = @Tag(ObjectiveListFragment.SHOW_SCREEN))
     public void showObjectiveListFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()
@@ -120,6 +137,15 @@ public class MainScreenActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
+    @Subscribe(tags = @Tag(MyChallengesListFragment.SHOW_SCREEN))
+    public void showMyChallengesListFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new MyChallengesListFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
     @Subscribe(tags = @Tag(AddObjectiveFragment.SHOW_SCREEN))
     public void showAddObjectiveFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()
@@ -204,14 +230,6 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onDestroy();
         RxBus.get().unregister(this);
     }
-    /* Called whenever we call invalidateOptionsMenu() */
-   /* @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
