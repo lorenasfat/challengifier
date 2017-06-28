@@ -7,40 +7,40 @@ import java.util.UUID;
  */
 
 public class UserRating {
-    private UUID id;
-    private UUID userId;
-    private UUID objectiveId;
-    public int grade;
+    private UUID Id;
+    private UUID UserId;
+    private UUID ObjectiveId;
+    public int Grade;
 
     public UUID getId() {
-        return id;
+        return Id;
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        Id = id;
     }
 
     public UUID getUserId() {
-        return userId;
+        return UserId;
     }
 
     public void setUserId(UUID userId) {
-        this.userId = userId;
+        UserId = userId;
     }
 
     public UUID getObjectiveId() {
-        return objectiveId;
+        return ObjectiveId;
     }
 
     public void setObjectiveId(UUID objectiveId) {
-        this.objectiveId = objectiveId;
+        ObjectiveId = objectiveId;
     }
 
     public int getGrade() {
-        return grade;
+        return Grade;
     }
 
     public void setGrade(int grade) {
-        this.grade = grade;
+        Grade = grade;
     }
 }

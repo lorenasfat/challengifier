@@ -45,6 +45,21 @@ namespace Business.Mappers
             };
         }
 
+        public static IEnumerable<ObjectiveForReviewDto> ToReviewDtos(this IEnumerable<Objective> objectives)
+        {
+            var objs = objectives.Select(objective => new ObjectiveForReviewDto()
+            {
+                Deadline = objective.Deadline,
+                Description = objective.Description,
+                To = objective.End_Date.Value,
+                ExpectedOutcome = objective.Expected_Outcome,
+                Id = objective.Objective_ID,
+                ObjectiveName = objective.Name,
+                From = objective.Start_Date.Value,
+                Username = objective.AspNetUsers.UserName,
+            });
+            return objs.ToList();
+        }
         public static IEnumerable<ObjectiveDto> ToDtos(this IEnumerable<Objective> objectives)
         {
             var objs = objectives.Select(objective => new ObjectiveDto()

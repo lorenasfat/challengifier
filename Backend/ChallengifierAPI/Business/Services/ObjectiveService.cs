@@ -97,11 +97,17 @@ namespace Business.Services
             if (objective.Progress == 10 && !objective.ChallengeId.HasValue)
                 dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.Completed;
             else if(objective.Progress == 10)
-                dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.UnderApproval;
+                dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.ForReview;
             else if(objective.Progress >0 && objective.Progress<10)
                 dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.Ongoing;
             else
                 dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.NotActive;
         }
+
+        public IEnumerable<ObjectiveForReviewDto> GetObjectivesForReview(Guid id)
+        {
+            var objectives = _unitOfWork.ObjectiveRepository.All().Where(o => o.Status_ID == (int)Common.Enums.ObjectiveStatus.ForReview && o.Challenge_ID == id).ToList();
+            return objectives.ToReviewDtos();
+        }        
     }
 }

@@ -13,6 +13,7 @@ namespace Business.Services.Interfaces
         IEnumerable<ObjectiveDto> GetAllObjectives();
         ObjectiveDto GetObjectiveById(Guid Id);
         int CountForChallenge(Guid challengeId);
+        IEnumerable<ObjectiveForReviewDto> GetObjectivesForReview(Guid id);
         //TODO
         //IEnumerable<Objective> GetAllObjectivesForUser(Guid userID);
     }

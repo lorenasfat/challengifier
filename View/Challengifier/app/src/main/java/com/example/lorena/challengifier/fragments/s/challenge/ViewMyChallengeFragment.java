@@ -13,8 +13,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.fragments.s.objective.ObjectivesForReviewListFragment;
 import com.example.lorena.challengifier.models.MyChallenge;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
+import com.hwangjr.rxbus.RxBus;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.ArrayList;
@@ -55,7 +57,7 @@ public class ViewMyChallengeFragment extends Fragment {
         viewReviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //TODO
+                RxBus.get().post(ObjectivesForReviewListFragment.SHOW_SCREEN, true);
             }
         });
 

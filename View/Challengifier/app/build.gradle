@@ -43,5 +43,6 @@ dependencies {
     compile 'org.adw.library:discrete-seekbar:1.0.1'
     compile 'com.github.gturedi:stateful-layout:1.2.1'
     compile 'com.shawnlin:number-picker:2.4.4'
+    compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
     testCompile 'junit:junit:4.12'
 }

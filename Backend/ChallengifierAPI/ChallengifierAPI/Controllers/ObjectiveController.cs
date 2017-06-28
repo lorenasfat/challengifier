@@ -38,6 +38,25 @@ namespace ChallengifierAPI.Controllers
             }
         }
 
+
+        [HttpGet]
+        [ActionName("review")]
+        public HttpResponseMessage GetObjectivesForReview(Guid id)
+        {
+            try
+            {
+                var objectives = _objectiveService.GetObjectivesForReview(id);
+                if (objectives == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+
+                return Request.CreateResponse(HttpStatusCode.OK, objectives);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpPost]
         [ActionName("add")]
         public HttpResponseMessage AddObjective([FromBody]ObjectiveDto objective)

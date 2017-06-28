@@ -6,7 +6,8 @@
         Ongoing,
         Completed,
         PastDeadline,
-        UnderApproval,
-        Rejected
+        ForReview,
+        Rejected,
+        Reviewed
     }
 }

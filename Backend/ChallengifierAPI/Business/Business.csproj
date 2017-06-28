@@ -48,6 +48,7 @@
     <Compile Include="DTOs\MilestoneDto.cs" />
     <Compile Include="DTOs\MyChallengeDto.cs" />
     <Compile Include="DTOs\ObjectiveDto.cs" />
+    <Compile Include="DTOs\ObjectiveForReviewDto.cs" />
     <Compile Include="DTOs\PictureDto.cs" />
     <Compile Include="DTOs\PlanningStepDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />

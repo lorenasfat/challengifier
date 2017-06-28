@@ -118,5 +118,11 @@ namespace Business.Services
             dbChallenge.Suggested_Time_Number = challenge.Suggested_Time_Number;
             dbChallenge.User_ID = challenge.User_Id;
         }
+
+        public int CountObjectivesForReview(Guid id)
+        {
+            var nr = _unitOfWork.ObjectiveRepository.All().Where(o => o.Status_ID == (int)Common.Enums.ObjectiveStatus.ForReview && o.Challenge_ID == id).Count();
+            return nr;
+        }
     }
 }

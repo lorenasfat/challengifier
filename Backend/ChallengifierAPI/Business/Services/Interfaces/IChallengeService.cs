@@ -14,5 +14,6 @@ namespace Business.Services.Interfaces
         void DeleteChallenge(Guid challengeId);
         ChallengeDto GetChallengeByName(string name);
         IEnumerable<MyChallengeDto> GetChallengesOfUser(string id);
+        int CountObjectivesForReview(Guid id);
     }
 }
