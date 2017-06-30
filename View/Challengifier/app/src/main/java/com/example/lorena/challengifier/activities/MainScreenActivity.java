@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lorena.challengifier.R;
@@ -26,6 +27,7 @@ import com.example.lorena.challengifier.fragments.s.objective.EditObjectiveFragm
 import com.example.lorena.challengifier.fragments.s.objective.ObjectiveListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.ObjectivesForReviewListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.ReviewObjectiveFragment;
+import com.example.lorena.challengifier.fragments.s.objective.ViewObjectiveFragment;
 import com.example.lorena.challengifier.fragments.s.planning.step.AddPlanningStepFragment;
 import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.fragments.s.user.FrontScreenFragment;
@@ -62,9 +64,27 @@ public class MainScreenActivity extends AppCompatActivity {
 
         buttonChallenges = (Button) findViewById(R.id.buttonMyChallenges);
         buttonObjectives = (Button) findViewById(R.id.buttonObjectives);
+        buttonObjectives.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN,true);
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        });
+
         buttonStats = (Button) findViewById(R.id.buttonStats);
         username = (TextView) findViewById(R.id.username);
         points = (TextView) findViewById(R.id.points);
+
+        ImageView homeScreen = (ImageView) findViewById(R.id.homeScreen);
+        homeScreen.setClickable(true);
+        homeScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(MainMenuFragment.SHOW_SCREEN, true);
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        });
 
         buttonChallenges.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +127,13 @@ public class MainScreenActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Subscribe(tags = @Tag(ViewObjectiveFragment.SHOW_SCREEN))
+    public void showViewObjectiveFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new ViewObjectiveFragment())
+                .commit();
     }
 
     @Subscribe(tags = @Tag(MainMenuFragment.SHOW_SCREEN))

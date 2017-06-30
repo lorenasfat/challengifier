@@ -74,13 +74,28 @@ namespace ChallengifierAPI.Controllers
             }
         }
 
-        [HttpGet]
-        [ActionName("all")]
-        public HttpResponseMessage GetObjectives()
+        [HttpPost]
+        [ActionName("rate")]
+        public HttpResponseMessage AddObjectiveRating([FromBody]UserRatingDto rating)
         {
             try
             {
-                var objectives = _objectiveService.GetAllObjectives().ToList();
+                _objectiveService.AddObjectiveRating(rating);
+                return Request.CreateResponse(HttpStatusCode.Created, "Successfully added the rating!");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [ActionName("all")]
+        public HttpResponseMessage GetObjectives(string id)
+        {
+            try
+            {
+                var objectives = _objectiveService.GetAllObjectives(id).ToList();
                 if (objectives.Count == 0)
                     return Request.CreateResponse(HttpStatusCode.OK, "No entries yet!");
 

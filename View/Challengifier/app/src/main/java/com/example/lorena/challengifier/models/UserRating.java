@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public class UserRating {
     private UUID Id;
-    private UUID UserId;
+    private String UserId;
     private UUID ObjectiveId;
-    public int Grade;
+    private int Grade;
 
     public UUID getId() {
         return Id;
@@ -20,11 +20,11 @@ public class UserRating {
         Id = id;
     }
 
-    public UUID getUserId() {
+    public String getUserId() {
         return UserId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         UserId = userId;
     }
 

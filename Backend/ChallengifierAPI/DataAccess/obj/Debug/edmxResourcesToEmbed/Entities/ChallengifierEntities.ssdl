@@ -161,6 +161,7 @@
   <EntityType Name="UserRating">
     <Key>
       <PropertyRef Name="Rating_ID" />
+      <PropertyRef Name="Objective_ID" />
     </Key>
     <Property Name="Rating_ID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="User_ID" Type="nvarchar" MaxLength="128" Nullable="false" />

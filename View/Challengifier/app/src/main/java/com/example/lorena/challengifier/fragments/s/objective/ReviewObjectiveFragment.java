@@ -9,11 +9,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.models.UserRating;
+import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ObjectiveService;
+import com.example.lorena.challengifier.services.external.services.services.ApiObjectiveService;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
+import com.example.lorena.challengifier.utils.session.SessionUser;
+import com.hwangjr.rxbus.RxBus;
+
+import java.util.UUID;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ReviewObjectiveFragment extends Fragment {
@@ -55,6 +67,35 @@ public class ReviewObjectiveFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int rate = rating.getProgress();
+
+                UserRating rating = new UserRating();
+                rating.setId(UUID.randomUUID());
+                rating.setGrade(rate);
+                rating.setUserId(SessionUser.loggedInUser.getAspNetUserId());
+                rating.setObjectiveId(FlowAids.ObjectiveToReview.getId());
+
+                ObjectiveService service = ApiObjectiveService.getService();
+                Call<ResponseBody> call = service.rateObjective(rating);
+                try {
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            Toast.makeText(getActivity().getApplicationContext(), "All set!", Toast.LENGTH_LONG).show();
+                            RxBus.get().post(ObjectivesForReviewListFragment.SHOW_SCREEN, true);
+                            // The network call was a success and we got a response
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Oops! :(", Toast.LENGTH_LONG).show();
+                            // the network call was a failure
+                            // TODO: handle error
+                            t.printStackTrace();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         return view;

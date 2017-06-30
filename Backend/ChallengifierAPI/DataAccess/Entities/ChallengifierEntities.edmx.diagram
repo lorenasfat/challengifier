@@ -10,32 +10,32 @@
         <EntityTypeShape EntityType="ChallengifierModel1.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="13.75" />
         <EntityTypeShape EntityType="ChallengifierModel1.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="11.25" />
         <EntityTypeShape EntityType="ChallengifierModel1.AspNetUsers" Width="1.5" PointX="3" PointY="8" />
-        <EntityTypeShape EntityType="ChallengifierModel1.Objective" Width="1.5" PointX="7.5" PointY="7.125" />
         <EntityTypeShape EntityType="ChallengifierModel1.Picture" Width="1.5" PointX="12" PointY="9.5" />
         <EntityTypeShape EntityType="ChallengifierModel1.sysdiagrams" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="ChallengifierModel1.UserRank" Width="1.5" PointX="5.25" PointY="4.75" />
-        <EntityTypeShape EntityType="ChallengifierModel1.UserRating" Width="1.5" PointX="9.75" PointY="8.125" />
         <AssociationConnector Association="ChallengifierModel1.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="ChallengifierModel1.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="ChallengifierModel1.FK__User__Rank" />
-        <AssociationConnector Association="ChallengifierModel1.FK__Users__Objective" />
-        <AssociationConnector Association="ChallengifierModel1.FK__Objective__Rating" />
-        <AssociationConnector Association="ChallengifierModel1.FK__Picture__Objective" />
         <AssociationConnector Association="ChallengifierModel1.AspNetUserRoles" />
         <EntityTypeShape EntityType="ChallengifierModel1.ObjectiveStatus" Width="1.5" PointX="5.25" PointY="1.5" />
-        <AssociationConnector Association="ChallengifierModel1.FK__Objective__Status" />
         <EntityTypeShape EntityType="ChallengifierModel1.Challenge" Width="1.5" PointX="5.25" PointY="20.875" />
         <EntityTypeShape EntityType="ChallengifierModel1.PlanningStep" Width="1.5" PointX="7.5" PointY="21" />
         <EntityTypeShape EntityType="ChallengifierModel1.TimeUnits" Width="1.5" PointX="5.25" PointY="25.5" />
         <AssociationConnector Association="ChallengifierModel1.FK__Users__Challenge" />
-        <AssociationConnector Association="ChallengifierModel1.FK__Objective__Challenge" />
         <AssociationConnector Association="ChallengifierModel1.FK__Picture__Challenge" />
         <AssociationConnector Association="ChallengifierModel1.FK__PlanningS__Challenge" />
         <AssociationConnector Association="ChallengifierModel1.FK__TimeUnits__PlanS" />
         <EntityTypeShape EntityType="ChallengifierModel1.Milestone" Width="1.5" PointX="9.75" PointY="14" />
-        <AssociationConnector Association="ChallengifierModel1.FK__Milestone__Objective" />
         <AssociationConnector Association="ChallengifierModel1.FK__Milestone__PlanningStep" />
         <AssociationConnector Association="ChallengifierModel1.FK__Picture__Milestone" />
+        <EntityTypeShape EntityType="ChallengifierModel1.Objective" Width="1.5" PointX="7.5" PointY="10.375" />
+        <EntityTypeShape EntityType="ChallengifierModel1.UserRating" Width="1.5" PointX="9.75" PointY="10.625" />
+        <AssociationConnector Association="ChallengifierModel1.FK__Users__Objective" />
+        <AssociationConnector Association="ChallengifierModel1.FK__Objective__Challenge" />
+        <AssociationConnector Association="ChallengifierModel1.FK__Milestone__Objective" />
+        <AssociationConnector Association="ChallengifierModel1.FK__Objective__Rating" />
+        <AssociationConnector Association="ChallengifierModel1.FK__Objective__Status" />
+        <AssociationConnector Association="ChallengifierModel1.FK__Picture__Objective" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -21,6 +21,7 @@ import com.example.lorena.challengifier.services.external.services.retrofit.inte
 import com.example.lorena.challengifier.services.external.services.services.ApiObjectiveService;
 import com.example.lorena.challengifier.utils.adapters.ObjectiveListAdapter;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
+import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class ObjectiveListFragment extends Fragment {
     public static final String SHOW_SCREEN = "OBJECTIVE_LIST_TAG";
 
     ObjectiveListAdapter listAdapter;
-    List<Objective> objectives=new ArrayList<>();
+    List<Objective> objectives = new ArrayList<>();
+    static boolean mIsRestoredFromBackstack;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,33 +46,36 @@ public class ObjectiveListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_objective_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Objectives");
 
+        mIsRestoredFromBackstack = false;
+
         listAdapter = new ObjectiveListAdapter(getActivity().getApplicationContext(), objectives);
 
-        AutoCompleteTextView searchTextView = (AutoCompleteTextView)view.findViewById(R.id.autoCompleteSearch);
+        AutoCompleteTextView searchTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteSearch);
 
-        ObjectiveService service = ApiObjectiveService.getService();
-        Call<List<Objective>> call = service.listObjectives();
-        try {
-            call.enqueue(new Callback<List<Objective>>() {
-                @Override
-                public void onResponse(Call<List<Objective>> call, Response<List<Objective>> response) {
-                    objectives.addAll(response.body());
-                    listAdapter.notifyDataSetChanged();
-                    FlowAids.ObjectivesBackup = objectives;
-                    // The network call was a success and we got a response
-                }
+        if (!mIsRestoredFromBackstack) {
+            ObjectiveService service = ApiObjectiveService.getService();
+            Call<List<Objective>> call = service.listObjectives(SessionUser.loggedInUser.getAspNetUserId());
+            try {
+                call.enqueue(new Callback<List<Objective>>() {
+                    @Override
+                    public void onResponse(Call<List<Objective>> call, Response<List<Objective>> response) {
+                        objectives.addAll(response.body());
+                        listAdapter.notifyDataSetChanged();
+                        FlowAids.ObjectivesBackup = objectives;
+                        // The network call was a success and we got a response
+                    }
 
-                @Override
-                public void onFailure(Call<List<Objective>> call, Throwable t) {
-                    // the network call was a failure
-                    // TODO: handle error
-                    t.printStackTrace();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
+                    @Override
+                    public void onFailure(Call<List<Objective>> call, Throwable t) {
+                        // the network call was a failure
+                        // TODO: handle error
+                        t.printStackTrace();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
         ListView list = (ListView) view.findViewById(R.id.objectiveList);
 
         list.setAdapter(listAdapter);
@@ -80,8 +85,8 @@ public class ObjectiveListFragment extends Fragment {
                 new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long mylng) {
                         Objective selectedFromList = (Objective) (listAdapter.getItem(position));
-                        FlowAids.ObjectiveToEdit = selectedFromList;
-                        RxBus.get().post(EditObjectiveFragment.SHOW_SCREEN,true);
+                        FlowAids.ObjectiveToView = selectedFromList;
+                        RxBus.get().post(ViewObjectiveFragment.SHOW_SCREEN, true);
                     }
                 });
 
@@ -105,17 +110,24 @@ public class ObjectiveListFragment extends Fragment {
 
         return view;
     }
+
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
+    public void onDestroyView() {
+        super.onDestroyView();
+        mIsRestoredFromBackstack = true;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, v.getId(), 0, "DELETE");
     }
+
     @Override
-    public boolean onContextItemSelected(MenuItem item){
-        if(item.getTitle()=="DELETE"){
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle() == "DELETE") {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Objective obj = (Objective)listAdapter.getItem(info.position);
+            Objective obj = (Objective) listAdapter.getItem(info.position);
 
             ObjectiveService service = ApiObjectiveService.getService();
             Call<ResponseBody> call = service.deleteObjective(obj.getId());

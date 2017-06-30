@@ -10,10 +10,11 @@ namespace Business.Services.Interfaces
         void AddObjective(ObjectiveDto objective);
         void UpdateObjective(ObjectiveDto objective);
         void DeleteObjective(Guid objectiveId);
-        IEnumerable<ObjectiveDto> GetAllObjectives();
+        IEnumerable<ObjectiveDto> GetAllObjectives(string id);
         ObjectiveDto GetObjectiveById(Guid Id);
         int CountForChallenge(Guid challengeId);
         IEnumerable<ObjectiveForReviewDto> GetObjectivesForReview(Guid id);
+        void AddObjectiveRating(UserRatingDto rating);
         //TODO
         //IEnumerable<Objective> GetAllObjectivesForUser(Guid userID);
     }

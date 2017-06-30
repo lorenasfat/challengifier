@@ -24,7 +24,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
-    <EditText
+    <TextView
         android:id="@+id/editTextName"
         android:layout_width="322dp"
         android:layout_height="48dp"
@@ -56,7 +56,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/slider" />
 
-    <EditText
+    <TextView
         android:layout_width="345dp"
         android:layout_height="41dp"
         android:inputType="textMultiLine"
@@ -84,7 +84,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <EditText
+    <TextView
         android:layout_width="351dp"
         android:layout_height="40dp"
         android:inputType="none"
@@ -115,19 +115,21 @@
 
     <TextView
         android:id="@+id/textViewMilestones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View milestones"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="normal|bold"
-        android:layout_marginStart="16dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="118dp"
+        android:layout_height="53dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="View milestones"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/editTextStatus"
-        app:layout_constraintHorizontal_bias="0.112" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStatus" />
 
     <TextView
         android:id="@+id/textView"
@@ -158,42 +160,77 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textViewPercComplete" />
 
-    <Button
-        android:id="@+id/buttonEditObjective"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="Save changes"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        android:textStyle="normal|bold"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMilestones"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="31dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.39"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.899" />
-
     <ImageView
         android:id="@+id/imageViewMilestones"
         android:layout_width="76dp"
         android:layout_height="52dp"
         app:srcCompat="@drawable/arrow_right_bubble"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textViewMilestones"
-        app:layout_constraintRight_toLeftOf="@+id/buttonEditObjective"
-        android:layout_marginRight="62dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="31dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.428" />
+
+    <ImageView
+        android:id="@+id/markCompleted"
+        android:layout_width="56dp"
+        android:layout_height="77dp"
+        app:srcCompat="@drawable/good"
+        app:layout_constraintLeft_toRightOf="@+id/imageViewMilestones"
+        android:layout_marginLeft="57dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="-10dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="109dp"
+        android:layout_height="53dp"
+        android:text="Mark as completed"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStatus"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/markCompleted"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintRight_toLeftOf="@+id/textView6"
+        android:layout_marginRight="8dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="115dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Edit"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/markCompleted"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStatus"
+        app:layout_constraintVertical_bias="0.736"
+        tools:layout_editor_absoluteX="253dp" />
+
+    <ImageView
+        android:id="@+id/edit"
+        android:layout_width="60dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.613"
+        app:layout_constraintLeft_toRightOf="@+id/markCompleted"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.578"
+        app:srcCompat="@drawable/edit" />
 
 
 </android.support.constraint.ConstraintLayout>

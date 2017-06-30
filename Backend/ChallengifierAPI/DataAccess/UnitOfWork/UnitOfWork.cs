@@ -37,7 +37,7 @@ namespace DataAccess.UnitOfWork
             this.PictureRepository = pictureRepository;
             this.PlanningStepRepository = planningStepRepository;
             this.UserRankRepository = userRankRepository;
-            this.UserRatingRepository = UserRatingRepository;
+            this.UserRatingRepository = userRatingRepository;
             this.UserRepository = userRepository;
             transaction = dbContext.Database.BeginTransaction();
         }

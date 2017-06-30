@@ -82,24 +82,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Objective">
-      <EntityTypeMapping TypeName="ChallengifierModel1.Objective">
-        <MappingFragment StoreEntitySet="Objective">
-          <ScalarProperty Name="Progress" ColumnName="Progress" />
-          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
-          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
-          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
-          <ScalarProperty Name="Rating" ColumnName="Rating" />
-          <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
-          <ScalarProperty Name="Challenge_ID" ColumnName="Challenge_ID" />
-          <ScalarProperty Name="Expected_Outcome" ColumnName="Expected_Outcome" />
-          <ScalarProperty Name="Deadline" ColumnName="Deadline" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Objective_ID" ColumnName="Objective_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Picture">
       <EntityTypeMapping TypeName="ChallengifierModel1.Picture">
         <MappingFragment StoreEntitySet="Picture">
@@ -130,16 +112,6 @@
           <ScalarProperty Name="System_Grade" ColumnName="System_Grade" />
           <ScalarProperty Name="User_ID" ColumnName="User_ID" />
           <ScalarProperty Name="Rank_ID" ColumnName="Rank_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserRating">
-      <EntityTypeMapping TypeName="ChallengifierModel1.UserRating">
-        <MappingFragment StoreEntitySet="UserRating">
-          <ScalarProperty Name="Objective_ID" ColumnName="Objective_ID" />
-          <ScalarProperty Name="Grade" ColumnName="Grade" />
-          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
-          <ScalarProperty Name="Rating_ID" ColumnName="Rating_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -201,6 +173,34 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Milestone_ID" ColumnName="Milestone_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Objective">
+      <EntityTypeMapping TypeName="ChallengifierModel1.Objective">
+        <MappingFragment StoreEntitySet="Objective">
+          <ScalarProperty Name="Progress" ColumnName="Progress" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+          <ScalarProperty Name="Challenge_ID" ColumnName="Challenge_ID" />
+          <ScalarProperty Name="Expected_Outcome" ColumnName="Expected_Outcome" />
+          <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Objective_ID" ColumnName="Objective_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRating">
+      <EntityTypeMapping TypeName="ChallengifierModel1.UserRating">
+        <MappingFragment StoreEntitySet="UserRating">
+          <ScalarProperty Name="Objective_ID" ColumnName="Objective_ID" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="Rating_ID" ColumnName="Rating_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

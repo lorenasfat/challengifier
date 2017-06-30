@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.fragments.s.challenge.ViewMyChallengeFragment;
 import com.example.lorena.challengifier.models.ObjectiveForReviewDto;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ObjectiveService;
 import com.example.lorena.challengifier.services.external.services.services.ApiObjectiveService;
@@ -52,6 +54,16 @@ public class ObjectivesForReviewListFragment extends Fragment {
                 public void onResponse(Call<List<ObjectiveForReviewDto>> call, Response<List<ObjectiveForReviewDto>> response) {
                     objectives.addAll(response.body());
                     listAdapter.notifyDataSetChanged();
+
+                    if(listAdapter.getObjectives().isEmpty()){
+                        RxBus.get().post(ViewMyChallengeFragment.SHOW_SCREEN,true);
+                        Toast.makeText(getActivity().getApplicationContext(), "No more reviews for this challenge!", Toast.LENGTH_LONG).show();
+                    }
+                    else if(listAdapter.getObjectives().size() == 1){
+                        FlowAids.ObjectiveToReview = listAdapter.getObjectives().get(0);
+                        RxBus.get().post(ViewMyChallengeFragment.SHOW_SCREEN,true);
+                    }
+
                     FlowAids.ObjectivesForReviewBackup = objectives;
                     // The network call was a success and we got a response
                 }

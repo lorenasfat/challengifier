@@ -14,6 +14,7 @@ import java.util.List;
 
 public class FlowAids {
     public static Objective ObjectiveToEdit = null;
+    public static Objective ObjectiveToView = null;
     public static ObjectiveForReviewDto ObjectiveToReview = null;
 
     public static Challenge ChallengeToAddAsObjective = null;

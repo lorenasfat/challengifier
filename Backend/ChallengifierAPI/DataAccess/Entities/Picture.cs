@@ -20,8 +20,8 @@ namespace DataAccess.Entities
         public Nullable<System.Guid> Objective_ID { get; set; }
         public Nullable<System.Guid> Milestone_ID { get; set; }
     
-        public virtual Objective Objective { get; set; }
         public virtual Challenge Challenge { get; set; }
         public virtual Milestone Milestone { get; set; }
+        public virtual Objective Objective { get; set; }
     }
 }

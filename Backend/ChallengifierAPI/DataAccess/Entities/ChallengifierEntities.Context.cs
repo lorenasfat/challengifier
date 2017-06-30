@@ -32,16 +32,16 @@ namespace DataAccess.Entities
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Objective> Objective { get; set; }
         public virtual DbSet<Picture> Picture { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserRank> UserRank { get; set; }
-        public virtual DbSet<UserRating> UserRating { get; set; }
         public virtual DbSet<ObjectiveStatus> ObjectiveStatus { get; set; }
         public virtual DbSet<Challenge> Challenge { get; set; }
         public virtual DbSet<PlanningStep> PlanningStep { get; set; }
         public virtual DbSet<TimeUnits> TimeUnits { get; set; }
         public virtual DbSet<Milestone> Milestone { get; set; }
+        public virtual DbSet<Objective> Objective { get; set; }
+        public virtual DbSet<UserRating> UserRating { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

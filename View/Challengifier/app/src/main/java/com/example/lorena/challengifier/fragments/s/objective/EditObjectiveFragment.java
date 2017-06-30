@@ -54,28 +54,11 @@ public class EditObjectiveFragment extends Fragment {
             }
         });
         slider.setProgress(editObjective.getProgress());
-        slider.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
-            @Override
-            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                //progress = value;
-            }
-
-            @Override
-            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
-
-            }
-        });
 
         ImageView viewMilestones = (ImageView) view.findViewById(R.id.imageViewMilestones);
         final EditText editTextName = (EditText) view.findViewById(R.id.editTextName);
         final EditText editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
         final EditText editTextDeadline = (EditText) view.findViewById(R.id.editTextDeadline);
-        final EditText editTextExpectedOutcome = (EditText) view.findViewById(R.id.editText);
 
         viewMilestones.setClickable(true);
         viewMilestones.setOnClickListener(
@@ -98,7 +81,7 @@ public class EditObjectiveFragment extends Fragment {
                 final String title = editTextName.getText().toString();
                 final String description = editTextDescription.getText().toString();
                 final String deadline = editTextDeadline.getText().toString();
-                String expectedOutcome = editTextExpectedOutcome.getText().toString();
+                String expectedOutcome = "";
                 Date deadlineDate = new Date();
 
                 boolean ok = true;
