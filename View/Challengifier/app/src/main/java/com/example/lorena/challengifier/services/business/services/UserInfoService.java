@@ -15,7 +15,7 @@ import static com.example.lorena.challengifier.activities.MainScreenActivity.upd
 
 public class UserInfoService {
 
-    public static void getInfo(String userName){
+    public static User getInfo(String userName){
         com.example.lorena.challengifier.services.external.services.retrofit.interfaces.LoginService service = ApiLoginService.getService();
 
         Call<User> call = service.getInfo(userName);
@@ -25,8 +25,10 @@ public class UserInfoService {
             User responseContent = (User)response.body();
             SessionUser.loggedInUser = responseContent;
             updateDrawerContent();
+            return SessionUser.loggedInUser;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 }

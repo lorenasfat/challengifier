@@ -1,12 +1,17 @@
 package com.example.lorena.challengifier.services.business.services;
 
+import android.app.Activity;
+
 import com.example.lorena.challengifier.models.LoginUser;
+import com.example.lorena.challengifier.models.User;
 import com.example.lorena.challengifier.services.external.services.services.ApiLoginService;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
+
+import static com.example.lorena.challengifier.utils.session.SessionUser.authToken;
 
 /**
  * Created by Lorena on 02.05.2017.
@@ -15,7 +20,8 @@ import retrofit2.Response;
 public class LoginService {
     private static String _username;
     private static String _password;
-    public static boolean login(final String userName, String password){
+
+    public static boolean login(Activity activity, final String userName, String password) {
         _username = userName;
         _password = password;
         com.example.lorena.challengifier.services.external.services.retrofit.interfaces.LoginService service = ApiLoginService.getService();
@@ -28,19 +34,21 @@ public class LoginService {
             Response<ResponseBody> response = call.execute();
             String responseContent = response.body().string();
 
-            if(response.code()==200) {
-                SessionUser.authToken = responseContent;//get token
+            if (response.code() == 200) {
+                authToken = responseContent;//get token
                 //make call for info
-                UserInfoService.getInfo(userName);
+                User user = UserInfoService.getInfo(userName);
+                SessionUser.saveSession(activity, authToken, user);
+            } else {
+                authToken = "-1";
+                SessionUser.clearSession(activity);
             }
-            else
-                SessionUser.authToken ="-1";
 
         } catch (Exception e) {
-            SessionUser.authToken = "-1";
+            authToken = "-1";
             e.printStackTrace();
         }
-        if(SessionUser.authToken.equalsIgnoreCase("-1"))
+        if (authToken.equalsIgnoreCase("-1"))
             return false;
         SessionUser.currentUser = _username;
         return true;

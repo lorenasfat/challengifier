@@ -23,6 +23,7 @@ public class MainMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Main Menu");
         final Button button = (Button) view.findViewById(R.id.buttonViewChallenges);
         button.setOnClickListener(new View.OnClickListener() {

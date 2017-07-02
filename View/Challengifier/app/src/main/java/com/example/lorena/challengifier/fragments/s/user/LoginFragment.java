@@ -243,7 +243,7 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            boolean loggedIn = LoginService.login(mEmail, mPassword);
+            boolean loggedIn = LoginService.login(getActivity(), mEmail, mPassword);
 
             return loggedIn;
         }

@@ -48,11 +48,11 @@ public class MainScreenActivity extends AppCompatActivity {
     private static TextView username;
     private static TextView points;
 
-    public static void updateDrawerContent(){
+    public static void updateDrawerContent() {
         String userName = SessionUser.loggedInUser.getUsername();
-        String formatted = userName.substring(0,userName.indexOf("@"));
+        String formatted = userName.substring(0, userName.indexOf("@"));
         username.setText(formatted);
-        points.setText(String.valueOf(SessionUser.loggedInUser.getPoints())+" points");
+        points.setText(String.valueOf(SessionUser.loggedInUser.getPoints()) + " points");
 
     }
 
@@ -71,7 +71,7 @@ public class MainScreenActivity extends AppCompatActivity {
         buttonObjectives.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN,true);
+                RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
             }
         });
@@ -81,12 +81,17 @@ public class MainScreenActivity extends AppCompatActivity {
         points = (TextView) findViewById(R.id.points);
 
         ImageView homeScreen = (ImageView) findViewById(R.id.homeScreen);
+
+        if (SessionUser.isSessionStarted(MainScreenActivity.this)) {
+        }
+
         homeScreen.setClickable(true);
         homeScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 RxBus.get().post(MainMenuFragment.SHOW_SCREEN, true);
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
+
             }
         });
 
@@ -122,10 +127,18 @@ public class MainScreenActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, new FrontScreenFragment())
-                .addToBackStack(null)
-                .commit();
+        if (!SessionUser.isSessionStarted(MainScreenActivity.this)) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new FrontScreenFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else{
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new MainMenuFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     @Override
