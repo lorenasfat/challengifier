@@ -33,7 +33,9 @@
         android:layout_gravity="start"
         android:background="@color/colorWhite">
 
-        <include layout="@layout/drawer_content"/>
+        <include
+            layout="@layout/drawer_content"
+            />
     </FrameLayout>
 
     </android.support.v4.widget.DrawerLayout>

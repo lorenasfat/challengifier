@@ -63,7 +63,6 @@ namespace ChallengifierAPI.Controllers
         {
             try
             {
-                objective.Id = Guid.NewGuid();
                 objective.UserId = SessionState.LoggedInUser == null ? _userService.getUserByUsername(objective.UserId).AspNetUserId : SessionState.LoggedInUser.AspNetUserId;
                 _objectiveService.AddObjective(objective);
                 return Request.CreateResponse(HttpStatusCode.Created, "Successfully added an objective!");

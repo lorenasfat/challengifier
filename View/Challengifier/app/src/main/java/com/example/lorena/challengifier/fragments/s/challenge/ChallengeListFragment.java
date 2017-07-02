@@ -44,6 +44,8 @@ public class ChallengeListFragment extends Fragment {
         listAdapter = new ChallengeListAdapter(getActivity().getBaseContext());
         listAdapter.setChallenges(challenges);
 
+        challenges.clear();
+
         ChallengeService service = ApiChallengeService.getService();
         Call<List<Challenge>> call = service.listChallenges();
         try {

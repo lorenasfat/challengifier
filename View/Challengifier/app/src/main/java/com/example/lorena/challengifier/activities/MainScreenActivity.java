@@ -61,6 +61,10 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         RxBus.get().register(this);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_prize);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         buttonChallenges = (Button) findViewById(R.id.buttonMyChallenges);
         buttonObjectives = (Button) findViewById(R.id.buttonObjectives);

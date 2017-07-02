@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.fragments.s.challenge.ViewChallengeFragment;
 import com.example.lorena.challengifier.models.PlanningStep;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.PlanningStepService;
 import com.example.lorena.challengifier.services.external.services.services.ApiPlanningStepService;
@@ -105,6 +107,16 @@ public class AddPlanningStepFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+
+        ImageView cancel = (ImageView) view.findViewById(R.id.cancel);
+        cancel.setClickable(true);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(ViewChallengeFragment.SHOW_SCREEN, true);
             }
         });
 

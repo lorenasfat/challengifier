@@ -20,4 +20,9 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="Pink" >
+        <item name="android:tint">@color/stfImageColor</item>
+    </style>
+
+
 </resources>

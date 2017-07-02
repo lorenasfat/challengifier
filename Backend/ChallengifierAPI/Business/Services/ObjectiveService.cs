@@ -55,7 +55,9 @@ namespace Business.Services
 
         public IEnumerable<ObjectiveDto> GetAllObjectives(string id)
         {
-            var objectives = _unitOfWork.ObjectiveRepository.All().Where(o => o.User_ID == id);
+            var objectives = _unitOfWork.ObjectiveRepository.All().Where(o => o.User_ID == id && 
+            ((o.Status_ID == (int)Common.Enums.ObjectiveStatus.NotActive) || 
+            (o.Status_ID == (int)Common.Enums.ObjectiveStatus.Ongoing)));
             return objectives.ToDtos();
         }
 

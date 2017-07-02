@@ -73,6 +73,7 @@
     <Property Name="User_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Suggested_Time_UnitsId" Type="nvarchar" MaxLength="50" />
     <Property Name="Suggested_Time_Number" Type="int" />
+    <Property Name="Archived" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Milestone">
     <Key>

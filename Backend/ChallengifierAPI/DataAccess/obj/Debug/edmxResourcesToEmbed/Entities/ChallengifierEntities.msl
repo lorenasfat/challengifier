@@ -134,6 +134,7 @@
     <EntitySetMapping Name="Challenge">
       <EntityTypeMapping TypeName="ChallengifierModel1.Challenge">
         <MappingFragment StoreEntitySet="Challenge">
+          <ScalarProperty Name="Archived" ColumnName="Archived" />
           <ScalarProperty Name="Suggested_Time_Number" ColumnName="Suggested_Time_Number" />
           <ScalarProperty Name="Suggested_Time_UnitsId" ColumnName="Suggested_Time_UnitsId" />
           <ScalarProperty Name="User_ID" ColumnName="User_ID" />

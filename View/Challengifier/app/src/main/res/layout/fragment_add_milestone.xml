@@ -6,6 +6,22 @@
     tools:context="com.example.lorena.challengifier.fragments.s.milestone.AddMilestoneFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/cancel"
+        android:layout_width="94dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/buttonAddMilestone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/untilInput"
+        app:layout_constraintVertical_bias="0.403"
+        app:srcCompat="@drawable/cancel" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -101,14 +117,14 @@
         android:layout_width="94dp"
         android:layout_height="67dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginLeft="29dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/buttonRate"
         app:layout_constraintTop_toBottomOf="@+id/untilText"
-        app:layout_constraintVertical_bias="0.509"
+        app:layout_constraintVertical_bias="0.411"
         app:srcCompat="@drawable/link" />
 
     <Button
@@ -125,10 +141,10 @@
         android:textSize="18sp"
         android:textStyle="normal|bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.805"
+        app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/untilInput"
-        app:layout_constraintVertical_bias="0.894" />
+        app:layout_constraintVertical_bias="0.815" />
 
 </android.support.constraint.ConstraintLayout>

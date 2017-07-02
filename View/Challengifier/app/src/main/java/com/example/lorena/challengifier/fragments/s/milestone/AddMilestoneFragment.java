@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.fragments.s.objective.ViewObjectiveFragment;
 import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.models.Milestone;
 import com.example.lorena.challengifier.services.business.services.Validator;
@@ -56,6 +57,14 @@ public class AddMilestoneFragment extends Fragment {
             description.setText(TempToBeAdded.getDescription());
         }
 
+        ImageView cancel = (ImageView) view.findViewById(R.id.cancel);
+        cancel.setClickable(true);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(ViewObjectiveFragment.SHOW_SCREEN, true);
+            }
+        });
 
         link.setClickable(true);
         link.setOnClickListener(new View.OnClickListener() {

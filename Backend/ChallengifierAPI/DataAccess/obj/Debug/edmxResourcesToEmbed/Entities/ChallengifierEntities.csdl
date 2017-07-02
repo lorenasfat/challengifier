@@ -286,6 +286,7 @@
     <NavigationProperty Name="Picture" Relationship="ChallengifierModel1.FK__Picture__Challenge" FromRole="Challenge" ToRole="Picture" />
     <NavigationProperty Name="PlanningStep" Relationship="ChallengifierModel1.FK__PlanningS__Challenge" FromRole="Challenge" ToRole="PlanningStep" />
     <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Objective__Challenge" FromRole="Challenge" ToRole="Objective" />
+    <Property Name="Archived" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="PlanningStep">
     <Key>

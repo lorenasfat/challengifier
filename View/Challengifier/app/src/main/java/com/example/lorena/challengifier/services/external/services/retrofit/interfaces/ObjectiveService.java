@@ -33,7 +33,7 @@ public interface ObjectiveService {
     Call<ResponseBody> rateObjective(@Body UserRating rating);
 
     @POST("objective/add")
-    Call<Objective> addObjective(@Body Objective objective);
+    Call<ResponseBody> addObjective(@Body Objective objective);
 
     @DELETE("objective/delete/{id}")
     Call<ResponseBody> deleteObjective(@Path("id") UUID id);
