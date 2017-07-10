@@ -37,6 +37,7 @@ public class ChallengeListFragment extends Fragment {
 
     ChallengeListAdapter listAdapter;
     List<Challenge> challenges = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,8 +52,8 @@ public class ChallengeListFragment extends Fragment {
         list.setAdapter(listAdapter);
         registerForContextMenu(list);
 
-        loadChallenges();
 
+        loadChallenges();
         list.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long mylng) {
@@ -61,7 +62,7 @@ public class ChallengeListFragment extends Fragment {
                         RxBus.get().post(ViewChallengeFragment.SHOW_SCREEN, true);
                     }
                 }
-            );
+        );
 
         return view;
     }
@@ -94,46 +95,17 @@ public class ChallengeListFragment extends Fragment {
         }
     }
 
-    private void loadArchivedChallenges() {
-        challenges.clear();
-
-        ChallengeService service = ApiChallengeService.getService();
-        Call<List<Challenge>> call = service.listChallenges();
-        try {
-            call.enqueue(new Callback<List<Challenge>>() {
-                @Override
-                public void onResponse(Call<List<Challenge>> call, Response<List<Challenge>> response) {
-                    challenges.addAll(response.body());
-                    listAdapter.setChallenges(challenges);
-                    listAdapter.notifyDataSetChanged();
-                    FlowAids.ChallengesBackup = challenges;
-                    // The network call was a success and we got a response
-                }
-
-                @Override
-                public void onFailure(Call<List<Challenge>> call, Throwable t) {
-                    // the network call was a failure
-                    // TODO: handle error
-                    t.printStackTrace();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, v.getId(), 0, "DELETE");
     }
+
     @Override
-    public boolean onContextItemSelected(MenuItem item){
-        if(item.getTitle()=="DELETE"){
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle() == "DELETE") {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Challenge chal = (Challenge)listAdapter.getItem(info.position);
+            Challenge chal = (Challenge) listAdapter.getItem(info.position);
 
             ChallengeService service = ApiChallengeService.getService();
             Call<ResponseBody> call = service.deleteChallenge(chal.getId());
@@ -167,12 +139,12 @@ public class ChallengeListFragment extends Fragment {
         inflater.inflate(R.menu.challenge_menu, menu);
     }
 
-    public void showMyChallenges(){
+    public void showMyChallenges() {
         List<Challenge> objectives = FlowAids.ChallengesBackup;
         List<Challenge> sorted = new ArrayList<>();
 
-        for (Challenge challenge:objectives) {
-            if(challenge.getUser_Id().equalsIgnoreCase(SessionUser.loggedInUser.getAspNetUserId()))
+        for (Challenge challenge : objectives) {
+            if (challenge.getUser_Id().equalsIgnoreCase(SessionUser.loggedInUser.getAspNetUserId()))
                 sorted.add(challenge);
         }
         listAdapter.setChallenges(sorted);

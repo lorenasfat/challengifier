@@ -12,6 +12,17 @@ namespace Business.Mappers
 {
     public static class ChallengeMapper
     {
+        public static IEnumerable<ArchivedChallengeDto> ToArchivedChallenges(this IEnumerable<Challenge> challenges)
+        {
+            var dtos = challenges.Select(c => new ArchivedChallengeDto()
+            {
+                Name = c.Name,
+                Description = c.Description,
+                Id = c.Challenge_ID,
+            });
+            return dtos;
+        }
+
         public static Challenge ToDbEntity(this ChallengeDto challenge)
         {
             return new Challenge()

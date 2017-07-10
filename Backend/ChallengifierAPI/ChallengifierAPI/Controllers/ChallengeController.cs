@@ -58,6 +58,41 @@ namespace ChallengifierAPI.Controllers
 
 
         [HttpGet]
+        [ActionName("archived")]
+        public HttpResponseMessage GetUserArchivedChallenges(string id)
+        {
+            try
+            {
+                var challenges = _challengeService.GetArchivedChallengesOfUser(id);
+                if (challenges == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, challenges);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        [ActionName("archive")]
+        public HttpResponseMessage ArchiveChallenge([FromUri]Guid id)
+        {
+            try
+            {
+                _challengeService.ArchiveChallenge(id);
+                return Request.CreateResponse(HttpStatusCode.OK, "Archived!");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
         [ActionName("name")]
         public HttpResponseMessage GetChallenge(string name)
         {

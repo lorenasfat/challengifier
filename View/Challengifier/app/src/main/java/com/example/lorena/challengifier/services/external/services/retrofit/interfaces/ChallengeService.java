@@ -1,5 +1,6 @@
 package com.example.lorena.challengifier.services.external.services.retrofit.interfaces;
 
+import com.example.lorena.challengifier.models.ArchivedChallenge;
 import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.models.MyChallenge;
 
@@ -24,6 +25,12 @@ public interface ChallengeService {
 
     @GET("challenge/get/{id}")
     Call<List<MyChallenge>> listMyChallenges(@Path("id") String id);
+
+    @POST("challenge/archive/{id}")
+    Call<ResponseBody> archiveChallenge(@Path("id") UUID id);
+
+    @GET("challenge/archived/{id}")
+    Call<List<ArchivedChallenge>> listMyArchivedChallenges(@Path("id") String id);
 
     @POST("challenge/update")
     Call<Challenge> editChallenge(@Body Challenge objective);

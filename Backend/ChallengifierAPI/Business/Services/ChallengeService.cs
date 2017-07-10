@@ -60,16 +60,16 @@ namespace Business.Services
 
         public IEnumerable<ChallengeDto> GetAllChallenges()
         {
-            var challenges = _unitOfWork.ChallengeRepository.All();
+            var challenges = _unitOfWork.ChallengeRepository.All().Where(c => !c.Archived);
             return challenges.ToDtos();
         }
 
         public IEnumerable<MyChallengeDto> GetChallengesOfUser(string id)
         {
-            var challenges = _unitOfWork.ChallengeRepository.All().Where(c => c.User_ID ==id);
+            var challenges = _unitOfWork.ChallengeRepository.All().Where(c => c.User_ID == id);
             var userChallenges = challenges.ToMyDtos();
 
-            foreach(MyChallengeDto challenge in userChallenges)
+            foreach (MyChallengeDto challenge in userChallenges)
             {
                 challenge.Acceptance = _objectiveService.CountForChallenge(challenge.Id);
             }
@@ -123,6 +123,34 @@ namespace Business.Services
         {
             var nr = _unitOfWork.ObjectiveRepository.All().Where(o => o.Status_ID == (int)Common.Enums.ObjectiveStatus.ForReview && o.Challenge_ID == id).Count();
             return nr;
+        }
+
+        public IEnumerable<ArchivedChallengeDto> GetArchivedChallengesOfUser(string id)
+        {
+            var challenges = _unitOfWork.ChallengeRepository.All().Where(c => c.Archived);
+            var dtos = challenges.ToArchivedChallenges();
+
+            foreach (ArchivedChallengeDto challenge in dtos)
+            {
+                challenge.AcceptedBy = _unitOfWork.ObjectiveRepository.All().Count(o => o.Challenge_ID == challenge.Id);
+            }
+
+            return dtos;
+        }
+
+        public void ArchiveChallenge(Guid challengeId)
+        {
+            try
+            {
+                _unitOfWork.ChallengeRepository.All().Where(c => c.Challenge_ID == challengeId).FirstOrDefault().Archived = true;
+                _unitOfWork.ChallengeRepository.Save();
+                _unitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.RollBack();
+                throw;
+            }
         }
     }
 }

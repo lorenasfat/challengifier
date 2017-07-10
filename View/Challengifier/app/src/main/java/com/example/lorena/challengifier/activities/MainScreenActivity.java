@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.MainMenuFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.AddChallengeFragment;
+import com.example.lorena.challengifier.fragments.s.challenge.ArchivedChallengeListFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.ChallengeListFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.EditChallengeFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.MyChallengesListFragment;
@@ -205,6 +206,14 @@ public class MainScreenActivity extends AppCompatActivity {
     public void showViewObjectiveFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new ViewObjectiveFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Subscribe(tags = @Tag(ArchivedChallengeListFragment.SHOW_SCREEN))
+    public void showArchivedChallengeListFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new ArchivedChallengeListFragment())
                 .addToBackStack(null)
                 .commit();
     }

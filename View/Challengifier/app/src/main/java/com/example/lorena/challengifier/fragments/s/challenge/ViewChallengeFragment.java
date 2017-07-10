@@ -11,14 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragment;
 import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.models.Challenge;
+import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ChallengeService;
+import com.example.lorena.challengifier.services.external.services.services.ApiChallengeService;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.lorena.challengifier.utils.communication.FlowAids.IsChallengeAccepted;
 
@@ -76,11 +84,35 @@ public class ViewChallengeFragment extends Fragment {
         return view;
     }
 
+    private void archiveChallenge(Challenge challenge){
+        ChallengeService service = ApiChallengeService.getService();
+        Call<ResponseBody> call = service.archiveChallenge(challenge.getId());
+        try {
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Toast.makeText(getActivity().getApplicationContext(), "The challenge has been archived!", Toast.LENGTH_LONG).show();
+                    RxBus.get().post(ChallengeListFragment.SHOW_SCREEN, true);
+                    // The network call was a success and we got a response
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    // the network call was a failure
+                    // TODO: handle error
+                    t.printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.edit_challenge_menu, menu);
+        inflater.inflate(R.menu.view_challenge_menu, menu);
     }
 
     @Override
@@ -91,6 +123,10 @@ public class ViewChallengeFragment extends Fragment {
             case R.id.action_edit:
                 FlowAids.ChallengeToEdit = FlowAids.ChallengeToView;
                 RxBus.get().post(EditChallengeFragment.SHOW_SCREEN, true);
+                return true;
+            case R.id.action_archive:
+                archiveChallenge(FlowAids.ChallengeToView);
+                RxBus.get().post(ChallengeListFragment.SHOW_SCREEN, true);
                 return true;
             default:
                 return false;

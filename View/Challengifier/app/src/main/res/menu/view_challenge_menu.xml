@@ -4,4 +4,8 @@
         android:id="@+id/action_edit"
         android:orderInCategory="100"
         android:title="Edit"/>
+    <item
+        android:id="@+id/action_archive"
+        android:orderInCategory="100"
+        android:title="Archive"/>
 </menu>

@@ -12,8 +12,10 @@ namespace Business.Services.Interfaces
         void AddChallenge(ChallengeDto challenge);
         void UpdateChallenge(ChallengeDto challenge);
         void DeleteChallenge(Guid challengeId);
+        void ArchiveChallenge(Guid challengeId);
         ChallengeDto GetChallengeByName(string name);
         IEnumerable<MyChallengeDto> GetChallengesOfUser(string id);
+        IEnumerable<ArchivedChallengeDto> GetArchivedChallengesOfUser(string id);
         int CountObjectivesForReview(Guid id);
     }
 }

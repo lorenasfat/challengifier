@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.challenge.AddChallengeFragment;
+import com.example.lorena.challengifier.fragments.s.challenge.ArchivedChallengeListFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.ChallengeListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragment;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
@@ -44,6 +46,14 @@ public class MainMenuFragment extends Fragment {
 
         setDrawerState(true);
 
+        ImageView archive = (ImageView) view.findViewById(R.id.archive);
+        archive.setClickable(true);
+        archive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(ArchivedChallengeListFragment.SHOW_SCREEN,true);
+            }
+        });
 
         final Button buttonAddChallenge = (Button) view.findViewById(R.id.AddChallengeID);
         buttonAddChallenge.setOnClickListener(new View.OnClickListener() {
