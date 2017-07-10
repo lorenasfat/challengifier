@@ -28,7 +28,13 @@ public class FlowAids {
 
     public static List<ObjectiveForReviewDto> ObjectivesForReviewBackup = null;
 
-    public static boolean LinkChallengeToObjective = false;
+    public static boolean IsLinkChallengeToObjective = false;
+
+    public static boolean IsMyObjectives = false;
+
+    public static boolean IsChallengeAccepted = false;
+
+    public static boolean IsArchivedChallenges = false;
 
     public static Milestone TempToBeAdded = null;
 }

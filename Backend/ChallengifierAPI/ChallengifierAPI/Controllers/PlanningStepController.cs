@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace ChallengifierAPI.Controllers
 {
-    public class PlanningStepController : ApiController
+    public class PlanningStepController : BaseController
     {
         private readonly IPlanningStepService _planningStepService;
 

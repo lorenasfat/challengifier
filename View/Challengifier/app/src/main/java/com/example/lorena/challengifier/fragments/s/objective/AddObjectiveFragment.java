@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
@@ -45,17 +46,19 @@ public class AddObjectiveFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_objective, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Add objective");
 
-        Challenge challenge = FlowAids.ChallengeToAddAsObjective;
-
         final Objective objective = new Objective();
-
+        objective.setId(UUID.randomUUID());
+        objective.setStatus(0);
         final EditText editTextName = (EditText) view.findViewById(R.id.editTextName);
         final EditText editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
         final EditText editTextDeadline = (EditText) view.findViewById(R.id.editTextDeadline);
-        if (challenge != null) {
+
+        if (FlowAids.IsChallengeAccepted) {
+            Challenge challenge = FlowAids.ChallengeToView;
             editTextName.setText(challenge.getName());
             editTextDescription.setText(challenge.getDescription());
         }
+        final TextView status = (TextView)view.findViewById(R.id.editTextStatus) ;
 
         ImageView startNow = (ImageView) view.findViewById(R.id.startNow);
         startNow.setClickable(true);
@@ -63,19 +66,20 @@ public class AddObjectiveFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Title")
-                        .setMessage("Do you really want to whatever?")
+                builder.setTitle("Start now")
+                        .setMessage("Start the objective now?")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.cancel();
                                 objective.setStatus(ObjStatus.Ongoing.ordinal());
+                                status.setText("Ongoing");
                                 Toast.makeText(getActivity().getApplicationContext(), "Objective now in progress!", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                objective.setStatus(ObjStatus.Ongoing.ordinal());
+                                objective.setStatus(ObjStatus.Not_Active.ordinal());
                                 dialog.cancel();
                                 Toast.makeText(getActivity().getApplicationContext(), "Objective saved for later!", Toast.LENGTH_SHORT).show();
                             }
@@ -100,7 +104,6 @@ public class AddObjectiveFragment extends Fragment {
                 final String title = editTextName.getText().toString();
                 final String description = editTextDescription.getText().toString();
                 final String deadline = editTextDeadline.getText().toString();
-                int objectiveStatus = 0;
                 Date deadlineDate = new Date();
 
                 boolean ok = true;
@@ -123,14 +126,15 @@ public class AddObjectiveFragment extends Fragment {
                     deadlineDate = DateFormatter.getDate(deadline);
                 }
                 if (ok == true) {
-                    objective.setId(UUID.randomUUID());
                     objective.setName(title);
                     objective.setDeadline(deadlineDate);
                     objective.setExpectedOutcome("");
                     objective.setDescription(description);
-                    objective.setUserId(SessionUser.currentUser);
-                    objective.setStatus(objectiveStatus);
+                    objective.setUserId(SessionUser.loggedInUser.getAspNetUserId());
                     ObjectiveService service = ApiObjectiveService.getService();
+                    if (FlowAids.IsChallengeAccepted)
+                        objective.setChallengeId(FlowAids.ChallengeToView.getId());
+
                     Call<ResponseBody> call = service.addObjective(objective);
                     try {
                         call.enqueue(new Callback<ResponseBody>() {

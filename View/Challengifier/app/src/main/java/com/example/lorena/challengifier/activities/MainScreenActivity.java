@@ -1,9 +1,17 @@
 package com.example.lorena.challengifier.activities;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -38,6 +46,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 
 public class MainScreenActivity extends AppCompatActivity {
+    Activity activity;
 
     public static DrawerLayout mDrawerLayout;
     public static ActionBarDrawerToggle mDrawerToggle;
@@ -61,84 +70,130 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         RxBus.get().register(this);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.ic_prize);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        buttonChallenges = (Button) findViewById(R.id.buttonMyChallenges);
-        buttonObjectives = (Button) findViewById(R.id.buttonObjectives);
-        buttonObjectives.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
-                mDrawerLayout.closeDrawer(Gravity.LEFT);
+        activity = this;
+
+        setUpLauncher();
+    }
+
+    private void setUpLauncher() {
+        if (isConnected(getApplicationContext())) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setLogo(R.drawable.ic_prize);
+            getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+            buttonChallenges = (Button) findViewById(R.id.buttonMyChallenges);
+            buttonObjectives = (Button) findViewById(R.id.buttonObjectives);
+            buttonObjectives.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
+                    mDrawerLayout.closeDrawer(Gravity.LEFT);
+                }
+            });
+
+            buttonStats = (Button) findViewById(R.id.buttonStats);
+            username = (TextView) findViewById(R.id.username);
+            points = (TextView) findViewById(R.id.points);
+
+            ImageView homeScreen = (ImageView) findViewById(R.id.homeScreen);
+
+            if (SessionUser.isSessionStarted(MainScreenActivity.this)) {
             }
-        });
 
-        buttonStats = (Button) findViewById(R.id.buttonStats);
-        username = (TextView) findViewById(R.id.username);
-        points = (TextView) findViewById(R.id.points);
+            homeScreen.setClickable(true);
+            homeScreen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RxBus.get().post(MainMenuFragment.SHOW_SCREEN, true);
+                    mDrawerLayout.closeDrawer(Gravity.LEFT);
 
-        ImageView homeScreen = (ImageView) findViewById(R.id.homeScreen);
+                }
+            });
 
-        if (SessionUser.isSessionStarted(MainScreenActivity.this)) {
+            buttonChallenges.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RxBus.get().post(MyChallengesListFragment.SHOW_SCREEN, true);
+                    mDrawerLayout.closeDrawer(Gravity.LEFT);
+                }
+            });
+
+            this.getSupportActionBar().hide();
+
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                    R.string.drawer_open, R.string.drawer_open) {
+
+                @Override
+                public void onDrawerClosed(View view) {
+                    super.onDrawerClosed(view);
+                    //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                }
+
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                }
+            };
+
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+
+            // Set the drawer toggle as the DrawerListener
+            mDrawerLayout.addDrawerListener(mDrawerToggle);
+            mDrawerToggle.syncState();
+
+            if (!SessionUser.isSessionStarted(MainScreenActivity.this)) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, new FrontScreenFragment())
+                        .addToBackStack(null)
+                        .commit();
+            } else {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, new MainMenuFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
         }
+    }
 
-        homeScreen.setClickable(true);
-        homeScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RxBus.get().post(MainMenuFragment.SHOW_SCREEN, true);
-                mDrawerLayout.closeDrawer(Gravity.LEFT);
+    public boolean isConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            boolean isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+            boolean isMobile = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
 
+            if ((isWifi || isMobile) && activeNetwork.isConnected()) {
+                return true;
+            } else {
+                showDialog();
+                return false;
             }
-        });
-
-        buttonChallenges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RxBus.get().post(MyChallengesListFragment.SHOW_SCREEN, true);
-                mDrawerLayout.closeDrawer(Gravity.LEFT);
-            }
-        });
-
-        this.getSupportActionBar().hide();
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.drawer_open, R.string.drawer_open) {
-
-            @Override
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-        };
-
-        mDrawerLayout.closeDrawer(Gravity.LEFT);
-
-        // Set the drawer toggle as the DrawerListener
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
-
-        if (!SessionUser.isSessionStarted(MainScreenActivity.this)) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new FrontScreenFragment())
-                    .addToBackStack(null)
-                    .commit();
+        } else {
+            showDialog();
+            return false;
         }
-        else{
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainMenuFragment())
-                    .addToBackStack(null)
-                    .commit();
-        }
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("Turn mobile data on or come back later")
+                .setCancelable(false)
+                .setPositiveButton("Turn mobile data on", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        activity.finish();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
@@ -150,6 +205,7 @@ public class MainScreenActivity extends AppCompatActivity {
     public void showViewObjectiveFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new ViewObjectiveFragment())
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -164,6 +220,7 @@ public class MainScreenActivity extends AppCompatActivity {
     public void showViewMyChallengeFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new ViewMyChallengeFragment())
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -307,13 +364,21 @@ public class MainScreenActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+        if (mDrawerToggle != null)
+            mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
+        if (mDrawerToggle != null)
+            mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpLauncher();
     }
 
 }

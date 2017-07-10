@@ -24,5 +24,7 @@
         <item name="android:tint">@color/stfImageColor</item>
     </style>
 
-
+    <style name="Cyan" >
+        <item name="android:tint">@color/colorPrimary</item>
+    </style>
 </resources>

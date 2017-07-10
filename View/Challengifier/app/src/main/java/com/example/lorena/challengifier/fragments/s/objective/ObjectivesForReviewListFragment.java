@@ -40,7 +40,7 @@ public class ObjectivesForReviewListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_objectives_for_review_list, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Objectives");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Pending reviews");
 
         listAdapter = new ObjectivesForReviewListAdapter(getActivity().getApplicationContext(), objectives);
 
@@ -61,7 +61,7 @@ public class ObjectivesForReviewListFragment extends Fragment {
                     }
                     else if(listAdapter.getObjectives().size() == 1){
                         FlowAids.ObjectiveToReview = listAdapter.getObjectives().get(0);
-                        RxBus.get().post(ViewMyChallengeFragment.SHOW_SCREEN,true);
+                        RxBus.get().post(ReviewObjectiveFragment.SHOW_SCREEN,true);
                     }
 
                     FlowAids.ObjectivesForReviewBackup = objectives;

@@ -10,12 +10,23 @@ import java.util.List;
 public class ObjectiveHelper {
 
     public static List<Status> Statuses;
+    public static ArrayList<String> StatusNames;
 
-    public static List<Status> getStatuses() {
+    public static String getStatusName(int index) {
         if (Statuses == null) {
-            populateStatuses();
+            populateStatusNames();
         }
-        return Statuses;
+        return StatusNames.get(index);
+    }
+
+    private static void populateStatusNames(){
+        StatusNames = new ArrayList<>();
+        StatusNames.add("Not started");
+        StatusNames.add("Ongoing");
+        StatusNames.add("Completed");
+        StatusNames.add("Past deadline");
+        StatusNames.add("To be reviewed");
+        StatusNames.add("Reviewed");
     }
 
     private static void populateStatuses(){

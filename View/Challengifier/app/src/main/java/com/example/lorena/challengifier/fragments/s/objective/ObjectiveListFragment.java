@@ -2,11 +2,15 @@ package com.example.lorena.challengifier.fragments.s.objective;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateUtils;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +25,7 @@ import com.example.lorena.challengifier.services.external.services.retrofit.inte
 import com.example.lorena.challengifier.services.external.services.services.ApiObjectiveService;
 import com.example.lorena.challengifier.utils.adapters.ObjectiveListAdapter;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
+import com.example.lorena.challengifier.utils.constants.ObjStatus;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 
@@ -44,7 +49,10 @@ public class ObjectiveListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_objective_list, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Objectives");
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setTitle("Objectives");
+
+        setHasOptionsMenu(true);
 
         mIsRestoredFromBackstack = false;
 
@@ -52,30 +60,8 @@ public class ObjectiveListFragment extends Fragment {
 
         AutoCompleteTextView searchTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteSearch);
 
-        if (!mIsRestoredFromBackstack) {
-            ObjectiveService service = ApiObjectiveService.getService();
-            Call<List<Objective>> call = service.listObjectives(SessionUser.loggedInUser.getAspNetUserId());
-            try {
-                call.enqueue(new Callback<List<Objective>>() {
-                    @Override
-                    public void onResponse(Call<List<Objective>> call, Response<List<Objective>> response) {
-                        objectives.addAll(response.body());
-                        listAdapter.notifyDataSetChanged();
-                        FlowAids.ObjectivesBackup = objectives;
-                        // The network call was a success and we got a response
-                    }
+        loadObjectives();
 
-                    @Override
-                    public void onFailure(Call<List<Objective>> call, Throwable t) {
-                        // the network call was a failure
-                        // TODO: handle error
-                        t.printStackTrace();
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         ListView list = (ListView) view.findViewById(R.id.objectiveList);
 
         list.setAdapter(listAdapter);
@@ -110,6 +96,8 @@ public class ObjectiveListFragment extends Fragment {
 
         return view;
     }
+
+
 
     @Override
     public void onDestroyView() {
@@ -155,4 +143,111 @@ public class ObjectiveListFragment extends Fragment {
         return true;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.objective_menu, menu);
+    }
+
+    private void loadObjectives() {
+        objectives.clear();
+        ObjectiveService service = ApiObjectiveService.getService();
+        Call<List<Objective>> call = service.listObjectives(SessionUser.loggedInUser.getAspNetUserId());
+        try {
+            call.enqueue(new Callback<List<Objective>>() {
+                @Override
+                public void onResponse(Call<List<Objective>> call, Response<List<Objective>> response) {
+                    objectives.addAll(response.body());
+                    listAdapter.setObjectives(objectives);
+                    listAdapter.notifyDataSetChanged();
+                    FlowAids.ObjectivesBackup = objectives;
+                    // The network call was a success and we got a response
+                }
+
+                @Override
+                public void onFailure(Call<List<Objective>> call, Throwable t) {
+                    // the network call was a failure
+                    // TODO: handle error
+                    t.printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        listAdapter.notifyDataSetChanged();
+    }
+
+    public void showForReview(){
+        List<Objective> objectives = FlowAids.ObjectivesBackup;
+        List<Objective> sorted = new ArrayList<>();
+
+        for (Objective objective:objectives) {
+            if(objective.getStatus() == ObjStatus.For_Review.ordinal())
+                sorted.add(objective);
+        }
+        listAdapter.setObjectives(sorted);
+        listAdapter.notifyDataSetChanged();
+    }
+
+    public void showOngoing(){
+        List<Objective> objectives = FlowAids.ObjectivesBackup;
+        List<Objective> sorted = new ArrayList<>();
+
+        for (Objective objective:objectives) {
+            if(objective.getStatus() == ObjStatus.Ongoing.ordinal())
+                sorted.add(objective);
+        }
+        listAdapter.setObjectives(sorted);
+        listAdapter.notifyDataSetChanged();
+    }
+
+    public void showNotStarted(){
+        List<Objective> objectives = FlowAids.ObjectivesBackup;
+        List<Objective> sorted = new ArrayList<>();
+
+        for (Objective objective:objectives) {
+            if(objective.getStatus() == ObjStatus.Not_Active.ordinal())
+                sorted.add(objective);
+        }
+        listAdapter.setObjectives(sorted);
+        listAdapter.notifyDataSetChanged();
+    }
+
+    public void showDue(){
+        List<Objective> objectives = FlowAids.ObjectivesBackup;
+        List<Objective> sorted = new ArrayList<>();
+
+        for (Objective objective:objectives) {
+            if( DateUtils.isToday(objective.getDeadline().getTime())){
+                sorted.add(objective);
+            }
+        }
+        listAdapter.setObjectives(sorted);
+        listAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                loadObjectives();
+                return true;
+            case R.id.action_review:
+                showForReview();
+                return true;
+            case R.id.action_due:
+                showDue();
+                return true;
+            case R.id.action_notstarted:
+                showNotStarted();
+                return true;
+            case R.id.action_ongoing:
+                showOngoing();
+                return true;
+            default:
+                return false;
+        }
+    }
 }

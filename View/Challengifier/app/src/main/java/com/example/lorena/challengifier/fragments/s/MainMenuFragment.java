@@ -12,6 +12,7 @@ import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.challenge.AddChallengeFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.ChallengeListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragment;
+import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.hwangjr.rxbus.RxBus;
 
 import static com.example.lorena.challengifier.utils.tools.DrawerDisabler.setDrawerState;
@@ -28,6 +29,7 @@ public class MainMenuFragment extends Fragment {
         final Button button = (Button) view.findViewById(R.id.buttonViewChallenges);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                FlowAids.IsMyObjectives = false;
                 RxBus.get().post(ChallengeListFragment.SHOW_SCREEN,true);
             }
         });
@@ -35,26 +37,13 @@ public class MainMenuFragment extends Fragment {
         final Button buttonAddObjective = (Button) view.findViewById(R.id.buttonAddObjective);
         buttonAddObjective.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                FlowAids.IsChallengeAccepted = false;
                 RxBus.get().post(AddObjectiveFragment.SHOW_SCREEN,true);
             }
         });
 
         setDrawerState(true);
 
-        /*final Button buttonObjectiveList = (Button) view.findViewById(R.id.buttonViewObjectives);
-        buttonObjectiveList.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN,true);
-            }
-        });*/
-
-        /*final Button buttonMyStats = (Button) view.findViewById(R.id.MyPerformances);
-        buttonMyStats.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-               // Intent intent = new Intent(v.getContext(), MyPerformancesActivity.class);
-              //  startActivityForResult(intent,0);
-            }
-        });*/
 
         final Button buttonAddChallenge = (Button) view.findViewById(R.id.AddChallengeID);
         buttonAddChallenge.setOnClickListener(new View.OnClickListener() {

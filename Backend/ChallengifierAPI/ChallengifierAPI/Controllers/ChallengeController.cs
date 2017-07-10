@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace ChallengifierAPI.Controllers
 {
-    public class ChallengeController : ApiController
+    public class ChallengeController : BaseController
     {
         private readonly IChallengeService _challengeService;
         private readonly IUserService _userService;

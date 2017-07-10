@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Business.Services.Interfaces
 {
-    public interface IPlanningStepService
+    public interface IPlanningStepService : IBaseService
     {
         IEnumerable<PlanningStepDto> GetPlanningSteps(Guid challengeId);
         void DeletePlanningStep(Guid planningStepId);

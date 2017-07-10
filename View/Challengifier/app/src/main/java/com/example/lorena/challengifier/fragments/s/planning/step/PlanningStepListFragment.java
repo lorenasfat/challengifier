@@ -16,12 +16,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.fragments.s.challenge.ViewChallengeFragment;
 import com.example.lorena.challengifier.fragments.s.milestone.AddMilestoneFragment;
 import com.example.lorena.challengifier.models.PlanningStep;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.PlanningStepService;
 import com.example.lorena.challengifier.services.external.services.services.ApiPlanningStepService;
 import com.example.lorena.challengifier.utils.adapters.PlanningStepListAdapter;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
+import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 
 import java.util.ArrayList;
@@ -56,11 +58,12 @@ public class PlanningStepListFragment extends Fragment {
         listAdapter = new PlanningStepListAdapter(getActivity().getApplicationContext(), planningSteps);
         PlanningStepService service = ApiPlanningStepService.getService();
         UUID challengeId = null;
-        if(FlowAids.LinkChallengeToObjective){
+        if (FlowAids.IsLinkChallengeToObjective) {
             challengeId = FlowAids.ObjectiveToEdit.getChallengeId();
+        } else {
+            challengeId = FlowAids.ChallengeToView.getId();
         }
-        else
-            challengeId=FlowAids.ChallengeToEdit.getId();
+
         Call<List<PlanningStep>> call = service.listPlanningSteps(challengeId);
         ImageView addPlanningStep = (ImageView) view.findViewById(R.id.addPlanningStepButton);
         addPlanningStep.setClickable(true);
@@ -71,6 +74,9 @@ public class PlanningStepListFragment extends Fragment {
             }
         });
 
+        if (!FlowAids.IsMyObjectives) {
+            addPlanningStep.setVisibility(View.INVISIBLE);
+        }
 
         try {
             call.enqueue(new Callback<List<PlanningStep>>() {
@@ -78,16 +84,17 @@ public class PlanningStepListFragment extends Fragment {
                 public void onResponse(Call<List<PlanningStep>> call, Response<List<PlanningStep>> response) {
                     planningSteps.addAll(response.body());
 
-                    if(planningSteps.isEmpty() && FlowAids.LinkChallengeToObjective){
+                    if (planningSteps.isEmpty() && FlowAids.IsLinkChallengeToObjective) {
                         Toast.makeText(getActivity().getApplicationContext(), "No milestones, no restrictions!", Toast.LENGTH_LONG).show();
                         RxBus.get().post(AddMilestoneFragment.SHOW_SCREEN, true);
                     }
 
-                    /*if (milestones.size() <= 0) {
-                        stateful.showEmpty("@string/no_milestone");
-                    } else {*/
-                    listAdapter.notifyDataSetChanged();
-                    // The network call was a success and we got a response
+                    if (planningSteps.isEmpty()) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Looks like there are no planning steps!", Toast.LENGTH_LONG).show();
+                        RxBus.get().post(ViewChallengeFragment.SHOW_SCREEN, true);
+                    } else {
+                        listAdapter.notifyDataSetChanged();
+                    }
                 }
 
                 @Override
@@ -103,12 +110,14 @@ public class PlanningStepListFragment extends Fragment {
         ListView list = (ListView) view.findViewById(R.id.planningStepList);
 
         list.setAdapter(listAdapter);
-        registerForContextMenu(list);
+
+        if (FlowAids.ChallengeToView.getUser_Id().equalsIgnoreCase(SessionUser.loggedInUser.getAspNetUserId()))
+            registerForContextMenu(list);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                if (FlowAids.LinkChallengeToObjective) {
+                if (FlowAids.IsLinkChallengeToObjective) {
                     FlowAids.TempToBeAdded.setPlanningStepId(((PlanningStep) listAdapter.getItem(position)).getId());
                     Toast.makeText(getActivity().getApplicationContext(), "Planning step linked!", Toast.LENGTH_LONG).show();
                     RxBus.get().post(AddMilestoneFragment.SHOW_SCREEN, true);

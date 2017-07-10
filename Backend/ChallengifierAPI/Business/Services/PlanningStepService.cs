@@ -50,6 +50,11 @@ namespace Business.Services
             }
         }
 
+        public void Dispose()
+        {
+            _unitOfWork.Dispose();
+        }
+
         public IEnumerable<PlanningStepDto> GetPlanningSteps(Guid challengeId)
         {
             try

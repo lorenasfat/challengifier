@@ -39,7 +39,7 @@ public class SignupService {
         }
         if(SessionUser.authToken.equalsIgnoreCase("-1"))
             return false;
-        SessionUser.currentUser = _username;
+        SessionUser.currentUserId = _username;
         return true;
     }
 }

@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ChallengifierAPI.Identity.AppDbContext">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\AppDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Identity.AppRole" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\AppRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Identity.AppRoleManager">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\AppRoleManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Identity.AppUser" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\AppUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Identity.AppUserManager">
+    <Position X="12" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\AppUserManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Infrastructure.Authorization.BasicAuthenticationFilter">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAEAAAAAAAAAAAQAAAAgAAAAAAAAAEA=</HashCode>
+      <FileName>Infrastructure\Authorization\BasicAuthenticationFilter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Infrastructure.Authorization.BasicAuthenticationIdentity">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Authorization\BasicAuthenticationIdentity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Models.LoginModel">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\LoginModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Models.RegisterModel">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RegisterModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Models.UserModel">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\UserModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Controllers.AccountController">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABQAAAAABAAAAAAAUAAAAAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Controllers.BaseController" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\BaseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Controllers.ChallengeController">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgEAAAAAACAAQAAAAIAAAAAAAAAAAIAAAAAEAAAAAEA=</HashCode>
+      <FileName>Controllers\ChallengeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Controllers.MilestoneController">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAQBAAAAAAIAAAAAAAAAEAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Controllers\MilestoneController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Controllers.ObjectiveController">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEIACAAAAAAAAAAAAAAAAIABAQAAAAcCAAAAAA=</HashCode>
+      <FileName>Controllers\ObjectiveController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.Controllers.PlanningStepController">
+    <Position X="7.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Controllers\PlanningStepController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.App_Start.IdentityConfig">
+    <Position X="20.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\IdentityConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.App_Start.RouteConfig">
+    <Position X="19" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChallengifierAPI.UnityConfig">
+    <Position X="17.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\UnityConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business.DTOs.ChallengeDto" Collapsed="true">
+    <Position X="2.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.MailDto" Collapsed="true">
+    <Position X="4" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.MilestoneDto" Collapsed="true">
+    <Position X="5.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.MyChallengeDto" Collapsed="true">
+    <Position X="7.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.ObjectiveDto" Collapsed="true">
+    <Position X="2.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.ObjectiveForReviewDto" Collapsed="true">
+    <Position X="4" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.PictureDto" Collapsed="true">
+    <Position X="5.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.PlanningStepDto" Collapsed="true">
+    <Position X="7.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.UserDto" Collapsed="true">
+    <Position X="2.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.UserRankDto" Collapsed="true">
+    <Position X="4" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.DTOs.UserRatingDto" Collapsed="true">
+    <Position X="5.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.Mappers.ChallengeMapper" Collapsed="true">
+    <Position X="9.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.Mappers.MilestoneMapper" Collapsed="true">
+    <Position X="11" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.Mappers.ObjectiveMapper" Collapsed="true">
+    <Position X="12.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.Mappers.PictureMapper" Collapsed="true">
+    <Position X="9.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.Mappers.PlanningStepMapper" Collapsed="true">
+    <Position X="11" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.Mappers.UserMapper" Collapsed="true">
+    <Position X="12.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.Mappers.UserRankMapper" Collapsed="true">
+    <Position X="9.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.Mappers.UserRatingMapper" Collapsed="true">
+    <Position X="11" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Business.Services.ChallengeService" BaseTypeListCollapsed="true">
+    <Position X="5" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Business.Services.MilestoneService" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Business.Services.ObjectiveService" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Business.Services.PlanningStepService" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Business.Services.UserRatingService" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Business.Services.UserService" BaseTypeListCollapsed="true">
+    <Position X="14" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataAccess.Repository.BaseRepository&lt;T, TKey&gt;">
+    <Position X="31.25" Y="8" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataAccess.Repository.ChallengeRepository">
+    <Position X="28" Y="11.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataAccess.Repository.MilestoneRepository">
+    <Position X="34.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataAccess.Repository.ObjectiveRepository">
+    <Position X="28" Y="13.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataAccess.Repository.ObjectiveStatusRepository">
+    <Position X="30.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataAccess.Repository.PlanningStepRepository">
+    <Position X="32.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataAccess.Repository.UserRankRepository">
+    <Position X="30.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataAccess.Repository.UserRatingRepository">
+    <Position X="32.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataAccess.Repository.UserRepository">
+    <Position X="34.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Business.Services.Interfaces.IBaseService" Collapsed="true">
+    <Position X="8.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Business.Services.Interfaces.IChallengeService">
+    <Position X="5" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Business.Services.Interfaces.IMilestoneService">
+    <Position X="2.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Business.Services.Interfaces.IObjectiveService">
+    <Position X="7.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Business.Services.Interfaces.IUserRatingService">
+    <Position X="9.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Business.Services.Interfaces.IUserService">
+    <Position X="14" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Business.Services.Interfaces.IPlanningStepService">
+    <Position X="11.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataAccess.Repository.Interfaces.IBaseRepository&lt;T, TKey&gt;">
+    <Position X="31.25" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataAccess.Repository.Interfaces.IChallengeRepository" Collapsed="true">
+    <Position X="28" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataAccess.Repository.Interfaces.IMilestoneRepository" Collapsed="true">
+    <Position X="34.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataAccess.Repository.Interfaces.IObjectiveRepository" Collapsed="true">
+    <Position X="28" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataAccess.Repository.Interfaces.IObjectiveStatusRepository" Collapsed="true">
+    <Position X="30.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataAccess.Repository.Interfaces.IPlanningStepRepository" Collapsed="true">
+    <Position X="32.5" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataAccess.Repository.Interfaces.IUserRankRepository" Collapsed="true">
+    <Position X="30.25" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataAccess.Repository.Interfaces.IUserRatingRepository" Collapsed="true">
+    <Position X="32.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DataAccess.Repository.Interfaces.IUserRepository" Collapsed="true">
+    <Position X="34.75" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

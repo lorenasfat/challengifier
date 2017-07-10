@@ -72,6 +72,12 @@ namespace Business.Services
             {
                 var dbObjective = _unitOfWork.ObjectiveRepository.GetById(objective.Id);
                 SetUpObjective(dbObjective, objective);
+
+                if((dbObjective.Challenge_ID != null && dbObjective.Status_ID == (int)Common.Enums.ObjectiveStatus.Reviewed)
+                    || (dbObjective.Challenge_ID == null && dbObjective.Status_ID == (int)Common.Enums.ObjectiveStatus.Completed))
+                {
+                    //todo system grading
+                }
                 _unitOfWork.ObjectiveRepository.Save();
                 _unitOfWork.Commit();
             }
@@ -96,9 +102,15 @@ namespace Business.Services
             dbObjective.Expected_Outcome = objective.ExpectedOutcome;
             dbObjective.Name = objective.Name;
             dbObjective.Progress = objective.Progress;
+            dbObjective.Start_Date = objective.StartDate;
+            dbObjective.End_Date = objective.EndDate;
+            if(objective.Status != 0)
+            {
+                dbObjective.Status_ID = objective.Status;
+            }
             if (objective.Progress == 10 && !objective.ChallengeId.HasValue)
                 dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.Completed;
-            else if (objective.Progress == 10)
+            else if (objective.Progress == 10 || objective.Status == (int)Common.Enums.ObjectiveStatus.Completed)
                 dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.ForReview;
             else if (objective.Progress > 0 && objective.Progress < 10)
                 dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.Ongoing;

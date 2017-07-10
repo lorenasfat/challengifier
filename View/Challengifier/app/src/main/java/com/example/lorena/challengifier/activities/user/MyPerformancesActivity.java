@@ -14,6 +14,6 @@ public class MyPerformancesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_performances);
         TextView user = (TextView) findViewById(R.id.textViewUser);
-        user.setText(SessionUser.currentUser);
+        user.setText(SessionUser.currentUserId);
     }
 }

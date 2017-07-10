@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -49,29 +52,9 @@ public class MyChallengesListFragment extends Fragment {
 
         listAdapter = new MyChallengeListAdapter(getActivity().getBaseContext());
         listAdapter.setChallenges(challenges);
+        setHasOptionsMenu(true);
 
-        ChallengeService service = ApiChallengeService.getService();
-        Call<List<MyChallenge>> call = service.listMyChallenges(SessionUser.loggedInUser.getAspNetUserId());
-        try {
-            call.enqueue(new Callback<List<MyChallenge>>() {
-                @Override
-                public void onResponse(Call<List<MyChallenge>> call, Response<List<MyChallenge>> response) {
-                    challenges.addAll(response.body());
-                    listAdapter.notifyDataSetChanged();
-                    FlowAids.MyChallengesBackup = challenges;
-                    // The network call was a success and we got a response
-                }
-
-                @Override
-                public void onFailure(Call<List<MyChallenge>> call, Throwable t) {
-                    // the network call was a failure
-                    // TODO: handle error
-                    t.printStackTrace();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        loadMyChallenges();
 
         ListView list = (ListView) view.findViewById(R.id.challengeList);
 
@@ -89,5 +72,51 @@ public class MyChallengesListFragment extends Fragment {
         );
 
         return view;
+    }
+
+    private void loadMyChallenges() {
+        challenges.clear();
+        ChallengeService service = ApiChallengeService.getService();
+        Call<List<MyChallenge>> call = service.listMyChallenges(SessionUser.loggedInUser.getAspNetUserId());
+        try {
+            call.enqueue(new Callback<List<MyChallenge>>() {
+                @Override
+                public void onResponse(Call<List<MyChallenge>> call, Response<List<MyChallenge>> response) {
+                    challenges.addAll(response.body());
+                    listAdapter.setChallenges(challenges);
+                    listAdapter.notifyDataSetChanged();
+                    FlowAids.MyChallengesBackup = challenges;
+                    // The network call was a success and we got a response
+                }
+
+                @Override
+                public void onFailure(Call<List<MyChallenge>> call, Throwable t) {
+                    // the network call was a failure
+                    // TODO: handle error
+                    t.printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.my_challenge_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                loadMyChallenges();
+                return true;
+            default:
+                return false;
+        }
     }
 }

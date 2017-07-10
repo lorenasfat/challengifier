@@ -9,7 +9,7 @@ using Business.Services.Interfaces;
 
 namespace ChallengifierAPI.Controllers
 {
-    public class PictureController : ApiController
+    public class PictureController : BaseController
     {
         private readonly IPictureService _pictureService;
         public PictureController(IPictureService pictureService)

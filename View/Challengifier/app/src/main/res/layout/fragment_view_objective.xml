@@ -10,36 +10,37 @@
 
     <TextView
         android:id="@+id/textViewPercComplete"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:text="Percentage complete   "
-        android:textAlignment="textEnd"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="normal|bold"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/editTextName"
-        android:layout_width="322dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="368dp"
+        android:layout_height="33dp"
         android:ems="10"
         android:hint="Title"
         android:inputType="text"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:text="Descriprion"
@@ -49,25 +50,27 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:fontFamily="sans-serif"
         android:textStyle="normal|bold"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/slider" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
-        android:layout_width="345dp"
-        android:layout_height="41dp"
-        android:inputType="textMultiLine"
-        android:ems="10"
         android:id="@+id/editTextDescription"
-        android:hint="Description"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
 
     <TextView
@@ -85,51 +88,36 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
-        android:layout_width="351dp"
-        android:layout_height="40dp"
-        android:inputType="none"
-        android:ems="10"
         android:id="@+id/editTextDeadline"
-        android:hint="dd-MM-yyyy"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChallengeDeadline"
-        tools:layout_editor_absoluteX="-54dp" />
+        android:ems="10"
+        android:hint="dd-MM-yyyy"
+        android:inputType="none"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChallengeDeadline" />
 
     <TextView
         android:id="@+id/editTextStatus"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="29dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Not started"
         android:inputType="textMultiLine"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textViewMilestones"
-        android:layout_width="118dp"
-        android:layout_height="53dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:text="View milestones"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18sp"
-        android:textStyle="normal|bold"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextStatus" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
@@ -141,96 +129,69 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/editTextDeadline"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="243dp"
+        android:layout_height="30dp"
+        app:rcBackgroundColor="@color/colorPrimaryDark"
+        app:rcBackgroundPadding="3dp"
+        app:rcProgressColor="@color/colorAccent"
+        app:rcRadius="5dp"
+        app:rcReverse="false"
+        app:rcSecondaryProgressColor="@color/colorPrimary"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPercComplete"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
-        android:id="@+id/slider"
-        android:layout_width="243dp"
-        android:layout_height="20dp"
-        app:dsb_min="0"
-        app:dsb_max="10"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPercComplete" />
-
     <ImageView
         android:id="@+id/imageViewMilestones"
-        android:layout_width="76dp"
-        android:layout_height="52dp"
+        android:layout_width="69dp"
+        android:layout_height="57dp"
         app:srcCompat="@drawable/arrow_right_bubble"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMilestones"
-        android:layout_marginLeft="31dp"
+        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/markCompleted"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.428" />
+        android:layout_marginBottom="16dp"
+        app:layout_constraintHorizontal_bias="0.397"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStatus"
+        app:layout_constraintVertical_bias="0.534" />
 
     <ImageView
         android:id="@+id/markCompleted"
-        android:layout_width="56dp"
-        android:layout_height="77dp"
+        android:layout_width="80dp"
+        android:layout_height="52dp"
         app:srcCompat="@drawable/good"
-        app:layout_constraintLeft_toRightOf="@+id/imageViewMilestones"
-        android:layout_marginLeft="57dp"
+        app:layout_constraintRight_toLeftOf="@+id/edit"
+        android:layout_marginRight="51dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="-10dp" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="109dp"
-        android:layout_height="53dp"
-        android:text="Mark as completed"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/editTextStatus"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/markCompleted"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintRight_toLeftOf="@+id/textView6"
-        android:layout_marginRight="8dp" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="115dp"
-        android:layout_height="31dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="Edit"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/markCompleted"
         app:layout_constraintTop_toBottomOf="@+id/editTextStatus"
-        app:layout_constraintVertical_bias="0.736"
-        tools:layout_editor_absoluteX="253dp" />
+        app:layout_constraintVertical_bias="0.511" />
 
     <ImageView
         android:id="@+id/edit"
-        android:layout_width="60dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.613"
-        app:layout_constraintLeft_toRightOf="@+id/markCompleted"
+        android:layout_width="78dp"
+        android:layout_height="57dp"
+        app:srcCompat="@drawable/edit"
+        android:layout_marginRight="24dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.578"
-        app:srcCompat="@drawable/edit" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStatus"
+        app:layout_constraintVertical_bias="0.534" />
 
 
 </android.support.constraint.ConstraintLayout>

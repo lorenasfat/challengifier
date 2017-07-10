@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
@@ -22,6 +23,7 @@ import com.example.lorena.challengifier.services.external.services.services.ApiO
 import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.example.lorena.challengifier.utils.constants.ErrorMessages;
 import com.example.lorena.challengifier.utils.constants.ObjStatus;
+import com.example.lorena.challengifier.utils.constants.ObjectiveHelper;
 import com.example.lorena.challengifier.utils.tools.DateFormatter;
 import com.hwangjr.rxbus.RxBus;
 
@@ -62,6 +64,8 @@ public class EditObjectiveFragment extends Fragment {
         final EditText editTextName = (EditText) view.findViewById(R.id.editTextName);
         final EditText editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
         final EditText editTextDeadline = (EditText) view.findViewById(R.id.editTextDeadline);
+        final TextView status = (TextView)view.findViewById(R.id.editTextStatus) ;
+        status.setText(ObjectiveHelper.getStatusName(FlowAids.ObjectiveToView.getStatus()));
 
         ImageView startNow = (ImageView) view.findViewById(R.id.startNow);
         if(!(editObjective.getStatus() == ObjStatus.Not_Active.ordinal()))
@@ -71,19 +75,20 @@ public class EditObjectiveFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Title")
-                        .setMessage("Do you really want to whatever?")
+                builder.setTitle("Start now")
+                        .setMessage("Start the objective?")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.cancel();
                                 editObjective.setStatus(ObjStatus.Ongoing.ordinal());
+                                status.setText("Ongoing");
                                 Toast.makeText(getActivity().getApplicationContext(), "Objective now in progress!", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                editObjective.setStatus(ObjStatus.Ongoing.ordinal());
+                                editObjective.setStatus(ObjStatus.Not_Active.ordinal());
                                 dialog.cancel();
                                 Toast.makeText(getActivity().getApplicationContext(), "Objective saved for later!", Toast.LENGTH_SHORT).show();
                             }

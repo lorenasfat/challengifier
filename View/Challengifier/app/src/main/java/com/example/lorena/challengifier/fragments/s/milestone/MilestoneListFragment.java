@@ -43,6 +43,7 @@ public class MilestoneListFragment extends Fragment {
 
         listAdapter = new MilestoneListAdapter(getActivity().getApplicationContext(), milestones);
         MilestoneService service = ApiMilestoneService.getService();
+
         Call<List<Milestone>> call = service.getMilestones(FlowAids.ObjectiveToEdit.getId());
 
         ImageView addMilestones = (ImageView) view.findViewById(R.id.addMilestones);

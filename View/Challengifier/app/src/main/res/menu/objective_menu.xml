@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="100"
+        android:icon="@drawable/refresh"
+        android:title="Refresh"/>
+    <item
+        android:id="@+id/action_review"
+        android:orderInCategory="100"
+        android:icon="@drawable/refresh"
+        android:title="For Review"/>
+    <item
+        android:id="@+id/action_due"
+        android:orderInCategory="100"
+        android:icon="@drawable/refresh"
+        android:title="Close to deadline"/>
+    <item
+        android:id="@+id/action_ongoing"
+        android:orderInCategory="100"
+        android:icon="@drawable/refresh"
+        android:title="Ongoing"/>
+    <item
+        android:id="@+id/action_notstarted"
+        android:orderInCategory="100"
+        android:icon="@drawable/refresh"
+        android:title="Not Started"/>
+</menu>

@@ -9,7 +9,7 @@ using ChallengifierAPI.Infrastructure.Session;
 
 namespace ChallengifierAPI.Controllers
 {
-    public class ObjectiveController : ApiController
+    public class ObjectiveController : BaseController
     {
         private readonly IObjectiveService _objectiveService;
         private readonly IUserService _userService;
@@ -63,7 +63,6 @@ namespace ChallengifierAPI.Controllers
         {
             try
             {
-                objective.UserId = SessionState.LoggedInUser == null ? _userService.getUserByUsername(objective.UserId).AspNetUserId : SessionState.LoggedInUser.AspNetUserId;
                 _objectiveService.AddObjective(objective);
                 return Request.CreateResponse(HttpStatusCode.Created, "Successfully added an objective!");
             }

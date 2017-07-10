@@ -4,24 +4,23 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragment;
 import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
+import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
-import com.shawnlin.numberpicker.NumberPicker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static com.example.lorena.challengifier.utils.communication.FlowAids.IsChallengeAccepted;
 
 /**
  * Created by Lorena on 19.06.2017.
@@ -38,61 +37,63 @@ public class ViewChallengeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_challenge, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("View challenge");
 
+        if(FlowAids.ChallengeToView.getUser_Id().equalsIgnoreCase(SessionUser.loggedInUser.getAspNetUserId()))
+            setHasOptionsMenu(true);
+
         final Challenge challenge = FlowAids.ChallengeToView;
 
         TextView title = (TextView)view.findViewById(R.id.textViewChallengeTitle);
         TextView description = (TextView)view.findViewById(R.id.challengeDescription);
-        NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.number_picker);
-        Spinner spinnerTimeUnits = (Spinner) view.findViewById(R.id.spinnerTimeUnit);
-        ImageView editChellenge = (ImageView) view.findViewById(R.id.actionOnChallenge);
         ImageView viewPlanningStept = (ImageView) view.findViewById(R.id.viewPlanningStepsButton);
+
         viewPlanningStept.setClickable(true);
         viewPlanningStept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FlowAids.LinkChallengeToObjective = false;
+                FlowAids.IsMyObjectives = false;
+                FlowAids.IsLinkChallengeToObjective = false;
                 RxBus.get().post(PlanningStepListFragment.SHOW_SCREEN, true);
             }
         });
 
-        editChellenge.setClickable(true);
-        editChellenge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FlowAids.ChallengeToEdit = FlowAids.ChallengeToView;
-                RxBus.get().post(EditChallengeFragment.SHOW_SCREEN, true);
-
-            }
-        });
-
-        List<String> list = new ArrayList<String>();
-        list.add("day");
-        list.add("week");
-        list.add("month");
-        list.add("year");
-
-        Map<String, Integer> timeUnits = new HashMap<>();
-        timeUnits.put("day",0);
-        timeUnits.put("week",1);
-        timeUnits.put("month",2);
-        timeUnits.put("year",3);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTimeUnits.setAdapter(adapter);
-        spinnerTimeUnits.setClickable(false);
-        spinnerTimeUnits.setEnabled(false);
-        spinnerTimeUnits.setSelection(timeUnits.get(challenge.getSuggested_Time_UnitsId()));
-
-        numberPicker.setEnabled(false);
-        numberPicker.setClickable(false);
-        numberPicker.setValue(challenge.getSuggested_Time_Number());
+        TextView suggestedTime = (TextView) view.findViewById(R.id.textViewTimeInterval);
+        suggestedTime.setText(challenge.getSuggested_Time_Number() +" "+challenge.getSuggested_Time_UnitsId());
 
         title.setText(challenge.getName());
         description.setText(challenge.getDescription());
 
-        String timeUnit = spinnerTimeUnits.getSelectedItem().toString();
-        int number = numberPicker.getValue();
+        ImageView acceptChallenge = (ImageView) view.findViewById(R.id.actionAcceptChallenge);
+        acceptChallenge.setClickable(true);
+
+        acceptChallenge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IsChallengeAccepted = true;
+                RxBus.get().post(AddObjectiveFragment.SHOW_SCREEN,true);
+            }
+        });
+
         return view;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.edit_challenge_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+                FlowAids.ChallengeToEdit = FlowAids.ChallengeToView;
+                RxBus.get().post(EditChallengeFragment.SHOW_SCREEN, true);
+                return true;
+            default:
+                return false;
+        }
     }
 }

@@ -14,7 +14,7 @@ import static com.example.lorena.challengifier.activities.MainScreenActivity.upd
  */
 
 public class SessionUser {
-    public static String currentUser;
+    public static String currentUserId;
     public static String authToken;
     public static User loggedInUser;
     public static String key = "TokenKey";

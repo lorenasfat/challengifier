@@ -68,7 +68,7 @@ public class ObjectiveListAdapter extends BaseAdapter implements Filterable {
                 else{
                     ArrayList<Objective> searched = new ArrayList<>();
                     for (Objective o : objectives) {
-                        if (o.getName().toUpperCase().startsWith(constraint.toString().toUpperCase()))
+                        if (o.getName().toUpperCase().contains(constraint.toString().toUpperCase()))
                             searched.add(o);
                     }
 

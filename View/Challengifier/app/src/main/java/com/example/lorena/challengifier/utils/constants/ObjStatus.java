@@ -7,5 +7,9 @@ package com.example.lorena.challengifier.utils.constants;
 public enum ObjStatus {
 	Not_Active,
 	Ongoing,
-	Completed
+	Completed,
+	Past_Deadline,
+	For_Review,
+	Rejected,
+	Reviewed
 }

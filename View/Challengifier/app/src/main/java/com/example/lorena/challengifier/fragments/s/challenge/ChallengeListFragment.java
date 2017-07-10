@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.example.lorena.challengifier.services.external.services.retrofit.inte
 import com.example.lorena.challengifier.services.external.services.services.ApiChallengeService;
 import com.example.lorena.challengifier.utils.adapters.ChallengeListAdapter;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
+import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 
 import java.util.ArrayList;
@@ -40,10 +43,30 @@ public class ChallengeListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_challenge_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Challenges");
+        setHasOptionsMenu(true);
 
         listAdapter = new ChallengeListAdapter(getActivity().getBaseContext());
         listAdapter.setChallenges(challenges);
+        ListView list = (ListView) view.findViewById(R.id.challengeList);
+        list.setAdapter(listAdapter);
+        registerForContextMenu(list);
 
+        loadChallenges();
+
+        list.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long mylng) {
+                        Challenge selectedFromList = (Challenge) (listAdapter.getItem(position));
+                        FlowAids.ChallengeToView = selectedFromList;
+                        RxBus.get().post(ViewChallengeFragment.SHOW_SCREEN, true);
+                    }
+                }
+            );
+
+        return view;
+    }
+
+    private void loadChallenges() {
         challenges.clear();
 
         ChallengeService service = ApiChallengeService.getService();
@@ -53,6 +76,7 @@ public class ChallengeListFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<Challenge>> call, Response<List<Challenge>> response) {
                     challenges.addAll(response.body());
+                    listAdapter.setChallenges(challenges);
                     listAdapter.notifyDataSetChanged();
                     FlowAids.ChallengesBackup = challenges;
                     // The network call was a success and we got a response
@@ -68,23 +92,34 @@ public class ChallengeListFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        ListView list = (ListView) view.findViewById(R.id.challengeList);
+    private void loadArchivedChallenges() {
+        challenges.clear();
 
-        list.setAdapter(listAdapter);
-        registerForContextMenu(list);
-
-        list.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long mylng) {
-                        Challenge selectedFromList = (Challenge) (listAdapter.getItem(position));
-                        FlowAids.ChallengeToView = selectedFromList;
-                        RxBus.get().post(ViewChallengeFragment.SHOW_SCREEN, true);
-                    }
+        ChallengeService service = ApiChallengeService.getService();
+        Call<List<Challenge>> call = service.listChallenges();
+        try {
+            call.enqueue(new Callback<List<Challenge>>() {
+                @Override
+                public void onResponse(Call<List<Challenge>> call, Response<List<Challenge>> response) {
+                    challenges.addAll(response.body());
+                    listAdapter.setChallenges(challenges);
+                    listAdapter.notifyDataSetChanged();
+                    FlowAids.ChallengesBackup = challenges;
+                    // The network call was a success and we got a response
                 }
-            );
 
-        return view;
+                @Override
+                public void onFailure(Call<List<Challenge>> call, Throwable t) {
+                    // the network call was a failure
+                    // TODO: handle error
+                    t.printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -124,5 +159,39 @@ public class ChallengeListFragment extends Fragment {
             }
         }
         return true;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.challenge_menu, menu);
+    }
+
+    public void showMyChallenges(){
+        List<Challenge> objectives = FlowAids.ChallengesBackup;
+        List<Challenge> sorted = new ArrayList<>();
+
+        for (Challenge challenge:objectives) {
+            if(challenge.getUser_Id().equalsIgnoreCase(SessionUser.loggedInUser.getAspNetUserId()))
+                sorted.add(challenge);
+        }
+        listAdapter.setChallenges(sorted);
+        listAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                loadChallenges();
+                return true;
+            case R.id.action_mine:
+                showMyChallenges();
+                return true;
+            default:
+                return false;
+        }
     }
 }

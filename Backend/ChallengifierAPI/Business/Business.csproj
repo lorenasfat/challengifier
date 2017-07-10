@@ -83,7 +83,6 @@
     <Compile Include="Services\UserRatingService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{90DE7724-A2DA-44B2-AFEC-9FF4EF92DF7A}</Project>

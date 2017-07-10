@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace ChallengifierAPI.Controllers
 {
-    public class MilestoneController : ApiController
+    public class MilestoneController : BaseController
     {
         private readonly MilestoneService _milestoneService;
 

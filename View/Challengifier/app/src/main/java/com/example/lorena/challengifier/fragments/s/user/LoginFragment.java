@@ -256,7 +256,11 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor> {
             if (success) {
                 Toast.makeText(getActivity().getApplicationContext(), "Welcome, challenger!", Toast.LENGTH_LONG).show();
                 RxBus.get().post(MainMenuFragment.SHOW_SCREEN,success);
-
+            }
+            else{
+                mEmailView.setError("");
+                mPasswordView.setError("Invalid credentials!");
+                mPasswordView.requestFocus();
             }
         }
     }

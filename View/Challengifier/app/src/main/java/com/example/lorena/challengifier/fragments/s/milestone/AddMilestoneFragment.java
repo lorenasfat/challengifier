@@ -70,7 +70,7 @@ public class AddMilestoneFragment extends Fragment {
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FlowAids.LinkChallengeToObjective = true;
+                FlowAids.IsLinkChallengeToObjective = true;
                 String titleStr = title.getText().toString();
                 String descriptionStr = description.getText().toString();
 

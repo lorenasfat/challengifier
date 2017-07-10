@@ -50,7 +50,7 @@ public class LoginService {
         }
         if (authToken.equalsIgnoreCase("-1"))
             return false;
-        SessionUser.currentUser = _username;
+        SessionUser.currentUserId = _username;
         return true;
     }
 }
