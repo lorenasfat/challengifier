@@ -33,6 +33,7 @@ import com.example.lorena.challengifier.fragments.s.milestone.AddMilestoneFragme
 import com.example.lorena.challengifier.fragments.s.milestone.MilestoneListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragment;
 import com.example.lorena.challengifier.fragments.s.objective.EditObjectiveFragment;
+import com.example.lorena.challengifier.fragments.s.objective.ObjectiveHistoryListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.ObjectiveListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.ObjectivesForReviewListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.ReviewObjectiveFragment;
@@ -218,6 +219,13 @@ public class MainScreenActivity extends AppCompatActivity {
                 .commit();
     }
 
+    @Subscribe(tags = @Tag(ObjectiveHistoryListFragment.SHOW_SCREEN))
+    public void showObjectiveHistoryListFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new ObjectiveHistoryListFragment())
+                .addToBackStack(null)
+                .commit();
+    }
     @Subscribe(tags = @Tag(MainMenuFragment.SHOW_SCREEN))
     public void showMainMenuFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()

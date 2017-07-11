@@ -14,6 +14,7 @@ import com.example.lorena.challengifier.fragments.s.challenge.AddChallengeFragme
 import com.example.lorena.challengifier.fragments.s.challenge.ArchivedChallengeListFragment;
 import com.example.lorena.challengifier.fragments.s.challenge.ChallengeListFragment;
 import com.example.lorena.challengifier.fragments.s.objective.AddObjectiveFragment;
+import com.example.lorena.challengifier.fragments.s.objective.ObjectiveHistoryListFragment;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.hwangjr.rxbus.RxBus;
 
@@ -52,6 +53,15 @@ public class MainMenuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 RxBus.get().post(ArchivedChallengeListFragment.SHOW_SCREEN,true);
+            }
+        });
+
+        ImageView history = (ImageView) view.findViewById(R.id.history);
+        history.setClickable(true);
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(ObjectiveHistoryListFragment.SHOW_SCREEN,true);
             }
         });
 

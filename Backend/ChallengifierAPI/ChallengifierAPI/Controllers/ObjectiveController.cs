@@ -105,6 +105,24 @@ namespace ChallengifierAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [ActionName("history")]
+        public HttpResponseMessage GetHistoryObjectives([FromUri]string id)
+        {
+            try
+            {
+                var objectives = _objectiveService.GetHistoryObjectives(id).ToList();
+                if (objectives.Count == 0)
+                    return Request.CreateResponse(HttpStatusCode.OK, "No entries yet!");
+
+                return Request.CreateResponse(HttpStatusCode.OK, objectives);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpPost]
         [ActionName("update")]
         public HttpResponseMessage UpdateObjective([FromBody]ObjectiveDto objective)

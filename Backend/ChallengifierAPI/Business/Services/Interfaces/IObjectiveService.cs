@@ -1,5 +1,4 @@
 ﻿using Business.DTOs;
-using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +10,7 @@ namespace Business.Services.Interfaces
         void UpdateObjective(ObjectiveDto objective);
         void DeleteObjective(Guid objectiveId);
         IEnumerable<ObjectiveDto> GetAllObjectives(string id);
+        IEnumerable<ObjectiveHistoryDto> GetHistoryObjectives(string id);
         ObjectiveDto GetObjectiveById(Guid Id);
         int CountForChallenge(Guid challengeId);
         IEnumerable<ObjectiveForReviewDto> GetObjectivesForReview(Guid id);

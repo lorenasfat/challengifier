@@ -79,5 +79,18 @@ namespace Business.Mappers
 
             return objs;
         }
+
+        public static IEnumerable<ObjectiveHistoryDto> ToHistoryDtos(this IEnumerable<Objective> objectives)
+        {
+            var objs = objectives.Select(objective => new ObjectiveHistoryDto()
+            {
+                Description = objective.Description,
+                Grade = Convert.ToInt32(objective.Rating),
+                Id = objective.Objective_ID,
+                Name = objective.Name
+            });
+
+            return objs;
+        }
     }
 }

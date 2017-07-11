@@ -2,6 +2,7 @@ package com.example.lorena.challengifier.services.external.services.retrofit.int
 
 import com.example.lorena.challengifier.models.Objective;
 import com.example.lorena.challengifier.models.ObjectiveForReviewDto;
+import com.example.lorena.challengifier.models.ObjectiveHistory;
 import com.example.lorena.challengifier.models.User;
 import com.example.lorena.challengifier.models.UserRating;
 
@@ -23,6 +24,9 @@ import retrofit2.http.Path;
 public interface ObjectiveService {
     @GET("objective/all/{id}")
     Call<List<Objective>> listObjectives(@Path("id") String id);
+
+    @GET("objective/history/{id}")
+    Call<List<ObjectiveHistory>> listHistoryObjectives(@Path("id") String id);
 
     @GET("objective/review/{id}")
     Call<List<ObjectiveForReviewDto>> listObjectivesForReview(@Path("id") UUID id);

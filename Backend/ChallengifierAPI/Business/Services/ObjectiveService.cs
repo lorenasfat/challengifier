@@ -170,5 +170,13 @@ namespace Business.Services
                 throw;
             }
         }
+
+        public IEnumerable<ObjectiveHistoryDto> GetHistoryObjectives(string id)
+        {
+            return _unitOfWork.ObjectiveRepository.All().Where(o => o.User_ID == id && 
+            (o.Status_ID != (int)Common.Enums.ObjectiveStatus.Ongoing
+            && o.Status_ID != (int)Common.Enums.ObjectiveStatus.ForReview
+            && o.Status_ID != (int)Common.Enums.ObjectiveStatus.NotActive)).ToHistoryDtos();
+        }
     }
 }

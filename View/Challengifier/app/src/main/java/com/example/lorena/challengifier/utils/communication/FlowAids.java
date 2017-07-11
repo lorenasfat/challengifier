@@ -6,6 +6,7 @@ import com.example.lorena.challengifier.models.Milestone;
 import com.example.lorena.challengifier.models.MyChallenge;
 import com.example.lorena.challengifier.models.Objective;
 import com.example.lorena.challengifier.models.ObjectiveForReviewDto;
+import com.example.lorena.challengifier.models.ObjectiveHistory;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class FlowAids {
     public static MyChallenge MyChallengeToView = null;
 
     public static List<Objective> ObjectivesBackup = null;
+    public static List<ObjectiveHistory> HistoryObjectivesBackup = null;
     public static List<Challenge> ChallengesBackup = null;
     public static List<MyChallenge> MyChallengesBackup = null;
     public static List<ArchivedChallenge> MyArchivedChallengesBackup = null;
