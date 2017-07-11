@@ -6,5 +6,6 @@ namespace Business.Services.Interfaces
     public interface IUserService : IBaseService
     {
         UserDto getUserByUsername(string username);
+        UserDto getUserById(string id);
     }
 }

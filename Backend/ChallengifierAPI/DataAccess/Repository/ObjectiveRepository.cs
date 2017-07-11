@@ -13,5 +13,15 @@ namespace DataAccess.Repository
         public ObjectiveRepository(ChallengifierEntities1 dbContext) : base(dbContext)
         {
         }
+
+        public void AddSystemGrading(int grade, Guid objectiveID)
+        {
+            DbContext.SystemRating.Add(new SystemRating()
+            {
+                Id = Guid.NewGuid(),
+                ObjectiveId = objectiveID,
+                System_Grade = grade
+            });
+        }
     }
 }

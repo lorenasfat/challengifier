@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
-import com.example.lorena.challengifier.fragments.s.objective.ViewObjectiveFragment;
 import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.models.Milestone;
 import com.example.lorena.challengifier.services.business.services.Validator;
@@ -49,22 +48,13 @@ public class AddMilestoneFragment extends Fragment {
         final EditText until = (EditText) view.findViewById(R.id.untilInput);
         ImageView link = (ImageView) view.findViewById(R.id.linkToPLanningStep);
 
-        if(FlowAids.ObjectiveToEdit.getChallengeId() == null)
+        if(FlowAids.ObjectiveToView.getChallengeId() == null)
             link.setVisibility(View.INVISIBLE);
 
         if (FlowAids.TempToBeAdded != null) {
             title.setText(TempToBeAdded.getName());
             description.setText(TempToBeAdded.getDescription());
         }
-
-        ImageView cancel = (ImageView) view.findViewById(R.id.cancel);
-        cancel.setClickable(true);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RxBus.get().post(ViewObjectiveFragment.SHOW_SCREEN, true);
-            }
-        });
 
         link.setClickable(true);
         link.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +67,7 @@ public class AddMilestoneFragment extends Fragment {
                 Milestone milestone = new Milestone();
                 milestone.setName(titleStr);
                 milestone.setDescription(descriptionStr);
-                milestone.setObjectiveId(FlowAids.ObjectiveToEdit.getId());
+                milestone.setObjectiveId(FlowAids.ObjectiveToView.getId());
 
                 TempToBeAdded = milestone;
                 RxBus.get().post(PlanningStepListFragment.SHOW_SCREEN, true);
@@ -132,7 +122,7 @@ public class AddMilestoneFragment extends Fragment {
                     milestone.setDescription(descriptionStr);
                     milestone.setEndDate(untilDate);
                     milestone.setStartDate(sinceDate);
-                    milestone.setObjectiveId(FlowAids.ObjectiveToEdit.getId());
+                    milestone.setObjectiveId(FlowAids.ObjectiveToView.getId());
                     if (FlowAids.TempToBeAdded != null)
                         milestone.setPlanningStepId(FlowAids.TempToBeAdded.getPlanningStepId());
 

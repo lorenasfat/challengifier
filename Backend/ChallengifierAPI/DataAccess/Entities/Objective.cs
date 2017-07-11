@@ -20,6 +20,7 @@ namespace DataAccess.Entities
             this.Milestone = new HashSet<Milestone>();
             this.UserRating = new HashSet<UserRating>();
             this.Picture = new HashSet<Picture>();
+            this.SystemRating = new HashSet<SystemRating>();
         }
     
         public System.Guid Objective_ID { get; set; }
@@ -44,5 +45,7 @@ namespace DataAccess.Entities
         public virtual ObjectiveStatus ObjectiveStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Picture> Picture { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SystemRating> SystemRating { get; set; }
     }
 }

@@ -142,6 +142,14 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <EntityType Name="SystemRating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ObjectiveId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="System_Grade" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="TimeUnits">
     <Key>
       <PropertyRef Name="Name" />
@@ -190,6 +198,18 @@
       </Principal>
       <Dependent Role="Milestone">
         <PropertyRef Name="PlanningStep_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Obj__Rating">
+    <End Role="Objective" Type="Self.Objective" Multiplicity="1" />
+    <End Role="SystemRating" Type="Self.SystemRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Objective">
+        <PropertyRef Name="Objective_ID" />
+      </Principal>
+      <Dependent Role="SystemRating">
+        <PropertyRef Name="ObjectiveId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -426,6 +446,7 @@
     <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlanningStep" EntityType="Self.PlanningStep" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SystemRating" EntityType="Self.SystemRating" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TimeUnits" EntityType="Self.TimeUnits" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRank" EntityType="Self.UserRank" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
@@ -436,6 +457,10 @@
     <AssociationSet Name="FK__Milestone__PlanningStep" Association="Self.FK__Milestone__PlanningStep">
       <End Role="PlanningStep" EntitySet="PlanningStep" />
       <End Role="Milestone" EntitySet="Milestone" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Obj__Rating" Association="Self.FK__Obj__Rating">
+      <End Role="Objective" EntitySet="Objective" />
+      <End Role="SystemRating" EntitySet="SystemRating" />
     </AssociationSet>
     <AssociationSet Name="FK__Objective__Challenge" Association="Self.FK__Objective__Challenge">
       <End Role="Challenge" EntitySet="Challenge" />

@@ -42,6 +42,7 @@ namespace DataAccess.Entities
         public virtual DbSet<Milestone> Milestone { get; set; }
         public virtual DbSet<Objective> Objective { get; set; }
         public virtual DbSet<UserRating> UserRating { get; set; }
+        public virtual DbSet<SystemRating> SystemRating { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

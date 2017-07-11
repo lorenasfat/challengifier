@@ -4,6 +4,7 @@ using Business.Services.Interfaces;
 using DataAccess.Entities;
 using DataAccess.UnitOfWork;
 using System;
+using System.Linq;
 
 namespace Business.Services
 {
@@ -20,6 +21,11 @@ namespace Business.Services
         {
             _unitOfWork.Dispose();
         }
+
+        public UserDto getUserById(string id)
+        {
+            return _unitOfWork.UserRepository.All().Where(u => u.Id == id).FirstOrDefault().ToDto();
+                }
 
         public UserDto getUserByUsername(string username)
         {

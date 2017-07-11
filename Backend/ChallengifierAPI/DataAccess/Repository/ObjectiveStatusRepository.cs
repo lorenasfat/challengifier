@@ -8,6 +8,6 @@ namespace DataAccess.Repository
     {
         public ObjectiveStatusRepository(ChallengifierEntities1 dbContext) : base(dbContext)
         {
-        }
+        }        
     }
 }

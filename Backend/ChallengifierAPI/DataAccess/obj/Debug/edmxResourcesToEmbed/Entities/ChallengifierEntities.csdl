@@ -110,6 +110,11 @@
       <End Role="Objective" EntitySet="Objective" />
       <End Role="Picture" EntitySet="Picture" />
     </AssociationSet>
+    <EntitySet Name="SystemRating" EntityType="ChallengifierModel1.SystemRating" />
+    <AssociationSet Name="FK__Obj__Rating" Association="ChallengifierModel1.FK__Obj__Rating">
+      <End Role="Objective" EntitySet="Objective" />
+      <End Role="SystemRating" EntitySet="SystemRating" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -419,6 +424,7 @@
     <NavigationProperty Name="UserRating" Relationship="ChallengifierModel1.FK__Objective__Rating" FromRole="Objective" ToRole="UserRating" />
     <NavigationProperty Name="ObjectiveStatus" Relationship="ChallengifierModel1.FK__Objective__Status" FromRole="Objective" ToRole="ObjectiveStatus" />
     <NavigationProperty Name="Picture" Relationship="ChallengifierModel1.FK__Picture__Objective" FromRole="Objective" ToRole="Picture" />
+    <NavigationProperty Name="SystemRating" Relationship="ChallengifierModel1.FK__Obj__Rating" FromRole="Objective" ToRole="SystemRating" />
   </EntityType>
   <EntityType Name="UserRating">
     <Key>
@@ -500,6 +506,27 @@
       </Principal>
       <Dependent Role="Picture">
         <PropertyRef Name="Objective_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SystemRating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ObjectiveId" Type="Guid" Nullable="false" />
+    <Property Name="System_Grade" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Objective" Relationship="ChallengifierModel1.FK__Obj__Rating" FromRole="SystemRating" ToRole="Objective" />
+  </EntityType>
+  <Association Name="FK__Obj__Rating">
+    <End Type="ChallengifierModel1.Objective" Role="Objective" Multiplicity="1" />
+    <End Type="ChallengifierModel1.SystemRating" Role="SystemRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Objective">
+        <PropertyRef Name="Objective_ID" />
+      </Principal>
+      <Dependent Role="SystemRating">
+        <PropertyRef Name="ObjectiveId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

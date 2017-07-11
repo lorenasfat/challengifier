@@ -44,7 +44,7 @@ public class MilestoneListFragment extends Fragment {
         listAdapter = new MilestoneListAdapter(getActivity().getApplicationContext(), milestones);
         MilestoneService service = ApiMilestoneService.getService();
 
-        Call<List<Milestone>> call = service.getMilestones(FlowAids.ObjectiveToEdit.getId());
+        Call<List<Milestone>> call = service.getMilestones(FlowAids.ObjectiveToView.getId());
 
         ImageView addMilestones = (ImageView) view.findViewById(R.id.addMilestones);
         addMilestones.setClickable(true);
@@ -54,7 +54,7 @@ public class MilestoneListFragment extends Fragment {
                 RxBus.get().post(AddMilestoneFragment.SHOW_SCREEN, true);
             }
         });
-
+        milestones.clear();
         try {
             call.enqueue(new Callback<List<Milestone>>() {
                 @Override

@@ -15,12 +15,13 @@ import android.widget.Toast;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.milestone.MilestoneListFragment;
-import com.example.lorena.challengifier.models.Objective;
+import com.example.lorena.challengifier.models.User;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ObjectiveService;
 import com.example.lorena.challengifier.services.external.services.services.ApiObjectiveService;
 import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.example.lorena.challengifier.utils.constants.ObjStatus;
 import com.example.lorena.challengifier.utils.constants.ObjectiveHelper;
+import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 
 import java.util.Date;
@@ -28,6 +29,9 @@ import java.util.Date;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.lorena.challengifier.activities.MainScreenActivity.updateDrawerContent;
+import static com.example.lorena.challengifier.utils.session.SessionUser.authToken;
 
 
 public class ViewObjectiveFragment extends Fragment {
@@ -151,12 +155,16 @@ public class ViewObjectiveFragment extends Fragment {
 
     private void updateObjective(final boolean finalIsStarted) {
         ObjectiveService service = ApiObjectiveService.getService();
-        Call<Objective> call = service.editObjective(FlowAids.ObjectiveToView);
+        Call<User> call = service.editObjective(FlowAids.ObjectiveToView);
         try {
-            call.enqueue(new Callback<Objective>() {
+            call.enqueue(new Callback<User>() {
                 @Override
-                public void onResponse(Call<Objective> call, Response<Objective> response) {
+                public void onResponse(Call<User> call, Response<User> response) {
                     if (finalIsStarted) {
+                        User responseContent = (User)response.body();
+                        SessionUser.loggedInUser = responseContent;
+                        updateDrawerContent();
+                        SessionUser.saveSession(getActivity(), authToken, responseContent);
                         Toast.makeText(getActivity().getApplicationContext(), "Congratulations!", Toast.LENGTH_LONG).show();
                         RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
                         // The network call was a success and we got a response
@@ -168,7 +176,7 @@ public class ViewObjectiveFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<Objective> call, Throwable t) {
+                public void onFailure(Call<User> call, Throwable t) {
                     Toast.makeText(getActivity().getApplicationContext(), "Oops! :(", Toast.LENGTH_LONG).show();
                     // the network call was a failure
                     // TODO: handle error

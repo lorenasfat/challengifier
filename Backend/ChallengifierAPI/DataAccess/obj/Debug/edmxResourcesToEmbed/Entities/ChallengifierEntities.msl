@@ -205,5 +205,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SystemRating">
+      <EntityTypeMapping TypeName="ChallengifierModel1.SystemRating">
+        <MappingFragment StoreEntitySet="SystemRating">
+          <ScalarProperty Name="System_Grade" ColumnName="System_Grade" />
+          <ScalarProperty Name="ObjectiveId" ColumnName="ObjectiveId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -2,6 +2,7 @@ package com.example.lorena.challengifier.services.external.services.retrofit.int
 
 import com.example.lorena.challengifier.models.Objective;
 import com.example.lorena.challengifier.models.ObjectiveForReviewDto;
+import com.example.lorena.challengifier.models.User;
 import com.example.lorena.challengifier.models.UserRating;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface ObjectiveService {
     Call<List<ObjectiveForReviewDto>> listObjectivesForReview(@Path("id") UUID id);
 
     @POST("objective/update")
-    Call<Objective> editObjective(@Body Objective objective);
+    Call<User> editObjective(@Body Objective objective);
 
     @POST("objective/rate")
     Call<ResponseBody> rateObjective(@Body UserRating rating);

@@ -112,7 +112,8 @@ namespace ChallengifierAPI.Controllers
             try
             {
                 _objectiveService.UpdateObjective(objective);
-                return Request.CreateResponse(HttpStatusCode.OK, objective);
+                var userInfo = _userService.getUserById(objective.UserId);
+                return Request.CreateResponse(HttpStatusCode.OK, userInfo);
             }
             catch (Exception ex)
             {

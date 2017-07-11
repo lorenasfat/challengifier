@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
-import com.example.lorena.challengifier.fragments.s.MainMenuFragment;
 import com.example.lorena.challengifier.models.Challenge;
 import com.example.lorena.challengifier.models.Objective;
 import com.example.lorena.challengifier.services.business.services.Validator;
@@ -27,6 +26,8 @@ import com.example.lorena.challengifier.utils.constants.ObjStatus;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.example.lorena.challengifier.utils.tools.DateFormatter;
 import com.hwangjr.rxbus.RxBus;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import java.util.Date;
 import java.util.UUID;
@@ -52,6 +53,16 @@ public class AddObjectiveFragment extends Fragment {
         final EditText editTextName = (EditText) view.findViewById(R.id.editTextName);
         final EditText editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
         final EditText editTextDeadline = (EditText) view.findViewById(R.id.editTextDeadline);
+        final DiscreteSeekBar slider = (DiscreteSeekBar) view.findViewById(R.id.slider);
+
+        slider.setMax(10);
+        slider.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
+            @Override
+            public int transform(int value) {
+                return value * 10;
+            }
+        });
+        slider.setProgress(0);
 
         if (FlowAids.IsChallengeAccepted) {
             Challenge challenge = FlowAids.ChallengeToView;
@@ -89,15 +100,6 @@ public class AddObjectiveFragment extends Fragment {
             }
         });
 
-        ImageView cancel = (ImageView) view.findViewById(R.id.cancel);
-        cancel.setClickable(true);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RxBus.get().post(MainMenuFragment.SHOW_SCREEN, true);
-            }
-        });
-
         Button save = (Button) view.findViewById(R.id.buttonAddObjective);
         save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -131,6 +133,20 @@ public class AddObjectiveFragment extends Fragment {
                     objective.setExpectedOutcome("");
                     objective.setDescription(description);
                     objective.setUserId(SessionUser.loggedInUser.getAspNetUserId());
+                    objective.setProgress(slider.getProgress());
+
+                    if ((objective.getProgress() != slider.getProgress()) && slider.getProgress() == 10) {
+                        objective.setProgress(slider.getProgress());
+                        objective.setEndDate(new Date());
+                        if (objective.getChallengeId() != null)
+                            objective.setStatus(ObjStatus.For_Review.ordinal());
+                        else
+                            objective.setStatus(ObjStatus.Completed.ordinal());
+                    }
+                    if ((objective.getStartDate() == null) && (slider.getProgress() > 0)) {
+                        objective.setStartDate(new Date());
+                        objective.setStatus(ObjStatus.Ongoing.ordinal());
+                    }
                     ObjectiveService service = ApiObjectiveService.getService();
                     if (FlowAids.IsChallengeAccepted)
                         objective.setChallengeId(FlowAids.ChallengeToView.getId());

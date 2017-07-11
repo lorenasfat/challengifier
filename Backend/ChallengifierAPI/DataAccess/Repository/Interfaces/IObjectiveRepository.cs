@@ -9,5 +9,6 @@ namespace DataAccess.Repository.Interfaces
 {
     public interface IObjectiveRepository : IBaseRepository<Objective, Guid>
     {
+        void AddSystemGrading(int grade, Guid objectiveID);
     }
 }

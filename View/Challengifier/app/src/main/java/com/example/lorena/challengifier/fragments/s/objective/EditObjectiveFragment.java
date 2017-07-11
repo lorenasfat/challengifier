@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.milestone.MilestoneListFragment;
 import com.example.lorena.challengifier.models.Objective;
+import com.example.lorena.challengifier.models.User;
 import com.example.lorena.challengifier.services.business.services.Validator;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ObjectiveService;
 import com.example.lorena.challengifier.services.external.services.services.ApiObjectiveService;
@@ -24,6 +25,7 @@ import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.example.lorena.challengifier.utils.constants.ErrorMessages;
 import com.example.lorena.challengifier.utils.constants.ObjStatus;
 import com.example.lorena.challengifier.utils.constants.ObjectiveHelper;
+import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.example.lorena.challengifier.utils.tools.DateFormatter;
 import com.hwangjr.rxbus.RxBus;
 
@@ -35,6 +37,9 @@ import java.util.Date;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.lorena.challengifier.activities.MainScreenActivity.updateDrawerContent;
+import static com.example.lorena.challengifier.utils.session.SessionUser.authToken;
 
 
 public class EditObjectiveFragment extends Fragment {
@@ -64,11 +69,11 @@ public class EditObjectiveFragment extends Fragment {
         final EditText editTextName = (EditText) view.findViewById(R.id.editTextName);
         final EditText editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
         final EditText editTextDeadline = (EditText) view.findViewById(R.id.editTextDeadline);
-        final TextView status = (TextView)view.findViewById(R.id.editTextStatus) ;
+        final TextView status = (TextView) view.findViewById(R.id.editTextStatus);
         status.setText(ObjectiveHelper.getStatusName(FlowAids.ObjectiveToView.getStatus()));
 
         ImageView startNow = (ImageView) view.findViewById(R.id.startNow);
-        if(!(editObjective.getStatus() == ObjStatus.Not_Active.ordinal()))
+        if (!(editObjective.getStatus() == ObjStatus.Not_Active.ordinal()))
             startNow.setVisibility(View.GONE);
         startNow.setClickable(true);
         startNow.setOnClickListener(new View.OnClickListener() {
@@ -154,21 +159,36 @@ public class EditObjectiveFragment extends Fragment {
                     editObjective.setName(title);
                     editObjective.setExpectedOutcome(expectedOutcome);
                     editObjective.setDescription(description);
-                    editObjective.setProgress(slider.getProgress());
-
+                    if ((editObjective.getProgress() != slider.getProgress()) && slider.getProgress() == 10) {
+                        editObjective.setProgress(slider.getProgress());
+                        editObjective.setEndDate(new Date());
+                        if (editObjective.getChallengeId() != null)
+                            editObjective.setStatus(ObjStatus.For_Review.ordinal());
+                        else
+                            editObjective.setStatus(ObjStatus.Completed.ordinal());
+                    }
+                    if ((editObjective.getStartDate() == null) && (slider.getProgress() > 0)) {
+                        editObjective.setStartDate(new Date());
+                        editObjective.setStatus(ObjStatus.Ongoing.ordinal());
+                    }
                     ObjectiveService service = ApiObjectiveService.getService();
-                    Call<Objective> call = service.editObjective(editObjective);
+                    Call<User> call = service.editObjective(editObjective);
                     try {
-                        call.enqueue(new Callback<Objective>() {
+                        call.enqueue(new Callback<User>() {
                             @Override
-                            public void onResponse(Call<Objective> call, Response<Objective> response) {
+                            public void onResponse(Call<User> call, Response<User> response) {
+                                User responseContent = (User) response.body();
+                                SessionUser.loggedInUser = responseContent;
+                                updateDrawerContent();
+                                SessionUser.saveSession(getActivity(), authToken, responseContent);
+
                                 Toast.makeText(getActivity().getApplicationContext(), "All set!", Toast.LENGTH_LONG).show();
                                 RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
                                 // The network call was a success and we got a response
                             }
 
                             @Override
-                            public void onFailure(Call<Objective> call, Throwable t) {
+                            public void onFailure(Call<User> call, Throwable t) {
                                 // the network call was a failure
                                 // TODO: handle error
                                 t.printStackTrace();

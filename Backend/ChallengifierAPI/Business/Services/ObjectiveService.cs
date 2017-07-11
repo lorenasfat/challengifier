@@ -1,4 +1,5 @@
-﻿using Business.DTOs;
+﻿using Business.Components.Interface;
+using Business.DTOs;
 using Business.Mappers;
 using Business.Services.Interfaces;
 using DataAccess.Entities;
@@ -12,10 +13,12 @@ namespace Business.Services
     public class ObjectiveService : IObjectiveService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserRankComponent _userRankComponent;
 
-        public ObjectiveService(IUnitOfWork unitOfWork)
+        public ObjectiveService(IUnitOfWork unitOfWork, IUserRankComponent userRankComponent)
         {
             _unitOfWork = unitOfWork;
+            _userRankComponent = userRankComponent;
         }
         public void AddObjective(ObjectiveDto objective)
         {
@@ -55,8 +58,8 @@ namespace Business.Services
 
         public IEnumerable<ObjectiveDto> GetAllObjectives(string id)
         {
-            var objectives = _unitOfWork.ObjectiveRepository.All().Where(o => o.User_ID == id && 
-            ((o.Status_ID == (int)Common.Enums.ObjectiveStatus.NotActive) || 
+            var objectives = _unitOfWork.ObjectiveRepository.All().Where(o => o.User_ID == id &&
+            ((o.Status_ID == (int)Common.Enums.ObjectiveStatus.NotActive) ||
             (o.Status_ID == (int)Common.Enums.ObjectiveStatus.Ongoing)));
             return objectives.ToDtos();
         }
@@ -73,11 +76,29 @@ namespace Business.Services
                 var dbObjective = _unitOfWork.ObjectiveRepository.GetById(objective.Id);
                 SetUpObjective(dbObjective, objective);
 
-                if((dbObjective.Challenge_ID != null && dbObjective.Status_ID == (int)Common.Enums.ObjectiveStatus.Reviewed)
-                    || (dbObjective.Challenge_ID == null && dbObjective.Status_ID == (int)Common.Enums.ObjectiveStatus.Completed))
+                if ((dbObjective.Challenge_ID != null && dbObjective.Status_ID == (int)Common.Enums.ObjectiveStatus.Reviewed))
                 {
-                    //todo system grading
+                    var systemGrade = _userRankComponent.PersistSystemGradeForObjective(objective.Id);
+                    var userGrade = _unitOfWork.UserRatingRepository.All().Where(r => r.Objective_ID == objective.Id).FirstOrDefault().Grade;
+                    int grade = Convert.ToInt32(0.6 * userGrade + 0.4 * systemGrade);
+
+                    dbObjective.Rating += grade;
+
+                    _unitOfWork.UserRepository.All().Where(u => u.Id == objective.UserId)
+    .FirstOrDefault().Points += Convert.ToInt32(dbObjective.Rating);
+                    _unitOfWork.UserRankRepository.Save();
                 }
+                else if (dbObjective.Challenge_ID == null && dbObjective.Status_ID == (int)Common.Enums.ObjectiveStatus.Completed)
+                {
+                    var grade = _userRankComponent.PersistSystemGradeForObjective(objective.Id);
+
+                    dbObjective.Rating += grade;
+
+                    _unitOfWork.UserRepository.All().Where(u => u.Id == objective.UserId)
+    .FirstOrDefault().Points += Convert.ToInt32(dbObjective.Rating);
+                    _unitOfWork.UserRankRepository.Save();
+                }
+
                 _unitOfWork.ObjectiveRepository.Save();
                 _unitOfWork.Commit();
             }
@@ -104,7 +125,7 @@ namespace Business.Services
             dbObjective.Progress = objective.Progress;
             dbObjective.Start_Date = objective.StartDate;
             dbObjective.End_Date = objective.EndDate;
-            if(objective.Status != 0)
+            if (objective.Status != 0)
             {
                 dbObjective.Status_ID = objective.Status;
             }
