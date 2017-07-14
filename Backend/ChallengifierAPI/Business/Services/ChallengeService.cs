@@ -127,7 +127,7 @@ namespace Business.Services
 
         public IEnumerable<ArchivedChallengeDto> GetArchivedChallengesOfUser(string id)
         {
-            var challenges = _unitOfWork.ChallengeRepository.All().Where(c => c.Archived);
+            var challenges = _unitOfWork.ChallengeRepository.All().Where(c => c.Archived && c.User_ID.CompareTo(id) == 0);
             var dtos = challenges.ToArchivedChallenges();
 
             foreach (ArchivedChallengeDto challenge in dtos)

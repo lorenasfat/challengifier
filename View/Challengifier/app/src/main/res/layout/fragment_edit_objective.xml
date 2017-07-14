@@ -22,7 +22,9 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/editTextName"
@@ -39,7 +41,9 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:text="Descriprion"
@@ -54,7 +58,9 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/slider" />
+        app:layout_constraintTop_toBottomOf="@+id/slider"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:layout_width="345dp"
@@ -68,7 +74,9 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescription"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:text="Deadline"
@@ -83,7 +91,9 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.081" />
+        app:layout_constraintHorizontal_bias="0.081"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:layout_width="172dp"
@@ -99,33 +109,34 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
         app:layout_constraintHorizontal_bias="0.884"
         app:layout_constraintLeft_toRightOf="@+id/textViewChallengeDeadline"
-        tools:layout_editor_absoluteX="196dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/editTextStatus"
         android:layout_width="100dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Not started"
         android:inputType="textMultiLine"
         android:textAlignment="viewStart"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMilestones"
         app:layout_constraintHorizontal_bias="0.768"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDeadline"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintVertical_bias="0.125"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/startNow"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toTopOf="@+id/startNow" />
 
     <TextView
         android:id="@+id/textViewMilestones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="53dp"
@@ -134,7 +145,8 @@
         app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -144,18 +156,19 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="normal|bold"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="27dp"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDeadline"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.039" />
+        app:layout_constraintHorizontal_bias="0.039"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextStatus"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toTopOf="@+id/editTextStatus" />
 
     <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
         android:id="@+id/slider"
         android:layout_width="243dp"
-        android:layout_height="20dp"
+        android:layout_height="32dp"
         app:dsb_min="0"
         app:dsb_max="10"
         android:layout_marginRight="8dp"
@@ -164,14 +177,16 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPercComplete" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPercComplete"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <Button
         android:id="@+id/buttonAddObjective"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="33dp"
         android:layout_marginRight="31dp"
         android:layout_marginStart="33dp"
         android:layout_marginTop="8dp"
@@ -181,36 +196,47 @@
         android:textSize="18sp"
         android:textStyle="normal|bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMilestones"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginEnd="31dp" />
 
     <ImageView
         android:id="@+id/imageViewMilestones"
+        style="@style/Cyan"
         android:layout_width="76dp"
         android:layout_height="52dp"
-        app:srcCompat="@drawable/arrow_right_bubble"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMilestones"
-        app:layout_constraintRight_toLeftOf="@+id/buttonAddObjective"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.619"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/buttonAddObjective"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMilestones"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/arrow_right_bubble" />
 
     <ImageView
         android:id="@+id/startNow"
+        style="@style/Cyan"
         android:layout_width="37dp"
         android:layout_height="34dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         app:layout_constraintBottom_toTopOf="@+id/textViewMilestones"
         app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintLeft_toRightOf="@+id/editTextStatus"
@@ -221,19 +247,22 @@
 
     <ImageView
         android:id="@+id/cancel"
+        style="@style/Cyan"
         android:layout_width="76dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/cancel"
-        app:layout_constraintLeft_toRightOf="@+id/buttonAddObjective"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMilestones"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.425"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintLeft_toRightOf="@+id/buttonAddObjective"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMilestones"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/cancel" />
 
     <TextView
         android:id="@+id/cancelTxt"
@@ -250,7 +279,9 @@
         app:layout_constraintLeft_toRightOf="@+id/textViewMilestones"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startNow"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -80,7 +80,7 @@ public class ChallengeListAdapter extends BaseAdapter implements Filterable {
                 else{
                     ArrayList<Challenge> searched = new ArrayList<>();
                     for (Challenge o : challenges) {
-                        if (o.getName().toUpperCase().startsWith(constraint.toString().toUpperCase()))
+                        if (o.getName().toUpperCase().contains(constraint.toString().toUpperCase()))
                             searched.add(o);
                     }
 

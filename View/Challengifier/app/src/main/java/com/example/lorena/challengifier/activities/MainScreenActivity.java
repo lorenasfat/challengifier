@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.fragments.s.MainMenuFragment;
@@ -41,11 +42,19 @@ import com.example.lorena.challengifier.fragments.s.objective.ViewObjectiveFragm
 import com.example.lorena.challengifier.fragments.s.planning.step.AddPlanningStepFragment;
 import com.example.lorena.challengifier.fragments.s.planning.step.PlanningStepListFragment;
 import com.example.lorena.challengifier.fragments.s.user.FrontScreenFragment;
+import com.example.lorena.challengifier.fragments.s.user.LeaderboardFragment;
 import com.example.lorena.challengifier.fragments.s.user.LoginFragment;
+import com.example.lorena.challengifier.models.User;
+import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.LoginService;
+import com.example.lorena.challengifier.services.external.services.services.ApiLoginService;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainScreenActivity extends AppCompatActivity {
     Activity activity;
@@ -100,6 +109,38 @@ public class MainScreenActivity extends AppCompatActivity {
             points = (TextView) findViewById(R.id.points);
 
             ImageView homeScreen = (ImageView) findViewById(R.id.homeScreen);
+            ImageView icon = (ImageView) findViewById(R.id.imageUserIcon);
+            icon.setClickable(true);
+            icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    LoginService service = ApiLoginService.getService();
+                    Call<User> call = service.getInfo(SessionUser.loggedInUser.getUsername());
+
+                    try {
+                        call.enqueue(new Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+                                SessionUser.loggedInUser = (User)response.body();
+                                updateDrawerContent();
+                                Toast.makeText(activity.getApplicationContext(), "Account refreshed", Toast.LENGTH_LONG).show();
+                                // The network call was a success and we got a response
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+                                Toast.makeText(activity.getApplicationContext(), "Oops! :(", Toast.LENGTH_LONG).show();
+                                // the network call was a failure
+                                // TODO: handle error
+                                t.printStackTrace();
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
 
             if (SessionUser.isSessionStarted(MainScreenActivity.this)) {
             }
@@ -111,6 +152,14 @@ public class MainScreenActivity extends AppCompatActivity {
                     RxBus.get().post(MainMenuFragment.SHOW_SCREEN, true);
                     mDrawerLayout.closeDrawer(Gravity.LEFT);
 
+                }
+            });
+
+            buttonStats.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RxBus.get().post(LeaderboardFragment.SHOW_SCREEN, true);
+                    mDrawerLayout.closeDrawer(Gravity.LEFT);
                 }
             });
 
@@ -207,6 +256,13 @@ public class MainScreenActivity extends AppCompatActivity {
     public void showViewObjectiveFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new ViewObjectiveFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+    @Subscribe(tags = @Tag(LeaderboardFragment.SHOW_SCREEN))
+    public void showLeaderboardFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new LeaderboardFragment())
                 .addToBackStack(null)
                 .commit();
     }

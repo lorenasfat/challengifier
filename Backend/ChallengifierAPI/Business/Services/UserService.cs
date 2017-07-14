@@ -5,6 +5,7 @@ using DataAccess.Entities;
 using DataAccess.UnitOfWork;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Business.Services
 {
@@ -22,12 +23,23 @@ namespace Business.Services
             _unitOfWork.Dispose();
         }
 
-        public UserDto getUserById(string id)
+        public IEnumerable<LeaderboardUserDto> GetLeaderboard()
+        {
+            var users = _unitOfWork.UserRepository.All().OrderByDescending(u=>u.Points);
+
+            return users.Select(u => new LeaderboardUserDto()
+            {
+                Username = u.UserName,
+                Points = u.Points
+            });
+        }
+
+        public UserDto GetUserById(string id)
         {
             return _unitOfWork.UserRepository.All().Where(u => u.Id == id).FirstOrDefault().ToDto();
                 }
 
-        public UserDto getUserByUsername(string username)
+        public UserDto GetUserByUsername(string username)
         {
             return _unitOfWork.UserRepository.GetUserByUsername(username).ToDto();
         }

@@ -95,24 +95,27 @@
         app:layout_constraintHorizontal_bias="0.564"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/sinceInput"
-        app:layout_constraintTop_toBottomOf="@+id/addObjectiveDescription"
+        app:layout_constraintTop_toBottomOf="@+id/milesoneDescription"
         app:layout_constraintVertical_bias="0.028" />
 
     <ImageView
         android:id="@+id/linkToPLanningStep"
+        style="@style/Cyan"
         android:layout_width="0dp"
         android:layout_height="74dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.653"
-        app:srcCompat="@drawable/link"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/milesoneDescription"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@+id/milestoneTitle"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/milesoneDescription"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.653"
+        app:srcCompat="@drawable/link" />
 
     <Button
         android:id="@+id/buttonAddMilestone"

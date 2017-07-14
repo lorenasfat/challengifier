@@ -38,7 +38,7 @@ namespace ChallengifierAPI.Controllers
                     string basicAuthToken = string.Format("Basic {0}:{1}", login.Email, login.Password);
                     var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(basicAuthToken);
 
-                    SessionState.LoggedInUser = _userService.getUserByUsername(login.Email);
+                    SessionState.LoggedInUser = _userService.GetUserByUsername(login.Email);
 
                     var resp = new HttpResponseMessage(HttpStatusCode.OK);
                     resp.Content = new StringContent(Convert.ToBase64String(plainTextBytes), System.Text.Encoding.UTF8, "text/plain");
@@ -57,7 +57,7 @@ namespace ChallengifierAPI.Controllers
         {
             try
             {
-                var userInfo =_userService.getUserByUsername(id);
+                var userInfo = _userService.GetUserByUsername(id);
 
                 return Request.CreateResponse(HttpStatusCode.OK, userInfo);
             }
@@ -103,6 +103,15 @@ namespace ChallengifierAPI.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, "Access granted");
         }
+
+        [HttpGet]
+        [ActionName("leaderboard")]
+        public HttpResponseMessage Leaderboard()
+        {
+            var leaderboard = _userService.GetLeaderboard();
+            return Request.CreateResponse(HttpStatusCode.OK, leaderboard);
+        }
+
 
         public string GetString()
         {

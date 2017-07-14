@@ -2,6 +2,7 @@ package com.example.lorena.challengifier.utils.communication;
 
 import com.example.lorena.challengifier.models.ArchivedChallenge;
 import com.example.lorena.challengifier.models.Challenge;
+import com.example.lorena.challengifier.models.LeaderboardUser;
 import com.example.lorena.challengifier.models.Milestone;
 import com.example.lorena.challengifier.models.MyChallenge;
 import com.example.lorena.challengifier.models.Objective;
@@ -28,6 +29,7 @@ public class FlowAids {
     public static List<Challenge> ChallengesBackup = null;
     public static List<MyChallenge> MyChallengesBackup = null;
     public static List<ArchivedChallenge> MyArchivedChallengesBackup = null;
+    public static List<LeaderboardUser> LeaderboardUsersBackup = null;
 
     public static List<ObjectiveForReviewDto> ObjectivesForReviewBackup = null;
 

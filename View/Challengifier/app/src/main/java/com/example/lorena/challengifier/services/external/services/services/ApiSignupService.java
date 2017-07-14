@@ -1,7 +1,7 @@
 package com.example.lorena.challengifier.services.external.services.services;
 
 import com.example.lorena.challengifier.services.external.services.RetrofitService;
-import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.SignupService;
+import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.UserService;
 
 import retrofit2.Retrofit;
 
@@ -11,13 +11,13 @@ import retrofit2.Retrofit;
 
 public class ApiSignupService {
     private static Retrofit retrofit = RetrofitService.getBasicRetrofit();
-    private static SignupService service;
+    private static UserService service;
 
-    public static SignupService getService(){
+    public static UserService getService(){
         if(service != null){
             return service;
         }
-        service = retrofit.create(SignupService.class);
+        service = retrofit.create(UserService.class);
         return service;
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
 
@@ -100,24 +101,30 @@
 
     <ImageView
         android:id="@+id/imageUserIcon"
+        style="@style/Cyan"
         android:layout_width="212dp"
         android:layout_height="171dp"
-        app:srcCompat="@drawable/medal"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp" />
+        app:srcCompat="@drawable/medal" />
 
     <ImageView
         android:id="@+id/homeScreen"
+        style="@style/Cyan"
         android:layout_width="57dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -125,4 +132,25 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonStats"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/showmenu" />
+
+    <TextView
+        android:id="@+id/textViewLogOut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Not you?"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:textAlignment="textEnd"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/homeScreen"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonStats"
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

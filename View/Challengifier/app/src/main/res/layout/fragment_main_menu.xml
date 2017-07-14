@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         tools:layout_editor_absoluteX="192dp"
         tools:layout_editor_absoluteY="256dp"
-        tools:visibility="gone"></FrameLayout>
+        tools:visibility="gone"/>
 
     <Button
         android:id="@+id/buttonViewChallenges"
@@ -81,6 +81,8 @@
         android:layout_marginBottom="8dp"
         android:layout_marginRight="75dp"
         android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AddChallengeID"
@@ -96,6 +98,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"

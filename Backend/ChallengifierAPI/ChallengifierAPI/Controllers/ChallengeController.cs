@@ -116,7 +116,7 @@ namespace ChallengifierAPI.Controllers
         {
             try
             {
-                challenge.User_Id = SessionState.LoggedInUser == null ? _userService.getUserByUsername(challenge.User_Id).AspNetUserId : SessionState.LoggedInUser.AspNetUserId;
+                challenge.User_Id = SessionState.LoggedInUser == null ? _userService.GetUserById(challenge.User_Id).AspNetUserId : SessionState.LoggedInUser.AspNetUserId;
 
                 _challengeService.AddChallenge(challenge);
                 return Request.CreateResponse(HttpStatusCode.Created, challenge);

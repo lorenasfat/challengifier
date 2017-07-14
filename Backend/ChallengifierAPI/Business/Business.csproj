@@ -45,6 +45,7 @@
     <Compile Include="Components\MSMQService.cs" />
     <Compile Include="DTOs\ArchivedChallengeDto.cs" />
     <Compile Include="DTOs\ChallengeDto.cs" />
+    <Compile Include="DTOs\LeaderboardUserDto.cs" />
     <Compile Include="DTOs\MailDto.cs" />
     <Compile Include="DTOs\MilestoneDto.cs" />
     <Compile Include="DTOs\MyChallengeDto.cs" />

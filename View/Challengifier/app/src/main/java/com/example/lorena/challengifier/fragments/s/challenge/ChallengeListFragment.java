@@ -3,6 +3,8 @@ package com.example.lorena.challengifier.fragments.s.challenge;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -46,6 +49,24 @@ public class ChallengeListFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Challenges");
         setHasOptionsMenu(true);
 
+        AutoCompleteTextView searchTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextView);
+        searchTextView.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                listAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         listAdapter = new ChallengeListAdapter(getActivity().getBaseContext());
         listAdapter.setChallenges(challenges);
         ListView list = (ListView) view.findViewById(R.id.challengeList);

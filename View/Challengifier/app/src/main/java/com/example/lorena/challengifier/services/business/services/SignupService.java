@@ -1,6 +1,7 @@
 package com.example.lorena.challengifier.services.business.services;
 
 import com.example.lorena.challengifier.models.SignupUser;
+import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.UserService;
 import com.example.lorena.challengifier.services.external.services.services.ApiSignupService;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 
@@ -18,7 +19,7 @@ public class SignupService {
     public static boolean signup(final String userName, String password){
         _username = userName;
         _password = password;
-        com.example.lorena.challengifier.services.external.services.retrofit.interfaces.SignupService service = ApiSignupService.getService();
+        UserService service = ApiSignupService.getService();
         SignupUser signupUser = new SignupUser();
         signupUser.setPassword(password);
         signupUser.setEmail(userName);

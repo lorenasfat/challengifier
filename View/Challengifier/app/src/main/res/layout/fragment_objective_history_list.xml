@@ -11,7 +11,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/autoCompleteSearch"
-        android:layout_width="347dp"
+        android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
@@ -21,15 +21,16 @@
         android:popupBackground="@color/colorPrimary"
         android:hint="e.g. June marathon"
         app:layout_constraintBottom_toTopOf="@+id/objectiveList"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintHorizontal_bias="0.761"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
 
     <ListView
         android:id="@+id/objectiveList"
-        android:layout_width="375dp"
-        android:layout_height="434dp"
+        android:layout_width="0dp"
+        android:layout_height="447dp"
         android:layout_marginEnd="2dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -39,5 +40,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        tools:layout_editor_absoluteY="69dp" />
+        tools:layout_editor_absoluteY="56dp" />
 </android.support.constraint.ConstraintLayout>

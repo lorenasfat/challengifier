@@ -174,19 +174,22 @@
 
     <ImageView
         android:id="@+id/startNow"
+        style="@style/Cyan"
         android:layout_width="43dp"
         android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="27dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddObjective"
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintLeft_toRightOf="@+id/editTextStatus"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDeadline"
-        app:srcCompat="@drawable/start"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAddObjective"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintVertical_bias="0.216"
+        app:srcCompat="@drawable/start" />
 
 
 </android.support.constraint.ConstraintLayout>
