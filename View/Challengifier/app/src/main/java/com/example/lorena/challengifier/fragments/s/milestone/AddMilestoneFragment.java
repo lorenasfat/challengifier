@@ -41,14 +41,14 @@ public class AddMilestoneFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_milestone, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Add milestone");
-
+        FlowAids.BackUpTitle = "Add milestone";
         final EditText title = (EditText) view.findViewById(R.id.milestoneTitle);
         final EditText description = (EditText) view.findViewById(R.id.milesoneDescription);
         final EditText since = (EditText) view.findViewById(R.id.sinceInput);
         final EditText until = (EditText) view.findViewById(R.id.untilInput);
         ImageView link = (ImageView) view.findViewById(R.id.linkToPLanningStep);
 
-        if(FlowAids.ObjectiveToView.getChallengeId() == null)
+        if (FlowAids.ObjectiveToView.getChallengeId() == null)
             link.setVisibility(View.INVISIBLE);
 
         if (FlowAids.TempToBeAdded != null) {

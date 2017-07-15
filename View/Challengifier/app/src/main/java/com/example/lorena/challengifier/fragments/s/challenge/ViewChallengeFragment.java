@@ -44,7 +44,7 @@ public class ViewChallengeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view_challenge, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("View challenge");
-
+        FlowAids.BackUpTitle="View challenge";
         if(FlowAids.ChallengeToView.getUser_Id().equalsIgnoreCase(SessionUser.loggedInUser.getAspNetUserId()))
             setHasOptionsMenu(true);
 

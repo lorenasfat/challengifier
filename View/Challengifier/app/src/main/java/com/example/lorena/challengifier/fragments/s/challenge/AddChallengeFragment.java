@@ -15,8 +15,11 @@ import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.Challenge;
-import com.example.lorena.challengifier.services.external.services.services.ApiChallengeService;
+import com.example.lorena.challengifier.services.business.services.Validator;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ChallengeService;
+import com.example.lorena.challengifier.services.external.services.services.ApiChallengeService;
+import com.example.lorena.challengifier.utils.communication.FlowAids;
+import com.example.lorena.challengifier.utils.constants.ErrorMessages;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 import com.shawnlin.numberpicker.NumberPicker;
@@ -40,6 +43,7 @@ public class AddChallengeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_challenge, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Add challenge");
+        FlowAids.BackUpTitle = "Add challenge";
 
         final TextView title = (TextView)view.findViewById(R.id.textViewChallengeTitle);
         final TextView description = (TextView)view.findViewById(R.id.challengeDescription);
@@ -64,37 +68,52 @@ public class AddChallengeFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTimeUnits.setAdapter(adapter);
 
+
         Button save = (Button) view.findViewById(R.id.buttonAddChallenge);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                challenge.setDescription(description.getText().toString());
-                challenge.setName(title.getText().toString());
-                challenge.setSuggested_Time_Number(numberPicker.getValue());
-                challenge.setSuggested_Time_UnitsId(spinnerTimeUnits.getSelectedItem().toString());
-                challenge.setId(UUID.randomUUID());
-                challenge.setUser_Id(SessionUser.loggedInUser.getAspNetUserId());
+                String desc = description.getText().toString();
+                String tit = title.getText().toString();
+                boolean ok = true;
+                if(Validator.isEmpty(desc)){
+                    title.setError(ErrorMessages.EMPTY);
+                    ok = false;
+                }
+                if(Validator.isEmpty(tit)){
+                    description.setError(ErrorMessages.EMPTY);
+                    ok = false;
+                }
 
-                ChallengeService service = ApiChallengeService.getService();
-                Call<Challenge> call = service.addChallenge(challenge);
-                try {
-                    call.enqueue(new Callback<Challenge>() {
-                        @Override
-                        public void onResponse(Call<Challenge> call, Response<Challenge> response) {
-                            Toast.makeText(getActivity().getApplicationContext(), "All set!", Toast.LENGTH_LONG).show();
-                            RxBus.get().post(ChallengeListFragment.SHOW_SCREEN, true);
-                            // The network call was a success and we got a response
-                        }
+                if(ok) {
+                    challenge.setDescription(desc);
+                    challenge.setName(tit);
+                    challenge.setSuggested_Time_Number(numberPicker.getValue());
+                    challenge.setSuggested_Time_UnitsId(spinnerTimeUnits.getSelectedItem().toString());
+                    challenge.setId(UUID.randomUUID());
+                    challenge.setUser_Id(SessionUser.loggedInUser.getAspNetUserId());
 
-                        @Override
-                        public void onFailure(Call<Challenge> call, Throwable t) {
-                            // the network call was a failure
-                            // TODO: handle error
-                            t.printStackTrace();
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    ChallengeService service = ApiChallengeService.getService();
+                    Call<Challenge> call = service.addChallenge(challenge);
+                    try {
+                        call.enqueue(new Callback<Challenge>() {
+                            @Override
+                            public void onResponse(Call<Challenge> call, Response<Challenge> response) {
+                                Toast.makeText(getActivity().getApplicationContext(), "All set!", Toast.LENGTH_LONG).show();
+                                RxBus.get().post(ChallengeListFragment.SHOW_SCREEN, true);
+                                // The network call was a success and we got a response
+                            }
+
+                            @Override
+                            public void onFailure(Call<Challenge> call, Throwable t) {
+                                // the network call was a failure
+                                // TODO: handle error
+                                t.printStackTrace();
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

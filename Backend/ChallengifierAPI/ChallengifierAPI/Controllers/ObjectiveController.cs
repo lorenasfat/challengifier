@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ChallengifierAPI.Infrastructure.Session;
+using System.Collections.Generic;
 
 namespace ChallengifierAPI.Controllers
 {
@@ -113,7 +114,11 @@ namespace ChallengifierAPI.Controllers
             {
                 var objectives = _objectiveService.GetHistoryObjectives(id).ToList();
                 if (objectives.Count == 0)
-                    return Request.CreateResponse(HttpStatusCode.OK, "No entries yet!");
+                    return Request.CreateResponse(HttpStatusCode.OK, new List<ObjectiveHistoryDto>(){ new ObjectiveHistoryDto()
+                    {
+                        Name = "No past objectives :(",
+                        Description = string.Empty,
+                    } });
 
                 return Request.CreateResponse(HttpStatusCode.OK, objectives);
             }

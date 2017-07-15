@@ -44,7 +44,7 @@ public class ViewMyChallengeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view_my_challenge, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("View challenge");
-
+        FlowAids.BackUpTitle="View challenge";
         final MyChallenge challenge = FlowAids.MyChallengeToView;
 
         TextView title = (TextView)view.findViewById(R.id.textViewChallengeTitle);

@@ -49,7 +49,7 @@ public class MyChallengesListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_challenges_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("My Challenges");
-
+        FlowAids.BackUpTitle="My Challenges";
         listAdapter = new MyChallengeListAdapter(getActivity().getBaseContext());
         listAdapter.setChallenges(challenges);
         setHasOptionsMenu(true);

@@ -30,7 +30,6 @@ public class FlowAids {
     public static List<MyChallenge> MyChallengesBackup = null;
     public static List<ArchivedChallenge> MyArchivedChallengesBackup = null;
     public static List<LeaderboardUser> LeaderboardUsersBackup = null;
-
     public static List<ObjectiveForReviewDto> ObjectivesForReviewBackup = null;
 
     public static boolean IsLinkChallengeToObjective = false;
@@ -39,7 +38,31 @@ public class FlowAids {
 
     public static boolean IsChallengeAccepted = false;
 
-    public static boolean IsArchivedChallenges = false;
-
     public static Milestone TempToBeAdded = null;
+    public static boolean AccessToInternet = false;
+    public static String BackUpTitle;
+
+    public static void ClearCache(){
+        ObjectiveToEdit = null;
+        ObjectiveToView = null;
+        ObjectiveToReview = null;
+
+        ChallengeToEdit = null;
+        ChallengeToView = null;
+        MyChallengeToView = null;
+
+        ObjectivesBackup = null;
+        HistoryObjectivesBackup = null;
+        ChallengesBackup = null;
+        MyChallengesBackup = null;
+        MyArchivedChallengesBackup = null;
+        LeaderboardUsersBackup = null;
+        ObjectivesForReviewBackup = null;
+
+        IsLinkChallengeToObjective = false;
+        IsMyObjectives = false;
+        IsChallengeAccepted = false;
+        TempToBeAdded = null;
+        AccessToInternet = false;
+    }
 }

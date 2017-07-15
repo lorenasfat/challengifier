@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.ArchivedChallenge;
@@ -40,6 +41,7 @@ public class ArchivedChallengeListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_archived_challenges_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Archived Challenges");
         setHasOptionsMenu(true);
+        FlowAids.BackUpTitle = "Archived Challenges";
 
         listAdapter = new ArchivedChallengeListAdapter(getActivity().getBaseContext());
         listAdapter.setChallenges(challenges);
@@ -60,6 +62,13 @@ public class ArchivedChallengeListFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<ArchivedChallenge>> call, Response<List<ArchivedChallenge>> response) {
                     challenges.addAll(response.body());
+
+                    if(challenges.isEmpty()){
+                        ArchivedChallenge empty = new ArchivedChallenge();
+                        empty.setName("No archived challenges :(");
+                        challenges.add(empty);
+                    }
+
                     listAdapter.setChallenges(challenges);
                     listAdapter.notifyDataSetChanged();
                     FlowAids.MyArchivedChallengesBackup = challenges;
@@ -69,7 +78,7 @@ public class ArchivedChallengeListFragment extends Fragment {
                 @Override
                 public void onFailure(Call<List<ArchivedChallenge>> call, Throwable t) {
                     // the network call was a failure
-                    // TODO: handle error
+                    Toast.makeText(getActivity().getApplicationContext(), "Oops! :(", Toast.LENGTH_LONG).show();
                     t.printStackTrace();
                 }
             });

@@ -39,9 +39,9 @@
 
     <EditText
         android:id="@+id/challengeDescription"
-        android:layout_width="326dp"
-        android:layout_height="111dp"
-        android:layout_marginBottom="72dp"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="122dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
@@ -62,11 +62,10 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/spinnerTimeUnit"
         app:layout_constraintTop_toBottomOf="@+id/challengeDescription"
-        app:layout_constraintVertical_bias="0.0"
         app:np_dividerColor="@color/colorPrimary"
         app:np_formatter="@string/number_picker_formatter"
         app:np_height="180dp"
@@ -78,7 +77,8 @@
         app:np_textSize="@dimen/text_size"
         app:np_typeface="@string/roboto_light"
         app:np_value="3"
-        app:np_width="64dp" />
+        app:np_width="64dp"
+        app:layout_constraintVertical_bias="0.41" />
 
 
     <Button
@@ -102,5 +102,21 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintVertical_bias="0.764"
         app:layout_constraintHorizontal_bias="0.503" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Recommend timeline:"
+        app:layout_constraintBottom_toTopOf="@+id/number_picker"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/challengeDescription"
+        app:layout_constraintVertical_bias="0.529" />
 
 </android.support.constraint.ConstraintLayout>

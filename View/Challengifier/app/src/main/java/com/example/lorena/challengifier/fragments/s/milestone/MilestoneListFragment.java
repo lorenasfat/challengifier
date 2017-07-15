@@ -40,7 +40,7 @@ public class MilestoneListFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_milestone_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Milestones");
-
+        FlowAids.BackUpTitle="Milestones";
         listAdapter = new MilestoneListAdapter(getActivity().getApplicationContext(), milestones);
         MilestoneService service = ApiMilestoneService.getService();
 

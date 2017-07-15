@@ -101,10 +101,8 @@ public class HistoryObjectiveListAdapter extends BaseAdapter implements Filterab
         // get the visual elements and update them with the information from the model
         TextView title = (TextView) myRow.findViewById(R.id.textViewTitle);
         title.setText(objectives.get(position).getName());
-
         TextView description = (TextView) myRow.findViewById(R.id.textViewDescription);
         description.setText(objectives.get(position).getDescription());
-
         TextView gained = (TextView) myRow.findViewById(R.id.textViewGained);
         gained.setText("Points gained: " + objectives.get(position).getGrade());
 

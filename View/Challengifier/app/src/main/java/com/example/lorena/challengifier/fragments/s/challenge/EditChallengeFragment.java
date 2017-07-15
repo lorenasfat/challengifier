@@ -39,7 +39,7 @@ public class EditChallengeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_challenge, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Edit challenge");
-
+        FlowAids.BackUpTitle ="Edit challenge";
         final Challenge editChallenge = FlowAids.ChallengeToEdit;
 
         final EditText title = (EditText)view.findViewById(R.id.textViewChallengeTitle);

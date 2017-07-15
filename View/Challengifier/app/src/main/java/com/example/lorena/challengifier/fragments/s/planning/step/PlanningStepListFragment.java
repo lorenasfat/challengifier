@@ -54,7 +54,7 @@ public class PlanningStepListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_planning_step_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Planning Steps");
-
+        FlowAids.BackUpTitle="Planning Steps";
         listAdapter = new PlanningStepListAdapter(getActivity().getApplicationContext(), planningSteps);
         PlanningStepService service = ApiPlanningStepService.getService();
         UUID challengeId = null;

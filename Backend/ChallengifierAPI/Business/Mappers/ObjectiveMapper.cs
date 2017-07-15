@@ -87,7 +87,8 @@ namespace Business.Mappers
                 Description = objective.Description,
                 Grade = Convert.ToInt32(objective.Rating),
                 Id = objective.Objective_ID,
-                Name = objective.Name
+                Name = objective.Name,
+                Status = objective.Status_ID
             });
 
             return objs;

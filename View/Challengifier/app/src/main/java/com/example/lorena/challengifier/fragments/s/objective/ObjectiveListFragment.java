@@ -51,7 +51,7 @@ public class ObjectiveListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_objective_list, container, false);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle("Objectives");
-
+        FlowAids.BackUpTitle="Objectives";
         setHasOptionsMenu(true);
 
         mIsRestoredFromBackstack = false;

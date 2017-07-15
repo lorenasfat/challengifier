@@ -47,6 +47,7 @@ import com.example.lorena.challengifier.fragments.s.user.LoginFragment;
 import com.example.lorena.challengifier.models.User;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.LoginService;
 import com.example.lorena.challengifier.services.external.services.services.ApiLoginService;
+import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -107,6 +108,33 @@ public class MainScreenActivity extends AppCompatActivity {
             buttonStats = (Button) findViewById(R.id.buttonStats);
             username = (TextView) findViewById(R.id.username);
             points = (TextView) findViewById(R.id.points);
+
+            TextView logOut = (TextView)findViewById(R.id.textViewLogOut);
+            logOut.setClickable(true);
+            logOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setMessage("Are you sure you want to log out?")
+                            .setCancelable(true)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    FlowAids.ClearCache();
+                                    SessionUser.clearSession(activity);
+                                    RxBus.get().post(FrontScreenFragment.SHOW_SCREEN, true);
+                                    dialog.cancel();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            });
 
             ImageView homeScreen = (ImageView) findViewById(R.id.homeScreen);
             ImageView icon = (ImageView) findViewById(R.id.imageUserIcon);
@@ -176,16 +204,16 @@ public class MainScreenActivity extends AppCompatActivity {
             mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
             mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                     R.string.drawer_open, R.string.drawer_open) {
-
                 @Override
                 public void onDrawerClosed(View view) {
                     super.onDrawerClosed(view);
-                    //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                    getSupportActionBar().setTitle(FlowAids.BackUpTitle);
                 }
 
                 @Override
                 public void onDrawerOpened(View drawerView) {
                     super.onDrawerOpened(drawerView);
+                    getSupportActionBar().setTitle("Challenger account");
                 }
             };
 
@@ -213,10 +241,10 @@ public class MainScreenActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         if (activeNetwork != null) {
-            boolean isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
             boolean isMobile = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+            boolean isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
 
-            if ((isWifi || isMobile) && activeNetwork.isConnected()) {
+            if (isWifi || isMobile) {
                 return true;
             } else {
                 showDialog();
@@ -227,15 +255,14 @@ public class MainScreenActivity extends AppCompatActivity {
             return false;
         }
     }
-
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage("Turn mobile data on or come back later")
                 .setCancelable(false)
                 .setPositiveButton("Turn mobile data on", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
                         dialog.cancel();
+                        startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
                     }
                 })
                 .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
@@ -259,6 +286,15 @@ public class MainScreenActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
+    @Subscribe(tags = @Tag(FrontScreenFragment.SHOW_SCREEN))
+    public void showFrontScreenFragment(Boolean loginSuccess) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new FrontScreenFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
     @Subscribe(tags = @Tag(LeaderboardFragment.SHOW_SCREEN))
     public void showLeaderboardFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()

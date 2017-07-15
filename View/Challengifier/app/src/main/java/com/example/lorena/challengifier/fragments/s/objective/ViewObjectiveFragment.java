@@ -43,7 +43,7 @@ public class ViewObjectiveFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view_objective, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("View objective");
-
+        FlowAids.BackUpTitle="View objective";
         //final int progress = 0;
         /*final DiscreteSeekBar slider = (DiscreteSeekBar) view.findViewById(R.id.slider);
         slider.setMax(10);

@@ -17,6 +17,8 @@ import static com.example.lorena.challengifier.utils.tools.DrawerDisabler.setDra
  */
 
 public class FrontScreenFragment extends Fragment {
+    public static final String SHOW_SCREEN = "FRONT_SCREEN_FRAGMENT_TAG";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

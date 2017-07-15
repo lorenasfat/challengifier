@@ -41,6 +41,7 @@ public class LeaderboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle("Leaderboard");
+        FlowAids.BackUpTitle = "Leaderboard";
 
         AutoCompleteTextView searchTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextView);
         searchTextView.addTextChangedListener(new TextWatcher() {

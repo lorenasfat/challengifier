@@ -108,18 +108,18 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="0dp"
         android:ems="10"
         android:hint="Not started"
         android:inputType="textMultiLine"
         android:textAlignment="viewStart"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddObjective"
-        app:layout_constraintHorizontal_bias="0.028"
-        app:layout_constraintLeft_toRightOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDeadline"
-        app:layout_constraintVertical_bias="0.357" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.272"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -134,8 +134,8 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.039" />
+        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintRight_toLeftOf="@+id/startNow" />
 
     <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
         android:id="@+id/slider"
@@ -184,11 +184,11 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddObjective"
-        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintHorizontal_bias="0.751"
         app:layout_constraintLeft_toRightOf="@+id/editTextStatus"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDeadline"
-        app:layout_constraintVertical_bias="0.216"
+        app:layout_constraintVertical_bias="0.471"
         app:srcCompat="@drawable/start" />
 
 

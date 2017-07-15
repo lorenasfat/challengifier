@@ -37,10 +37,11 @@ public class ReviewObjectiveFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_review_objective, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(FlowAids.ObjectiveToReview.getObjectiveName());
+        FlowAids.BackUpTitle = FlowAids.ObjectiveToReview.getObjectiveName();
 
         String userName = FlowAids.ObjectiveToReview.getUsername();
         TextView username = (TextView) view.findViewById(R.id.textViewUsername);
-        username.setText(userName.substring(0,userName.indexOf("@")));
+        username.setText(userName.substring(0, userName.indexOf("@")));
 
         TextView description = (TextView) view.findViewById(R.id.textViewDesription);
         description.setText(FlowAids.ObjectiveToReview.getDescription());

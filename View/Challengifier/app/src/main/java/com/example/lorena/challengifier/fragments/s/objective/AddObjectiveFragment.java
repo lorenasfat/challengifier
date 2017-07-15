@@ -46,7 +46,7 @@ public class AddObjectiveFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_objective, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Add objective");
-
+        FlowAids.BackUpTitle="Add objective";
         final Objective objective = new Objective();
         objective.setId(UUID.randomUUID());
         objective.setStatus(0);

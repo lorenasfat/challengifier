@@ -50,7 +50,7 @@ public class AddPlanningStepFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_planning_step, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Add planning step");
-
+        FlowAids.BackUpTitle="Add planning step";
         final TextView title = (TextView)view.findViewById(R.id.textViewPSTitle);
         final TextView description = (TextView)view.findViewById(R.id.psDescription);
         final NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.number_picker);
