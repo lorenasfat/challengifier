@@ -27,6 +27,10 @@ public class SessionUser {
         editor.putString(key, tokenKey);
         editor.putString(keyUser, toGson(user));
         editor.commit();
+
+        loggedInUser = user;
+        authToken = tokenKey;
+        currentUserId = user.getAspNetUserId();
     }
 
     public static void clearSession(Activity activity) {

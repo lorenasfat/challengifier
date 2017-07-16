@@ -40,6 +40,13 @@ namespace Business.Services
             try
             {
                 var dbObjective = _unitOfWork.ObjectiveRepository.GetById(objectiveId);
+                var milestones = _unitOfWork.MilestoneRepository.All().Where(m => m.Objective_ID == objectiveId);
+
+                foreach (var milestone in milestones)
+                    _unitOfWork.MilestoneRepository.Delete(milestone);
+
+                _unitOfWork.MilestoneRepository.Save();
+
                 _unitOfWork.ObjectiveRepository.Delete(dbObjective);
                 _unitOfWork.ObjectiveRepository.Save();
                 _unitOfWork.Commit();
@@ -71,33 +78,99 @@ namespace Business.Services
 
         public void UpdateObjective(ObjectiveDto objective)
         {
+            if ((objective.ChallengeId != null && objective.Status == (int)Common.Enums.ObjectiveStatus.Reviewed))
+            {
+                UpdateChallengeBasedGrade(objective);
+            }
+            else if (objective.ChallengeId == null && objective.Status == (int)Common.Enums.ObjectiveStatus.Completed)
+            {
+                UpdateGrade(objective);
+            }
+            else
+            {
+                UpdateObjectiveNotComplete(objective);
+            }
+        }
+
+        private void UpdateObjectiveNotComplete(ObjectiveDto objective)
+        {
+            try
+            {
+                var dbObjective = _unitOfWork.ObjectiveRepository.GetById(objective.Id);
+                SetUpObjective(dbObjective, objective);
+                _unitOfWork.ObjectiveRepository.Save();
+                _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                _unitOfWork.RollBack();
+                throw;
+            }
+        }
+
+        public void UpdateChallengeBasedGrade(ObjectiveDto objective)
+        {
             try
             {
                 var dbObjective = _unitOfWork.ObjectiveRepository.GetById(objective.Id);
                 SetUpObjective(dbObjective, objective);
 
-                if ((dbObjective.Challenge_ID != null && dbObjective.Status_ID == (int)Common.Enums.ObjectiveStatus.Reviewed))
-                {
-                    var systemGrade = _userRankComponent.PersistSystemGradeForObjective(objective.Id);
-                    var userGrade = _unitOfWork.UserRatingRepository.All().Where(r => r.Objective_ID == objective.Id).FirstOrDefault().Grade;
-                    int grade = Convert.ToInt32(0.6 * userGrade + 0.4 * systemGrade);
+                var systemGrade = _userRankComponent.PersistSystemGradeForObjective(objective.Id);
+                var userGrade = _unitOfWork.UserRatingRepository.All().Where(r => r.Objective_ID == objective.Id).FirstOrDefault().Grade;
+                int grade = Convert.ToInt32(0.6 * userGrade + 0.4 * systemGrade);
 
-                    dbObjective.Rating += grade;
+                dbObjective.Rating += grade;
 
-                    _unitOfWork.UserRepository.All().Where(u => u.Id == objective.UserId)
+                _unitOfWork.UserRepository.All().Where(u => u.Id == objective.UserId)
     .FirstOrDefault().Points += Convert.ToInt32(dbObjective.Rating);
-                    _unitOfWork.UserRankRepository.Save();
-                }
-                else if (dbObjective.Challenge_ID == null && dbObjective.Status_ID == (int)Common.Enums.ObjectiveStatus.Completed)
-                {
-                    var grade = _userRankComponent.PersistSystemGradeForObjective(objective.Id);
+                _unitOfWork.UserRankRepository.Save();
+                _unitOfWork.ObjectiveRepository.Save();
+                _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                _unitOfWork.RollBack();
+                throw;
+            }
+        }
 
-                    dbObjective.Rating += grade;
+        private void UpdateChallengeBasedGrade(Guid objectiveId)
+        {
+            try
+            {
+                var dbObjective = _unitOfWork.ObjectiveRepository.GetById(objectiveId);
 
-                    _unitOfWork.UserRepository.All().Where(u => u.Id == objective.UserId)
+                var systemGrade = _userRankComponent.PersistSystemGradeForObjective(objectiveId);
+                var userGrade = _unitOfWork.UserRatingRepository.All().Where(r => r.Objective_ID == objectiveId).FirstOrDefault().Grade;
+                int grade = Convert.ToInt32(0.6 * userGrade + 0.4 * systemGrade);
+
+                dbObjective.Rating += grade;
+
+                _unitOfWork.UserRepository.All().Where(u => u.Id == dbObjective.User_ID)
     .FirstOrDefault().Points += Convert.ToInt32(dbObjective.Rating);
-                    _unitOfWork.UserRankRepository.Save();
-                }
+                _unitOfWork.UserRankRepository.Save();
+                _unitOfWork.ObjectiveRepository.Save();
+                _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                _unitOfWork.RollBack();
+                throw;
+            }
+        }
+        public void UpdateGrade(ObjectiveDto objective)
+        {
+            try
+            {
+                var dbObjective = _unitOfWork.ObjectiveRepository.GetById(objective.Id);
+                SetUpObjective(dbObjective, objective);
+                var grade = _userRankComponent.PersistSystemGradeForObjective(objective.Id);
+
+                dbObjective.Rating += grade;
+
+                _unitOfWork.UserRepository.All().Where(u => u.Id == objective.UserId)
+.FirstOrDefault().Points += Convert.ToInt32(dbObjective.Rating);
+                _unitOfWork.UserRankRepository.Save();
 
                 _unitOfWork.ObjectiveRepository.Save();
                 _unitOfWork.Commit();
@@ -117,6 +190,9 @@ namespace Business.Services
 
         private void SetUpObjective(Objective dbObjective, ObjectiveDto objective)
         {
+            var challenger = _unitOfWork.ChallengeRepository.All().Where(c => c.Challenge_ID == objective.ChallengeId).FirstOrDefault();
+            var challengerId = challenger == null ? null : challenger.User_ID;
+
             dbObjective.Challenge_ID = objective.ChallengeId;
             dbObjective.Deadline = objective.Deadline;
             dbObjective.Description = objective.Description;
@@ -129,14 +205,12 @@ namespace Business.Services
             {
                 dbObjective.Status_ID = objective.Status;
             }
-            if (objective.Progress == 10 && !objective.ChallengeId.HasValue)
+            if (objective.Progress == 10 && (!objective.ChallengeId.HasValue || objective.UserId == challengerId))
                 dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.Completed;
-            else if (objective.Progress == 10 || objective.Status == (int)Common.Enums.ObjectiveStatus.Completed)
+            else if ((objective.Progress == 10 || objective.Status == (int)Common.Enums.ObjectiveStatus.Completed) && (objective.UserId != challengerId))
                 dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.ForReview;
-            else if (objective.Progress > 0 && objective.Progress < 10)
+            else if (objective.Progress > 0 && objective.Progress < 10 && objective.Status == (int)Common.Enums.ObjectiveStatus.NotActive)
                 dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.Ongoing;
-            else
-                dbObjective.Status_ID = (int)Common.Enums.ObjectiveStatus.NotActive;
         }
 
         public IEnumerable<ObjectiveForReviewDto> GetObjectivesForReview(Guid id)
@@ -161,6 +235,9 @@ namespace Business.Services
                     status = (int)Common.Enums.ObjectiveStatus.Reviewed;
                 var objective = _unitOfWork.ObjectiveRepository.GetById(rating.ObjectiveId);
                 objective.Status_ID = status;
+
+                UpdateChallengeBasedGrade(objective.Objective_ID);
+
                 _unitOfWork.ObjectiveRepository.Save();
                 _unitOfWork.Commit();
             }
@@ -173,7 +250,7 @@ namespace Business.Services
 
         public IEnumerable<ObjectiveHistoryDto> GetHistoryObjectives(string id)
         {
-            return _unitOfWork.ObjectiveRepository.All().Where(o => o.User_ID == id && 
+            return _unitOfWork.ObjectiveRepository.All().Where(o => o.User_ID == id &&
             (o.Status_ID != (int)Common.Enums.ObjectiveStatus.Ongoing
             && o.Status_ID != (int)Common.Enums.ObjectiveStatus.ForReview
             && o.Status_ID != (int)Common.Enums.ObjectiveStatus.NotActive)).ToHistoryDtos();

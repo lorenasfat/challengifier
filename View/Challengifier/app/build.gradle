@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.example.lorena.challengifier"
         minSdkVersion 21
@@ -33,12 +33,12 @@ dependencies {
     compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.6.0'
 
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:support-v4:25.1.1'
-    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.hwangjr.rxbus:rxbus:1.0.5'
     compile 'org.adw.library:discrete-seekbar:1.0.1'

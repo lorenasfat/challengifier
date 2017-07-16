@@ -66,7 +66,7 @@ namespace Business.Services
 
         public IEnumerable<MyChallengeDto> GetChallengesOfUser(string id)
         {
-            var challenges = _unitOfWork.ChallengeRepository.All().Where(c => c.User_ID == id);
+            var challenges = _unitOfWork.ChallengeRepository.All().Where(c => c.User_ID == id && c.Archived == false);
             var userChallenges = challenges.ToMyDtos();
 
             foreach (MyChallengeDto challenge in userChallenges)

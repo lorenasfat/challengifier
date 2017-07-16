@@ -38,6 +38,7 @@ public class LoginService {
                 authToken = responseContent;//get token
                 //make call for info
                 User user = UserInfoService.getInfo(userName);
+                SessionUser.loggedInUser = user;
                 SessionUser.saveSession(activity, authToken, user);
             } else {
                 authToken = "-1";

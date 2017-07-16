@@ -51,7 +51,7 @@ public class EditObjectiveFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_objective, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Edit objective");
-        FlowAids.BackUpTitle="Edit objective";
+        FlowAids.BackUpTitle = "Edit objective";
         final Objective editObjective = FlowAids.ObjectiveToEdit;
 
         //final int progress = 0;
@@ -87,6 +87,7 @@ public class EditObjectiveFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.cancel();
                                 editObjective.setStatus(ObjStatus.Ongoing.ordinal());
+                                editObjective.setStartDate(new Date());
                                 status.setText("Ongoing");
                                 Toast.makeText(getActivity().getApplicationContext(), "Objective now in progress!", Toast.LENGTH_SHORT).show();
                             }
@@ -159,9 +160,10 @@ public class EditObjectiveFragment extends Fragment {
                     editObjective.setName(title);
                     editObjective.setExpectedOutcome(expectedOutcome);
                     editObjective.setDescription(description);
-                    if ((editObjective.getProgress() != slider.getProgress()) && slider.getProgress() == 10) {
+                    if ((editObjective.getProgress() != slider.getProgress())) {
                         editObjective.setProgress(slider.getProgress());
-                        editObjective.setEndDate(new Date());
+                        if (slider.getProgress() == 10)
+                            editObjective.setEndDate(new Date());
                         if (editObjective.getChallengeId() != null)
                             editObjective.setStatus(ObjStatus.For_Review.ordinal());
                         else
@@ -171,6 +173,7 @@ public class EditObjectiveFragment extends Fragment {
                         editObjective.setStartDate(new Date());
                         editObjective.setStatus(ObjStatus.Ongoing.ordinal());
                     }
+                    editObjective.setDeadline(deadlineDate);
                     ObjectiveService service = ApiObjectiveService.getService();
                     Call<User> call = service.editObjective(editObjective);
                     try {

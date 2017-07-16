@@ -15,7 +15,7 @@ namespace Business.Services.Interfaces
         int CountForChallenge(Guid challengeId);
         IEnumerable<ObjectiveForReviewDto> GetObjectivesForReview(Guid id);
         void AddObjectiveRating(UserRatingDto rating);
-        //TODO
-        //IEnumerable<Objective> GetAllObjectivesForUser(Guid userID);
+        void UpdateChallengeBasedGrade(ObjectiveDto objective);
+        void UpdateGrade(ObjectiveDto objective);
     }
 }

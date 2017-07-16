@@ -43,17 +43,7 @@ public class ViewObjectiveFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view_objective, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("View objective");
-        FlowAids.BackUpTitle="View objective";
-        //final int progress = 0;
-        /*final DiscreteSeekBar slider = (DiscreteSeekBar) view.findViewById(R.id.slider);
-        slider.setMax(10);
-        slider.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
-            @Override
-            public int transform(int value) {
-                return value * 10;
-            }
-        });
-        slider.setProgress(FlowAids.ObjectiveToView.getProgress());*/
+        FlowAids.BackUpTitle = "View objective";
 
         final RoundCornerProgressBar progressBar = (RoundCornerProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setMax(100);
@@ -160,11 +150,11 @@ public class ViewObjectiveFragment extends Fragment {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
+                    User responseContent = (User) response.body();
+                    SessionUser.loggedInUser = responseContent;
+                    updateDrawerContent();
+                    SessionUser.saveSession(getActivity(), authToken, responseContent);
                     if (finalIsStarted) {
-                        User responseContent = (User)response.body();
-                        SessionUser.loggedInUser = responseContent;
-                        updateDrawerContent();
-                        SessionUser.saveSession(getActivity(), authToken, responseContent);
                         Toast.makeText(getActivity().getApplicationContext(), "Congratulations!", Toast.LENGTH_LONG).show();
                         RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
                         // The network call was a success and we got a response

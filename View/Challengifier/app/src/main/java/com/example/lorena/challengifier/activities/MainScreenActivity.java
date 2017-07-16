@@ -74,7 +74,6 @@ public class MainScreenActivity extends AppCompatActivity {
         String formatted = userName.substring(0, userName.indexOf("@"));
         username.setText(formatted);
         points.setText(String.valueOf(SessionUser.loggedInUser.getPoints()) + " points");
-
     }
 
     @Override
@@ -82,9 +81,8 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         RxBus.get().register(this);
-
+//SessionUser.clearSession(this);
         activity = this;
-
         setUpLauncher();
     }
 
@@ -150,6 +148,7 @@ public class MainScreenActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
                                 SessionUser.loggedInUser = (User)response.body();
+                                SessionUser.saveSession(activity,SessionUser.authToken, SessionUser.loggedInUser);
                                 updateDrawerContent();
                                 Toast.makeText(activity.getApplicationContext(), "Account refreshed", Toast.LENGTH_LONG).show();
                                 // The network call was a success and we got a response

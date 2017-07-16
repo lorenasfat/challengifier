@@ -61,6 +61,8 @@ public class ViewMyChallengeFragment extends Fragment {
             }
         });
 
+        acceptanceNumber.setText(String.valueOf(challenge.getAcceptance()));
+
         List<String> list = new ArrayList<String>();
         list.add("day");
         list.add("week");

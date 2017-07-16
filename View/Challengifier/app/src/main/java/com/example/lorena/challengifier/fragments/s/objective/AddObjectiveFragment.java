@@ -84,6 +84,7 @@ public class AddObjectiveFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.cancel();
                                 objective.setStatus(ObjStatus.Ongoing.ordinal());
+                                objective.setStartDate(new Date());
                                 status.setText("Ongoing");
                                 Toast.makeText(getActivity().getApplicationContext(), "Objective now in progress!", Toast.LENGTH_SHORT).show();
                             }

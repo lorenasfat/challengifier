@@ -1,7 +1,4 @@
 ﻿using Business.Components.Interface;
-using Business.DTOs;
-using Business.Mappers;
-using DataAccess.Entities;
 using DataAccess.UnitOfWork;
 using System;
 using System.Linq;
@@ -39,9 +36,9 @@ namespace Business.Components
         {
             var objective = _unitOfWork.ObjectiveRepository.All().Where(o => o.Objective_ID == objectiveID).FirstOrDefault();
 
-            var duration = objective.End_Date.Value.Subtract(objective.Start_Date.Value).Days;
+            var duration = objective.End_Date.Value.Subtract(objective.Start_Date.Value).Days+1;
 
-            var delay = objective.Deadline.Subtract(objective.End_Date.Value).Days;
+            var delay = objective.End_Date.Value.Subtract(objective.Deadline).Days;
 
             if (delay <= 0 || (DateTime.Compare(objective.End_Date.Value, objective.Deadline) <= 0))
                 return 10;
