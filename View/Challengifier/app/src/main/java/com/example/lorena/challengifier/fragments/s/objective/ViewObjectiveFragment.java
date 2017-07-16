@@ -151,7 +151,7 @@ public class ViewObjectiveFragment extends Fragment {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     User responseContent = (User) response.body();
-                    SessionUser.loggedInUser = responseContent;
+                    SessionUser.setLoggedInUser(responseContent);
                     updateDrawerContent();
                     SessionUser.saveSession(getActivity(), authToken, responseContent);
                     if (finalIsStarted) {

@@ -111,7 +111,7 @@ public class PlanningStepListFragment extends Fragment {
 
         list.setAdapter(listAdapter);
 
-        if (FlowAids.ChallengeToView.getUser_Id().equalsIgnoreCase(SessionUser.loggedInUser.getAspNetUserId()))
+        if (FlowAids.ChallengeToView.getUser_Id().equalsIgnoreCase(SessionUser.getLoggedInUser().getAspNetUserId()))
             registerForContextMenu(list);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -70,10 +70,10 @@ public class MainScreenActivity extends AppCompatActivity {
     private static TextView points;
 
     public static void updateDrawerContent() {
-        String userName = SessionUser.loggedInUser.getUsername();
+        String userName = SessionUser.getLoggedInUser().getUsername();
         String formatted = userName.substring(0, userName.indexOf("@"));
         username.setText(formatted);
-        points.setText(String.valueOf(SessionUser.loggedInUser.getPoints()) + " points");
+        points.setText(String.valueOf(SessionUser.getLoggedInUser().getPoints()) + " points");
     }
 
     @Override
@@ -140,14 +140,14 @@ public class MainScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginService service = ApiLoginService.getService();
-                Call<User> call = service.getInfo(SessionUser.loggedInUser.getUsername());
+                Call<User> call = service.getInfo(SessionUser.getLoggedInUser().getUsername());
 
                 try {
                     call.enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
-                            SessionUser.loggedInUser = (User) response.body();
-                            SessionUser.saveSession(activity, SessionUser.authToken, SessionUser.loggedInUser);
+                            SessionUser.setLoggedInUser(response.body());
+                            SessionUser.saveSession(activity, SessionUser.authToken, SessionUser.getLoggedInUser());
                             updateDrawerContent();
                             Toast.makeText(activity.getApplicationContext(), "Account refreshed", Toast.LENGTH_LONG).show();
                             // The network call was a success and we got a response

@@ -56,7 +56,7 @@ public class ArchivedChallengeListFragment extends Fragment {
         challenges.clear();
 
         ChallengeService service = ApiChallengeService.getService();
-        Call<List<ArchivedChallenge>> call = service.listMyArchivedChallenges(SessionUser.loggedInUser.getAspNetUserId());
+        Call<List<ArchivedChallenge>> call = service.listMyArchivedChallenges(SessionUser.getLoggedInUser().getAspNetUserId());
         try {
             call.enqueue(new Callback<List<ArchivedChallenge>>() {
                 @Override

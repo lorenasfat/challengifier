@@ -91,7 +91,7 @@ public class AddChallengeFragment extends Fragment {
                     challenge.setSuggested_Time_Number(numberPicker.getValue());
                     challenge.setSuggested_Time_UnitsId(spinnerTimeUnits.getSelectedItem().toString());
                     challenge.setId(UUID.randomUUID());
-                    challenge.setUser_Id(SessionUser.loggedInUser.getAspNetUserId());
+                    challenge.setUser_Id(SessionUser.getLoggedInUser().getAspNetUserId());
 
                     ChallengeService service = ApiChallengeService.getService();
                     Call<Challenge> call = service.addChallenge(challenge);

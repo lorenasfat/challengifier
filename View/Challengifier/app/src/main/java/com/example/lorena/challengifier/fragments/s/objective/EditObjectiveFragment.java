@@ -125,7 +125,7 @@ public class EditObjectiveFragment extends Fragment {
         if (editObjective != null) {
             editTextName.setText(editObjective.getName());
             editTextDescription.setText(editObjective.getDescription());
-            editTextDeadline.setText(new SimpleDateFormat("dd-MM-yyyy").format(editObjective.getDeadline()));
+            editTextDeadline.setText(new SimpleDateFormat("yyyy-MM-dd").format(editObjective.getDeadline()));
         }
 
         Button save = (Button) view.findViewById(R.id.buttonAddObjective);
@@ -181,7 +181,7 @@ public class EditObjectiveFragment extends Fragment {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
                                 User responseContent = (User) response.body();
-                                SessionUser.loggedInUser = responseContent;
+                                SessionUser.setLoggedInUser(responseContent);
                                 updateDrawerContent();
                                 SessionUser.saveSession(getActivity(), authToken, responseContent);
 

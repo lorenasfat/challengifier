@@ -74,7 +74,7 @@ public class LeaderboardFragment extends Fragment {
 
     private int findMe() {
         for (int i = 0; i< leaderboardUsers.size(); i++) {
-            if(leaderboardUsers.get(i).getUsername().equalsIgnoreCase(SessionUser.loggedInUser.getUsername()))
+            if(leaderboardUsers.get(i).getUsername().equalsIgnoreCase(SessionUser.getLoggedInUser().getUsername()))
                 return i;
         }
         return 0;

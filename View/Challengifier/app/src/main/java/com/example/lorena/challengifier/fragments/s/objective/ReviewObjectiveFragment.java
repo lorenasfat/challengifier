@@ -72,7 +72,7 @@ public class ReviewObjectiveFragment extends Fragment {
                 UserRating rating = new UserRating();
                 rating.setId(UUID.randomUUID());
                 rating.setGrade(rate);
-                rating.setUserId(SessionUser.loggedInUser.getAspNetUserId());
+                rating.setUserId(SessionUser.getLoggedInUser().getAspNetUserId());
                 rating.setObjectiveId(FlowAids.ObjectiveToReview.getId());
 
                 ObjectiveService service = ApiObjectiveService.getService();

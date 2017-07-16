@@ -23,9 +23,9 @@ public class UserInfoService {
         try {
             Response<User> response = call.execute();
             User responseContent = (User)response.body();
-            SessionUser.loggedInUser = responseContent;
+            SessionUser.setLoggedInUser(responseContent);
             updateDrawerContent();
-            return SessionUser.loggedInUser;
+            return SessionUser.getLoggedInUser();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

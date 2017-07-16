@@ -77,7 +77,7 @@ public class MyChallengesListFragment extends Fragment {
     private void loadMyChallenges() {
         challenges.clear();
         ChallengeService service = ApiChallengeService.getService();
-        Call<List<MyChallenge>> call = service.listMyChallenges(SessionUser.loggedInUser.getAspNetUserId());
+        Call<List<MyChallenge>> call = service.listMyChallenges(SessionUser.getLoggedInUser().getAspNetUserId());
         try {
             call.enqueue(new Callback<List<MyChallenge>>() {
                 @Override

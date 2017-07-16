@@ -133,7 +133,7 @@ public class AddObjectiveFragment extends Fragment {
                     objective.setDeadline(deadlineDate);
                     objective.setExpectedOutcome("");
                     objective.setDescription(description);
-                    objective.setUserId(SessionUser.loggedInUser.getAspNetUserId());
+                    objective.setUserId(SessionUser.getLoggedInUser().getAspNetUserId());
                     objective.setProgress(slider.getProgress());
 
                     if ((objective.getProgress() != slider.getProgress()) && slider.getProgress() == 10) {

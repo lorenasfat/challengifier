@@ -3,9 +3,11 @@ package com.example.lorena.challengifier.utils.session;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 
 import com.example.lorena.challengifier.models.User;
 import com.google.gson.Gson;
+import com.google.gson.internal.$Gson$Preconditions;
 
 import static com.example.lorena.challengifier.activities.MainScreenActivity.updateDrawerContent;
 
@@ -16,10 +18,18 @@ import static com.example.lorena.challengifier.activities.MainScreenActivity.upd
 public class SessionUser {
     public static String currentUserId;
     public static String authToken;
-    public static User loggedInUser;
+    private static User loggedInUser;
     public static String key = "TokenKey";
     public static String keyUser = "UserKey";
 
+    public static User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static void setLoggedInUser(User loggedInUser) {
+        $Gson$Preconditions.checkNotNull(loggedInUser);
+        SessionUser.loggedInUser = loggedInUser;
+    }
 
     public static void saveSession(Activity activity, String tokenKey, User user) {
         SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);

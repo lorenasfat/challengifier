@@ -65,7 +65,7 @@ public class ObjectiveHistoryListFragment extends Fragment {
     private void loadObjectives() {
         objectives.clear();
         ObjectiveService service = ApiObjectiveService.getService();
-        Call<List<ObjectiveHistory>> call = service.listHistoryObjectives(SessionUser.loggedInUser.getAspNetUserId());
+        Call<List<ObjectiveHistory>> call = service.listHistoryObjectives(SessionUser.getLoggedInUser().getAspNetUserId());
         try {
             call.enqueue(new Callback<List<ObjectiveHistory>>() {
                 @Override

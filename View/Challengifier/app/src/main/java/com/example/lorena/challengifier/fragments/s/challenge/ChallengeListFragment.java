@@ -121,7 +121,7 @@ public class ChallengeListFragment extends Fragment {
         List<Challenge> sorted = new ArrayList<>();
 
         for (Challenge challenge : objectives) {
-            if (challenge.getUser_Id().equalsIgnoreCase(SessionUser.loggedInUser.getAspNetUserId()))
+            if (challenge.getUser_Id().equalsIgnoreCase(SessionUser.getLoggedInUser().getAspNetUserId()))
                 sorted.add(challenge);
         }
         listAdapter.setChallenges(sorted);

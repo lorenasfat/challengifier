@@ -152,7 +152,7 @@ public class ObjectiveListFragment extends Fragment {
     private void loadObjectives() {
         objectives.clear();
         ObjectiveService service = ApiObjectiveService.getService();
-        Call<List<Objective>> call = service.listObjectives(SessionUser.loggedInUser.getAspNetUserId());
+        Call<List<Objective>> call = service.listObjectives(SessionUser.getLoggedInUser().getAspNetUserId());
         try {
             call.enqueue(new Callback<List<Objective>>() {
                 @Override
