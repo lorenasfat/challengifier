@@ -87,191 +87,181 @@ public class MainScreenActivity extends AppCompatActivity {
     }
 
     private void setUpLauncher() {
-        if (isConnected(getApplicationContext())) {
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setLogo(R.drawable.ic_prize);
-            getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_prize);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-            buttonChallenges = (Button) findViewById(R.id.buttonMyChallenges);
-            buttonObjectives = (Button) findViewById(R.id.buttonObjectives);
-            buttonObjectives.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
-                }
-            });
+        buttonChallenges = (Button) findViewById(R.id.buttonMyChallenges);
+        buttonObjectives = (Button) findViewById(R.id.buttonObjectives);
+        buttonObjectives.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(ObjectiveListFragment.SHOW_SCREEN, true);
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        });
 
-            buttonStats = (Button) findViewById(R.id.buttonStats);
-            username = (TextView) findViewById(R.id.username);
-            points = (TextView) findViewById(R.id.points);
+        buttonStats = (Button) findViewById(R.id.buttonStats);
+        username = (TextView) findViewById(R.id.username);
+        points = (TextView) findViewById(R.id.points);
 
-            TextView logOut = (TextView)findViewById(R.id.textViewLogOut);
-            logOut.setClickable(true);
-            logOut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        TextView logOut = (TextView) findViewById(R.id.textViewLogOut);
+        logOut.setClickable(true);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                    builder.setMessage("Are you sure you want to log out?")
-                            .setCancelable(true)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    FlowAids.ClearCache();
-                                    SessionUser.clearSession(activity);
-                                    RxBus.get().post(FrontScreenFragment.SHOW_SCREEN, true);
-                                    dialog.cancel();
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-                    AlertDialog alert = builder.create();
-                    alert.show();
-                }
-            });
-
-            ImageView homeScreen = (ImageView) findViewById(R.id.homeScreen);
-            ImageView icon = (ImageView) findViewById(R.id.imageUserIcon);
-            icon.setClickable(true);
-            icon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    LoginService service = ApiLoginService.getService();
-                    Call<User> call = service.getInfo(SessionUser.loggedInUser.getUsername());
-
-                    try {
-                        call.enqueue(new Callback<User>() {
-                            @Override
-                            public void onResponse(Call<User> call, Response<User> response) {
-                                SessionUser.loggedInUser = (User)response.body();
-                                SessionUser.saveSession(activity,SessionUser.authToken, SessionUser.loggedInUser);
-                                updateDrawerContent();
-                                Toast.makeText(activity.getApplicationContext(), "Account refreshed", Toast.LENGTH_LONG).show();
-                                // The network call was a success and we got a response
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage("Are you sure you want to log out?")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                FlowAids.ClearCache();
+                                SessionUser.clearSession(activity);
+                                RxBus.get().post(FrontScreenFragment.SHOW_SCREEN, true);
+                                dialog.cancel();
                             }
-
-                            @Override
-                            public void onFailure(Call<User> call, Throwable t) {
-                                Toast.makeText(activity.getApplicationContext(), "Oops! :(", Toast.LENGTH_LONG).show();
-                                // the network call was a failure
-                                // TODO: handle error
-                                t.printStackTrace();
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
                             }
                         });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
-
-            if (SessionUser.isSessionStarted(MainScreenActivity.this)) {
+                AlertDialog alert = builder.create();
+                alert.show();
             }
+        });
 
-            homeScreen.setClickable(true);
-            homeScreen.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    RxBus.get().post(MainMenuFragment.SHOW_SCREEN, true);
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
+        ImageView homeScreen = (ImageView) findViewById(R.id.homeScreen);
+        ImageView icon = (ImageView) findViewById(R.id.imageUserIcon);
+        icon.setClickable(true);
+        icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginService service = ApiLoginService.getService();
+                Call<User> call = service.getInfo(SessionUser.loggedInUser.getUsername());
 
-                }
-            });
+                try {
+                    call.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            SessionUser.loggedInUser = (User) response.body();
+                            SessionUser.saveSession(activity, SessionUser.authToken, SessionUser.loggedInUser);
+                            updateDrawerContent();
+                            Toast.makeText(activity.getApplicationContext(), "Account refreshed", Toast.LENGTH_LONG).show();
+                            // The network call was a success and we got a response
+                        }
 
-            buttonStats.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    RxBus.get().post(LeaderboardFragment.SHOW_SCREEN, true);
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
-                }
-            });
-
-            buttonChallenges.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    RxBus.get().post(MyChallengesListFragment.SHOW_SCREEN, true);
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
-                }
-            });
-
-            this.getSupportActionBar().hide();
-
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                    R.string.drawer_open, R.string.drawer_open) {
-                @Override
-                public void onDrawerClosed(View view) {
-                    super.onDrawerClosed(view);
-                    getSupportActionBar().setTitle(FlowAids.BackUpTitle);
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Toast.makeText(activity.getApplicationContext(), "Oops! :(", Toast.LENGTH_LONG).show();
+                            // the network call was a failure
+                            // TODO: handle error
+                            t.printStackTrace();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
-                @Override
-                public void onDrawerOpened(View drawerView) {
-                    super.onDrawerOpened(drawerView);
-                    getSupportActionBar().setTitle("Challenger account");
-                }
-            };
-
-            mDrawerLayout.closeDrawer(Gravity.LEFT);
-
-            // Set the drawer toggle as the DrawerListener
-            mDrawerLayout.addDrawerListener(mDrawerToggle);
-            mDrawerToggle.syncState();
-
-            if (!SessionUser.isSessionStarted(MainScreenActivity.this)) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, new FrontScreenFragment())
-                        .addToBackStack(null)
-                        .commit();
-            } else {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, new MainMenuFragment())
-                        .addToBackStack(null)
-                        .commit();
             }
+        });
+
+        if (SessionUser.isSessionStarted(MainScreenActivity.this)) {
         }
-    }
 
-    public boolean isConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        if (activeNetwork != null) {
-            boolean isMobile = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
-            boolean isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+        homeScreen.setClickable(true);
+        homeScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(MainMenuFragment.SHOW_SCREEN, true);
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
 
-            if (isWifi || isMobile) {
-                return true;
-            } else {
-                showDialog();
-                return false;
             }
+        });
+
+        buttonStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(LeaderboardFragment.SHOW_SCREEN, true);
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        });
+
+        buttonChallenges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxBus.get().post(MyChallengesListFragment.SHOW_SCREEN, true);
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        });
+
+        this.getSupportActionBar().hide();
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_open) {
+            @Override
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(FlowAids.BackUpTitle);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Challenger account");
+            }
+        };
+
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
+        if (!SessionUser.isSessionStarted(MainScreenActivity.this)) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new FrontScreenFragment())
+                    .addToBackStack(null)
+                    .commit();
         } else {
-            showDialog();
-            return false;
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new MainMenuFragment())
+                    .addToBackStack(null)
+                    .commit();
         }
     }
-    private void showDialog() {
+
+    public static final String NO_WIFI = "no_wifi_tag";
+    public static final String YES_WIFI = "yes_wifi_tag";
+
+    @Subscribe(tags = @Tag(NO_WIFI))
+    public void setNoWifi(Boolean wifi) {
+        showDialog(this);
+    }
+
+    @Subscribe(tags = @Tag(YES_WIFI))
+    public void setYesWifi(Boolean wifi) {
+        if (alert != null && alert.isShowing())
+            alert.cancel();
+    }
+
+    private void showDialog(final Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage("Turn mobile data on or come back later")
                 .setCancelable(false)
-                .setPositiveButton("Turn mobile data on", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
-                    }
-                })
                 .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         activity.finish();
                     }
                 });
-        AlertDialog alert = builder.create();
+        alert = builder.create();
         alert.show();
     }
+
+    AlertDialog alert;
 
     @Override
     protected void onPause() {
@@ -317,6 +307,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
     @Subscribe(tags = @Tag(MainMenuFragment.SHOW_SCREEN))
     public void showMainMenuFragment(Boolean loginSuccess) {
         getSupportFragmentManager().beginTransaction()
