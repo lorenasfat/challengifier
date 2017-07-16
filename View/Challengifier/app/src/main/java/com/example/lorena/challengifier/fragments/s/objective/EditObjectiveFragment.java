@@ -118,6 +118,7 @@ public class EditObjectiveFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        FlowAids.IsRatingOn = false;
                         RxBus.get().post(MilestoneListFragment.SHOW_SCREEN, true);
                     }
                 }

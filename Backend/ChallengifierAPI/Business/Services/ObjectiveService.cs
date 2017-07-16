@@ -67,7 +67,8 @@ namespace Business.Services
         {
             var objectives = _unitOfWork.ObjectiveRepository.All().Where(o => o.User_ID == id &&
             ((o.Status_ID == (int)Common.Enums.ObjectiveStatus.NotActive) ||
-            (o.Status_ID == (int)Common.Enums.ObjectiveStatus.Ongoing)));
+            (o.Status_ID == (int)Common.Enums.ObjectiveStatus.Ongoing) ||
+            (o.Status_ID == (int)Common.Enums.ObjectiveStatus.ForReview)));
             return objectives.ToDtos();
         }
 

@@ -59,7 +59,7 @@ public class PlanningStepListFragment extends Fragment {
         PlanningStepService service = ApiPlanningStepService.getService();
         UUID challengeId = null;
         if (FlowAids.IsLinkChallengeToObjective) {
-            challengeId = FlowAids.ObjectiveToEdit.getChallengeId();
+            challengeId = FlowAids.ObjectiveToView.getChallengeId();
         } else {
             challengeId = FlowAids.ChallengeToView.getId();
         }
@@ -85,11 +85,9 @@ public class PlanningStepListFragment extends Fragment {
                     planningSteps.addAll(response.body());
 
                     if (planningSteps.isEmpty() && FlowAids.IsLinkChallengeToObjective) {
-                        Toast.makeText(getActivity().getApplicationContext(), "No milestones, no restrictions!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "No restrictions!", Toast.LENGTH_LONG).show();
                         RxBus.get().post(AddMilestoneFragment.SHOW_SCREEN, true);
-                    }
-
-                    if (planningSteps.isEmpty()) {
+                    }else if (planningSteps.isEmpty()) {
                         Toast.makeText(getActivity().getApplicationContext(), "Looks like there are no planning steps!", Toast.LENGTH_LONG).show();
                         RxBus.get().post(ViewChallengeFragment.SHOW_SCREEN, true);
                     } else {
@@ -111,7 +109,7 @@ public class PlanningStepListFragment extends Fragment {
 
         list.setAdapter(listAdapter);
 
-        if (FlowAids.ChallengeToView.getUser_Id().equalsIgnoreCase(SessionUser.getLoggedInUser().getAspNetUserId()))
+        if ( !FlowAids.IsLinkChallengeToObjective && FlowAids.ChallengeToView.getUser_Id().equalsIgnoreCase(SessionUser.getLoggedInUser().getAspNetUserId()))
             registerForContextMenu(list);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

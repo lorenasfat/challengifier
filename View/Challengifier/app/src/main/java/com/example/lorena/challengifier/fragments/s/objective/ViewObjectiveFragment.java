@@ -24,6 +24,7 @@ import com.example.lorena.challengifier.utils.constants.ObjectiveHelper;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -131,13 +132,14 @@ public class ViewObjectiveFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        FlowAids.IsRatingOn = false;
                         RxBus.get().post(MilestoneListFragment.SHOW_SCREEN, true);
                     }
                 }
         );
 
         editTextName.setText(FlowAids.ObjectiveToView.getName());
-        editTextDeadline.setText(FlowAids.ObjectiveToView.getDeadline().toString());
+        editTextDeadline.setText(new SimpleDateFormat("yyyy-MM-dd").format(FlowAids.ObjectiveToView.getDeadline()));
         editTextDescription.setText(FlowAids.ObjectiveToView.getDescription());
 
         return view;

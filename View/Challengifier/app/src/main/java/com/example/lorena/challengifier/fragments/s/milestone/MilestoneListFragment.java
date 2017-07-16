@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.Milestone;
+import com.example.lorena.challengifier.models.Objective;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.MilestoneService;
 import com.example.lorena.challengifier.services.external.services.services.ApiMilestoneService;
 import com.example.lorena.challengifier.utils.adapters.MilestoneListAdapter;
@@ -24,6 +25,7 @@ import com.hwangjr.rxbus.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -40,11 +42,17 @@ public class MilestoneListFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_milestone_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Milestones");
-        FlowAids.BackUpTitle="Milestones";
+        FlowAids.BackUpTitle = "Milestones";
         listAdapter = new MilestoneListAdapter(getActivity().getApplicationContext(), milestones);
         MilestoneService service = ApiMilestoneService.getService();
 
-        Call<List<Milestone>> call = service.getMilestones(FlowAids.ObjectiveToView.getId());
+        UUID src = null;
+        if (FlowAids.IsRatingOn)
+            src = FlowAids.ObjectiveToReview.getId();
+        else
+            src = FlowAids.ObjectiveToView.getId();
+
+        Call<List<Milestone>> call = service.getMilestones(src);
 
         ImageView addMilestones = (ImageView) view.findViewById(R.id.addMilestones);
         addMilestones.setClickable(true);
@@ -54,6 +62,8 @@ public class MilestoneListFragment extends Fragment {
                 RxBus.get().post(AddMilestoneFragment.SHOW_SCREEN, true);
             }
         });
+        if (FlowAids.IsRatingOn)
+            addMilestones.setVisibility(View.INVISIBLE);
         milestones.clear();
         try {
             call.enqueue(new Callback<List<Milestone>>() {
@@ -64,8 +74,8 @@ public class MilestoneListFragment extends Fragment {
                     /*if (milestones.size() <= 0) {
                         stateful.showEmpty("@string/no_milestone");
                     } else {*/
-                        listAdapter.notifyDataSetChanged();
-                        // The network call was a success and we got a response
+                    listAdapter.notifyDataSetChanged();
+                    // The network call was a success and we got a response
                 }
 
                 @Override
@@ -82,22 +92,23 @@ public class MilestoneListFragment extends Fragment {
         ListView list = (ListView) view.findViewById(R.id.milestoneList);
 
         list.setAdapter(listAdapter);
-        registerForContextMenu(list);
+        if (!FlowAids.IsRatingOn)
+            registerForContextMenu(list);
 
         return view;
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, v.getId(), 0, "DELETE");
     }
+
     @Override
-    public boolean onContextItemSelected(MenuItem item){
-        if(item.getTitle()=="DELETE"){
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle() == "DELETE") {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Milestone mile = (Milestone)listAdapter.getItem(info.position);
+            Milestone mile = (Milestone) listAdapter.getItem(info.position);
 
             MilestoneService service = ApiMilestoneService.getService();
             Call<ResponseBody> call = service.deleteMilestone(mile.getId());

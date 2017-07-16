@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.lorena.challengifier.R;
 import com.example.lorena.challengifier.models.Milestone;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,9 +65,9 @@ public class MilestoneListAdapter extends BaseAdapter {
         TextView description = (TextView) myRow.findViewById(R.id.descriptionText);
         description.setText(milestones.get(position).getDescription());
         TextView sinceDate = (TextView) myRow.findViewById(R.id.sinceDate);
-        sinceDate.setText(milestones.get(position).getStartDate().toString());
+        sinceDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(milestones.get(position).getStartDate()));
         TextView untilDate = (TextView) myRow.findViewById(R.id.untilDate);
-        untilDate.setText((milestones.get(position).getEndDate().toString()));
+        untilDate.setText(new SimpleDateFormat("yyyy-MM-dd").format((milestones.get(position).getEndDate())));
 
         return myRow;
     }

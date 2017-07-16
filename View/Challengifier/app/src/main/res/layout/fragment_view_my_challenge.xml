@@ -10,38 +10,36 @@
 
     <TextView
         android:id="@+id/textViewAcceptedBy"
-        android:layout_width="152dp"
-        android:layout_height="41dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
         android:text="Accepted by"
         android:textAlignment="center"
-        android:textSize="24sp"
-        android:layout_marginTop="84dp"
-        app:layout_constraintTop_toBottomOf="@+id/number_picker"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/textPendingReviews"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/acceptanceNumber"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/acceptanceNumber"
+        app:layout_constraintRight_toLeftOf="@+id/guideline2"
         android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.253" />
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:id="@+id/acceptanceNumber"
-        android:layout_width="156dp"
-        android:layout_height="53dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_vertical|center_horizontal"
         android:text="X"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAcceptedBy"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/viewReviews"
-        android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.104"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintRight_toLeftOf="@+id/guideline2" />
 
     <Spinner
         android:id="@+id/spinnerTimeUnit"
@@ -55,7 +53,7 @@
 
     <TextView
         android:id="@+id/textViewChallengeTitle"
-        android:layout_width="370dp"
+        android:layout_width="0dp"
         android:layout_height="32dp"
         android:text="TextView"
         android:textAlignment="center"
@@ -71,7 +69,7 @@
 
     <TextView
         android:id="@+id/challengeDescription"
-        android:layout_width="370dp"
+        android:layout_width="0dp"
         android:layout_height="57dp"
         android:ems="10"
         android:inputType="textMultiLine|textNoSuggestions"
@@ -81,7 +79,8 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChallengeTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewChallengeTitle"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/number_picker"
@@ -110,26 +109,37 @@
     <ImageView
         android:id="@+id/viewReviews"
         style="@style/Cyan"
-        android:layout_width="60dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="71dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPendingReviews"
-        app:layout_constraintVertical_bias="0.324"
-        app:srcCompat="@drawable/arrow_right_bubble" />
+        app:srcCompat="@drawable/arrow_right_bubble"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:id="@+id/textPendingReviews"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="13dp"
+        android:gravity="center"
+        android:text="Pending reviews"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/viewReviews"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="141dp"
-        android:text="Pending reviews"
-        android:textSize="24sp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTimeUnit" />
+        android:id="@+id/guideline2"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 </android.support.constraint.ConstraintLayout>

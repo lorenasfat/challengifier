@@ -37,7 +37,7 @@ public class FlowAids {
     public static boolean IsMyObjectives = false;
 
     public static boolean IsChallengeAccepted = false;
-
+    public static boolean IsRatingOn = false;
     public static Milestone TempToBeAdded = null;
     public static boolean AccessToInternet = false;
     public static String BackUpTitle;

@@ -96,8 +96,8 @@ public class ObjectiveListAdapter extends BaseAdapter implements Filterable {
         LayoutInflater inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // check if we can reuse a previously defined cell which now is not visible anymore
-        View myRow = (convertView == null) ?
-                inflater.inflate(R.layout.objective_item, parent, false) : convertView;
+        View myRow =
+                inflater.inflate(R.layout.objective_item, parent, false) ;
         // get the visual elements and update them with the information from the model
         TextView title = (TextView) myRow.findViewById(R.id.textViewObjectiveTitle);
         title.setText(objectives.get(position).getName());

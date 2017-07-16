@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorena.challengifier.R;
+import com.example.lorena.challengifier.fragments.s.milestone.MilestoneListFragment;
 import com.example.lorena.challengifier.models.UserRating;
 import com.example.lorena.challengifier.services.external.services.retrofit.interfaces.ObjectiveService;
 import com.example.lorena.challengifier.services.external.services.services.ApiObjectiveService;
@@ -19,6 +20,7 @@ import com.example.lorena.challengifier.utils.communication.FlowAids;
 import com.example.lorena.challengifier.utils.session.SessionUser;
 import com.hwangjr.rxbus.RxBus;
 
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
@@ -47,17 +49,18 @@ public class ReviewObjectiveFragment extends Fragment {
         description.setText(FlowAids.ObjectiveToReview.getDescription());
 
         TextView from = (TextView) view.findViewById(R.id.textViewFrom);
-        from.setText(FlowAids.ObjectiveToReview.getFrom().toString());
+        from.setText(new SimpleDateFormat("yyyy-MM-dd").format(FlowAids.ObjectiveToReview.getFrom()));
 
         TextView to = (TextView) view.findViewById(R.id.textViewTo);
-        to.setText(FlowAids.ObjectiveToReview.getTo().toString());
+        to.setText(new SimpleDateFormat("yyyy-MM-dd").format(FlowAids.ObjectiveToReview.getTo()));
 
         ImageView viewMilestones = (ImageView) view.findViewById(R.id.vireMilestones);
         viewMilestones.setClickable(true);
         viewMilestones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo
+                FlowAids.IsRatingOn = true;
+                RxBus.get().post(MilestoneListFragment.SHOW_SCREEN, true);
             }
         });
 

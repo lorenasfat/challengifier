@@ -33,7 +33,7 @@ public class ObjectivesForReviewListFragment extends Fragment {
     public static final String SHOW_SCREEN = "REVIEW_OBJECTIVE_LIST_TAG";
 
     ObjectivesForReviewListAdapter listAdapter;
-    List<ObjectiveForReviewDto> objectives=new ArrayList<>();
+    List<ObjectiveForReviewDto> objectives = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,10 +41,10 @@ public class ObjectivesForReviewListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_objectives_for_review_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Pending reviews");
-        FlowAids.BackUpTitle="Pending reviews";
+        FlowAids.BackUpTitle = "Pending reviews";
         listAdapter = new ObjectivesForReviewListAdapter(getActivity().getApplicationContext(), objectives);
-
-        AutoCompleteTextView searchTextView = (AutoCompleteTextView)view.findViewById(R.id.autoCompleteSearch);
+        objectives.clear();
+        AutoCompleteTextView searchTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteSearch);
 
         ObjectiveService service = ApiObjectiveService.getService();
         Call<List<ObjectiveForReviewDto>> call = service.listObjectivesForReview(FlowAids.MyChallengeToView.getId());
@@ -55,13 +55,12 @@ public class ObjectivesForReviewListFragment extends Fragment {
                     objectives.addAll(response.body());
                     listAdapter.notifyDataSetChanged();
 
-                    if(listAdapter.getObjectives().isEmpty()){
-                        RxBus.get().post(ViewMyChallengeFragment.SHOW_SCREEN,true);
+                    if (listAdapter.getObjectives().isEmpty()) {
+                        RxBus.get().post(ViewMyChallengeFragment.SHOW_SCREEN, true);
                         Toast.makeText(getActivity().getApplicationContext(), "No more reviews for this challenge!", Toast.LENGTH_LONG).show();
-                    }
-                    else if(listAdapter.getObjectives().size() == 1){
+                    } else if (listAdapter.getObjectives().size() == 1) {
                         FlowAids.ObjectiveToReview = listAdapter.getObjectives().get(0);
-                        RxBus.get().post(ReviewObjectiveFragment.SHOW_SCREEN,true);
+                        RxBus.get().post(ReviewObjectiveFragment.SHOW_SCREEN, true);
                     }
 
                     FlowAids.ObjectivesForReviewBackup = objectives;
@@ -89,7 +88,7 @@ public class ObjectivesForReviewListFragment extends Fragment {
                     public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long mylng) {
                         ObjectiveForReviewDto selectedFromList = (ObjectiveForReviewDto) (listAdapter.getItem(position));
                         FlowAids.ObjectiveToReview = selectedFromList;
-                        RxBus.get().post(ReviewObjectiveFragment.SHOW_SCREEN,true);
+                        RxBus.get().post(ReviewObjectiveFragment.SHOW_SCREEN, true);
                     }
                 });
 

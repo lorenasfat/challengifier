@@ -18,7 +18,7 @@
         android:textStyle="bold"
         tools:layout_constraintTop_creator="1"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
     <TextView
         android:id="@+id/textViewGained"
         android:layout_width="0dp"
-        android:layout_height="22dp"
+        android:layout_height="wrap_content"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="18sp"
@@ -60,7 +60,7 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.64" />
+        app:layout_constraintHorizontal_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

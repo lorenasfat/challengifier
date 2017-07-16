@@ -60,7 +60,7 @@
         style="@style/Cyan"
         android:layout_width="0dp"
         android:layout_height="68dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="0dp"
@@ -68,13 +68,13 @@
         android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/viewPlanningStepsButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTimeInterval"
         app:layout_constraintVertical_bias="0.895"
-        app:srcCompat="@drawable/good" />
+        app:srcCompat="@drawable/good"
+        app:layout_constraintTop_toTopOf="@+id/viewPlanningStepsButton" />
 
     <TextView
         android:id="@+id/challengeDescription"
